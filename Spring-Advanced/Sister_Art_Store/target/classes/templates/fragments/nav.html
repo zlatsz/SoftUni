@@ -1,0 +1,25 @@
+<th:block th:fragment>
+    <th:block th:include="~{/fragments/title}"></th:block>
+    <!--    <nav class="navbar navbar-expand-md navbar-dark bg-dark">-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+<!--        <div class="navbar-toggler-right">-->
+<!--            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#userNav"-->
+<!--                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--        </div>-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+        <th:block sec:authorize="isAnonymous()">
+            <th:block th:include="~{fragments/nav-anon}"></th:block>
+        </th:block>
+
+        <!--    LOG IN USER-->
+        <th:block sec:authorize="isAuthenticated()">
+            <th:block th:include="~{fragments/nav-auth}"></th:block>
+        </th:block>
+    </nav>
+</th:block>
