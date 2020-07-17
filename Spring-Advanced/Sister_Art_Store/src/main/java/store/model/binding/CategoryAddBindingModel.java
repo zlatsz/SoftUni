@@ -1,33 +1,33 @@
-package store.model.entity;
+package store.model.binding;
 
-import javax.persistence.*;
+import org.hibernate.validator.constraints.Length;
+import store.model.entity.MainCategory;
+
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@Table(name = "categories")
-public class Category extends BaseEntity {
+public class CategoryAddBindingModel {
 
     private MainCategory mainCategory;
     private String name;
 
-    public Category() {
+    public CategoryAddBindingModel() {
     }
-    
-
     @Enumerated(value = EnumType.STRING)
     public MainCategory getMainCategory() {
-        return this.mainCategory;
+        return mainCategory;
     }
 
     public void setMainCategory(MainCategory mainCategory) {
         this.mainCategory = mainCategory;
     }
 
-
-    @Column(nullable = false, unique = true)
+    @NotNull
+    @NotEmpty
+    @Length(min = 3, max = 20, message = "Password must be between 3 and 20 character")
     public String getName() {
         return name;
     }

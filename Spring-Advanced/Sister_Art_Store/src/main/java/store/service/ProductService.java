@@ -1,6 +1,7 @@
 package store.service;
 
 
+import store.model.entity.Product;
 import store.model.service.ProductServiceModel;
 
 import java.util.List;
@@ -19,5 +20,9 @@ public interface ProductService {
 //
 //    void deleteProduct(String id);
 
+
     List<ProductServiceModel> findAllByCategory(String category);
+
+    List<Product> listAll(String keyword);
+
 }

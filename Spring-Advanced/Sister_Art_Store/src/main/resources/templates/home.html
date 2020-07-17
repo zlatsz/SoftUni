@@ -7,15 +7,21 @@
 
 <body>
 <header>
-    <!-- Navigation -->
-    <th:block th:include="~{/fragments/nav}"></th:block>
-
+    <div class="container">
+        <!-- Navigation -->
+        <th:block th:include="~{/fragments/navbar}"></th:block>
+    </div>
 </header>
 <!-- Page Content -->
 <main>
     <div class="container">
 
-        <div class="row">
+        <div class="d-flex" style="padding-top: 8px">
+            <h5 style="padding-right: 2px"> Здравей, [(${#authentication.principal.username})]! За да влезеш в профила си -
+            </h5>
+            <a th:href="@{/users/profile}" style="color: black" value="action">
+              <h5> цък! </h5>
+            </a>
         </div>
         <!-- /.row -->
 
@@ -23,13 +29,9 @@
     <!-- /.container -->
 </main>
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
 </footer>
-
 
 </body>
 

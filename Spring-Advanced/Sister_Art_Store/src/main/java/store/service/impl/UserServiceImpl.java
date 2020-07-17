@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import store.error.PasswordDontMatchException;
+import store.model.entity.Role;
 import store.model.entity.User;
 import store.model.service.UserServiceModel;
 import store.repository.UserRepository;
@@ -15,6 +17,7 @@ import store.service.UserService;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,10 +35,6 @@ public class UserServiceImpl implements UserService {
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-
-
-
-
 
     @Override
     public UserServiceModel registerUser(UserServiceModel userServiceModel) {
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserServiceModel findUserByUserName(String username) {
+    public UserServiceModel findUserByUserName(String username)  throws UsernameNotFoundException {
         return this.userRepository.findByUsername(username)
                 .map(u -> this.modelMapper.map(u, UserServiceModel.class))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -69,11 +68,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel editUserProfile(UserServiceModel userServiceModel, String oldPassword) {
+
         User user = this.userRepository.findByUsername(userServiceModel.getUsername())
-                .orElseThrow(()-> new UsernameNotFoundException("Not such user"));
+                .orElseThrow(()-> new UsernameNotFoundException("Username not found!"));
 
         if (!this.bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new IllegalArgumentException("Incorrect password");
+            throw new PasswordDontMatchException("Incorrect password!");
         }
 
         user.setPassword(userServiceModel.getPassword() != null ?
@@ -86,28 +86,55 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserServiceModel> findAllUsers() {
-        return this.userRepository.findAll().stream().map(u -> this.modelMapper.map(u, UserServiceModel.class))
+        return this.userRepository.findAll().stream()
+                .map(u -> this.modelMapper.map(u, UserServiceModel.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void setUserRole(String id, String role) {
+    public void setUserRole(String id, String role) throws UsernameNotFoundException {
         User user = this.userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Not such user"));
+                .orElseThrow(() -> new UsernameNotFoundException("Not such user"));
 
         UserServiceModel userServiceModel = this.modelMapper.map(user, UserServiceModel.class);
         userServiceModel.getAuthorities().clear();
 
-        switch (role) {
-            case "ROLE_USER":
-                userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
-                break;
-            case "ROLE_ADMIN":
+        if(role.equals("user")){
+            userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
+        } else if (role.equals("admin")) {
                 userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_USER"));
                 userServiceModel.getAuthorities().add(this.roleService.findByAuthority("ROLE_ADMIN"));
-                break;
         }
+
 
         this.userRepository.saveAndFlush(this.modelMapper.map(userServiceModel, User.class));
     }
+
+    @Override
+    public void deleteUser(String id) {
+        User user = this.userRepository.findUserById(id);
+        user.getAuthorities().clear();
+        this.userRepository.delete(user);
+    }
+//     @GetMapping("/api/users")
+//    @ResponseBody
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public List<UsersViewModel> allUsers() {
+//
+//        return this.userService.findAllUsers()
+//                .stream()
+//                .map(serviceModel -> this.modelMapper.map(serviceModel, UsersViewModel.class))
+//                .collect(Collectors.toList());
+//    }
+//
+//    @GetMapping("/api/users/find")
+//    @ResponseBody
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public UsersViewModel allUsers(@RequestParam(USERNAME) String username) {
+//
+//        UserServiceModel byUsername = this.userService.findByUsername(username);
+//
+//        return byUsername == null ? new UsersViewModel()
+//                : this.modelMapper.map(byUsername, UsersViewModel.class);
+//    }
 }

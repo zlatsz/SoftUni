@@ -30,17 +30,6 @@ public class CategoryServiceImpl implements CategoryService {
         this.validator = validator;
     }
 
-    @Override
-    public void initCategories() {
-        if(this.categoryRepository.count()==0){
-            Arrays.stream(MainCategory.values())
-                    .forEach(categoryName -> {
-                        this.categoryRepository
-                                .save(new Category(categoryName,
-                                        String.valueOf(categoryRepository.count()+1 )));
-                    });
-        }
-    }
 
     @Override
     public CategoryServiceModel addCategory(CategoryServiceModel categoryServiceModel) {
@@ -67,13 +56,13 @@ public class CategoryServiceImpl implements CategoryService {
         return this.modelMapper.map(category, CategoryServiceModel.class);
     }
 
-    @Override
-    public CategoryServiceModel editCategory(String id, CategoryServiceModel categoryServiceModel) {
-        Category category = this.categoryRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
-        category.setName(categoryServiceModel.getName());
-        return this.modelMapper.map(this.categoryRepository.saveAndFlush(category), CategoryServiceModel.class);
-    }
+//    @Override
+//    public CategoryServiceModel editCategory(String id, CategoryServiceModel categoryServiceModel) {
+//        Category category = this.categoryRepository.findById(id)
+//                .orElseThrow(IllegalArgumentException::new);
+//        category.setName(categoryServiceModel.getName());
+//        return this.modelMapper.map(this.categoryRepository.saveAndFlush(category), CategoryServiceModel.class);
+//    }
 
     @Override
     public CategoryServiceModel deleteCategory(String id) {

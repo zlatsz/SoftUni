@@ -11,7 +11,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -27,9 +27,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
                 .loginPage("/users/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .loginProcessingUrl("/users/login")
                 .defaultSuccessUrl("/home", true)
-                .permitAll()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

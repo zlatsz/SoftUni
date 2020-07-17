@@ -7,21 +7,23 @@
 
 <body>
 <header>
-    <!-- Navigation -->
-    <th:block th:include="~{/fragments/nav}"></th:block>
-
+    <div class="container">
+        <!-- Navigation -->
+        <th:block th:include="~{/fragments/navbar}"></th:block>
+    </div>
 </header>
 <!-- Page Content -->
 <main>
-    <div class="container">
+    <div id="page" class="container">
 
         <div class="row">
 
             <div class="col-lg-3">
 
-                <h1 class="my-4">Sisters Art</h1>
+                <h3 class="my-4 text-center">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕</h3>
+
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Handmade</a>
+                    <a href="#" class="list-group-item list-group-item-action">Handmade</a>
                     <a href="#" class="list-group-item">Category 2</a>
                     <a href="#" class="list-group-item">Category 3</a>
                 </div>
@@ -181,11 +183,8 @@
     <!-- /.container -->
 </main>
 <!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
 </footer>
 
 

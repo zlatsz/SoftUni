@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{fragments/head}"/>
+</head>
+<body>
+<header>
+    <div class="container">
+        <th:block th:include="~{fragments/navbar}"/>
+    </div>
+</header>
+
+<main>
+    <div class="d-flex justify-content-center align-items-center container">
+        <div class="row" >
+        <form class="text-center border border-light p-5"
+              th:action="@{/users/edit}" th:method="patch" th:object="${model}">
+            <h4 class="text-center font-weight-bolder">Редактирай профила си</h4>
+            <hr/>
+            <div class="form-group" th:classappend="${#fields.hasErrors('username')} ? 'text-danger'">
+                <label for="username" class="font-weight-bold">Потребителско име</label>
+                <input type="text" class="form-control mb-4" id="username" name="username"  placeholder="Username"
+                       th:field="*{username}" readonly>
+                <th:block th:if="${#fields.hasErrors('username')}">
+                    <small class="text-danger" th:errors="*{username}"></small>
+                </th:block>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('oldPassword')} ? 'text-danger'">
+                <label for="oldPassword" class="font-weight-bold">Стара Парола</label>
+                <input type="password" class="form-control mb-4" id="oldPassword" placeholder="Password"
+                       name="oldPassword" th:field="*{oldPassword}" required th:errorclass="bg-warning">
+                <th:block th:if="${#fields.hasErrors('oldPassword')}">
+                    <small class="text-danger" th:errors="*{oldPassword}"></small>
+                </th:block>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('password')} ? 'text-danger'">
+                <label for="password" class="font-weight-bold">Нова Парола</label>
+                <input type="password" class="form-control mb-4" id="password" placeholder="New Password"
+                       name="password" th:field="*{password}" th:errorclass="bg-warning">
+                <th:block th:if="${#fields.hasErrors('password')}">
+                    <small class="text-danger" th:errors="*{password}"></small>
+                </th:block>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('confirmPassword')} ? 'text-danger'">
+                <label for="confirmPassword" class="font-weight-bold">Потвърди новата парола</label>
+                <input type="password" class="form-control mb-4" id="confirmPassword" placeholder="Confirm New Password"
+                       name="confirmPassword" th:field="*{confirmPassword}" th:errorclass="bg-warning">
+                <th:block th:if="${#fields.hasErrors('confirmPassword')}">
+                    <small class="text-danger" th:errors="*{confirmPassword}"></small>
+                </th:block>
+            </div>
+
+            <div class="form-group" th:classappend="${#fields.hasErrors('email')} ? 'text-danger'">
+                <label for="email" class="font-weight-bold">Email</label>
+                <input type="email" class="form-control mb-4" id="email" placeholder="E-mail"
+                       name="email" th:field="*{email}" th:errorclass="bg-warning">
+                <th:block th:if="${#fields.hasErrors('email')}">
+                    <small class="text-danger" th:errors="*{email}"></small>
+                </th:block>
+            </div>
+
+            <div class="button-holder d-flex justify-content-center">
+                <button type="submit" class="btn btn-dark">Редактирай</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</main>
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

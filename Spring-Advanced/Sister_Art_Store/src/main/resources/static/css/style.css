@@ -1,0 +1,23 @@
+
+@media (max-width: 767px) {
+  .navbar{
+    margin-top: 40px;
+  }
+
+  #topContent{
+    top: 0;
+    position: fixed;
+  }
+
+  #border{
+    border-top: solid;
+  }
+}
+
+.input-group-prepend {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+

@@ -1,5 +1,16 @@
-<th:block th:fragment>
-    <div class="pagewide p-3 bg-light fixed-top d-flex justify-content-center" href="/">
-        Sisters Art Store
+<th:block>
+    <div style="color: black" class="container bg-light fixed-top d-flex justify-content-center" id="topContent">
+        <th:block sec:authorize="isAuthenticated()">
+            <a th:href="@{/home}" style="color: black" class="nav-link" value="action01">
+                <img src="/images/logo.png" width="30" height="24" align="left"/>
+                <span class="hidden-xs hidden-sm">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕 𝑺𝒕𝒐𝒓𝒆</span>
+            </a>
+        </th:block>
+        <th:block sec:authorize="isAnonymous()">
+            <a th:href="@{/index}" style="color: black" class="nav-link" value="action01">
+                <img src="/images/logo.png" width="30" height="24" align="left"/>
+                <span class="hidden-xs hidden-sm">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕 𝑺𝒕𝒐𝒓𝒆</span>
+            </a>
+        </th:block>
     </div>
 </th:block>

@@ -4,12 +4,14 @@ package store.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import store.model.entity.Category;
 import store.model.entity.Product;
+import store.model.service.CategoryServiceModel;
 import store.model.service.ProductServiceModel;
 import store.repository.ProductRepository;
 import store.service.ProductService;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,6 +54,14 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(p -> this.modelMapper.map(p, ProductServiceModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> listAll(String keyword) {
+        if (keyword != null) {
+            return productRepository.search(keyword);
+        }
+        return productRepository.findAll();
     }
 
 //    @Override
@@ -113,12 +123,24 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductServiceModel> findAllByCategory(String category) {
+//        List<ProductServiceModel> list = new ArrayList<>();
+//        for (Product product : this.productRepository.findAll()) {
+//            List<Category> categories = product.getCategories();
+//            for (Category c : categories) {
+//                List<CategoryName> categoryNames = c.getCategoryNames();
+//                for (CategoryName categoryName : categoryNames) {
+//                    if(categoryName.getName().equals(category)){
+//                        ProductServiceModel map = this.modelMapper.map(product, ProductServiceModel.class);
+//                        list.add(map);
+//                    }
+//                }
+//            }
+//        }
+//        return list;
         return this.productRepository.findAll()
                 .stream()
                 .filter(product -> product.getCategories().stream().anyMatch(categoryStream -> categoryStream.getName().equals(category)))
                 .map(product -> this.modelMapper.map(product, ProductServiceModel.class))
                 .collect(Collectors.toList());
     }
-
-
 }
