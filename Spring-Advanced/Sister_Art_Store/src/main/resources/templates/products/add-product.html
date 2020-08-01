@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <!-- Navigation -->
+        <th:block th:include="~{/fragments/navbar}"></th:block>
+    </div>
+</header>
+<!-- Page Content -->
+<main>
+    <div class="d-flex justify-content-center align-items-center container">
+
+        <div class="row" style="padding-top: 50px;">
+            <!-- Default form login -->
+            <form class="text-center border border-light" th:action="@{/products/add}" method="post"
+                  th:object="${model}" enctype="multipart/form-data">
+                <h2 class="tm-block-title d-inline-block">Добави продукт</h2>
+                <hr/>
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                    <label for="add-product-name" class="font-weight-bold">Име</label>
+                    <input type="text" class="form-control" id="add-product-name" name="name" th:field="*{name}">
+                    <th:block th:if="${#fields.hasErrors('name')}">
+                        <small class="text-danger" th:errors="*{name}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('description')} ? 'text-danger'">
+                    <label for="add-product-description" class="font-weight-bold">Описание</label>
+                    <textarea class="form-control" name="description" id="add-product-description" rows="5"
+                              th:field="*{description}"></textarea>
+                    <th:block th:if="${#fields.hasErrors('description')}">
+                        <small class="text-danger" th:errors="*{description}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('price')} ? 'text-danger'">
+                    <label for="add-product-price" class="font-weight-bold">Цена</label>
+                    <input type="number" class="form-control text-center" id="add-product-price" name="price"
+                           th:field="*{price}">
+                    <th:block th:if="${#fields.hasErrors('price')}">
+                        <small class="text-danger" th:errors="*{price}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('quantity')} ? 'text-danger'">
+                    <label for="add-product-quantity" class="font-weight-bold">Количество</label>
+                    <input type="number" step="1" class="form-control text-center"
+                           id="add-product-quantity" name="quantity" th:field="*{quantity}">
+                    <th:block th:if="${#fields.hasErrors('quantity')}">
+                        <small class="text-danger" th:errors="*{quantity}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('categories')} ? 'text-danger'">
+                    <label for="add-product-categories" class="font-weight-bold">Категория</label>
+                    <select multiple="" class="form-control" id="add-product-categories" name="categories">
+                        <option selected disabled> Избери категория </option>
+                    </select>
+                    <th:block th:if="${#fields.hasErrors('categories')}">
+                        <small class="text-danger" th:errors="*{categories}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('image')} ? 'text-danger'">
+                    <label for="add-product-image" class="font-weight-bold">Снимка</label>
+                    <input type="file" class="form-control-file" id="add-product-image" name="image"
+                           th:field="*{image}">
+                    <th:block th:if="${#fields.hasErrors('image')}">
+                        <small class="text-danger" th:errors="*{image}"></small>
+                    </th:block>
+                </div>
+
+                <div class="button-holder d-flex justify-content-center">
+                    <button type="submit" class="btn btn-secondary">Добави продукт</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+
+<script>
+    fetch('/categories/fetch')
+        .then((response) => response.json())
+        .then((json) => {
+            json.forEach((category) => $('#add-product-categories')
+                .append(`<option value="${category.id}">${category.name}</option>`));
+        })
+        .catch((err) => console.log(err));
+</script>
+
+</html>

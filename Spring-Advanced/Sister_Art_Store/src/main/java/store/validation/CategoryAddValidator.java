@@ -29,8 +29,12 @@ public class CategoryAddValidator implements Validator {
 
         CategoryAddBindingModel categoryAddBindingModel = (CategoryAddBindingModel) model;
 
+        if (categoryAddBindingModel.getMainCategory() == null) {
+            errors.rejectValue(
+                    "name", "Main Category can't be null", "Main Category can't be null");
+        }
 
-        if (categoryAddBindingModel.getName() == null) {
+        if (categoryAddBindingModel.getName() == null || categoryAddBindingModel.getName().equals("")) {
             errors.rejectValue(
                     "name", "Category can't be null", "Category can't be null");
         }

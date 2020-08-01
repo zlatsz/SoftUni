@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <th:block th:include="~{fragments/navbar}"/>
+    </div>
+</header>
+
+<main>
+    <div class="d-flex justify-content-center align-items-center container">
+        <div class="row" >
+            <form class="text-center border border-light p-5"
+                  th:action="@{/products/edit/{id}(id=${productId})}" th:method="patch"
+                  th:object="${model}">
+                <h4 class="text-center font-weight-bolder">Редактирай продукт</h4>
+                <hr/>
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                    <label for="edit-product-name" class="font-weight-bold">Име</label>
+                    <input type="text" class="form-control text-center" id="edit-product-name" name="name"
+                           th:field="*{name}">
+                    <th:block th:if="${#fields.hasErrors('name')}">
+                        <small class="text-danger" th:errors="*{name}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('description')} ? 'text-danger'">
+                    <label for="edit-product-description" class="font-weight-bold">Описание</label>
+                    <textarea class="form-control" id="edit-product-description" name="description" rows="5"
+                              th:text="*{description}"></textarea>
+                    <th:block th:if="${#fields.hasErrors('description')}">
+                        <small class="text-danger" th:errors="*{description}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('price')} ? 'text-danger'">
+                    <label for="edit-product-price" class="font-weight-bold">Цена</label>
+                    <input type="number" step="any" class="form-control text-center" id="edit-product-price"
+                           name="price" th:field="*{price}">
+                    <th:block th:if="${#fields.hasErrors('price')}">
+                        <small class="text-danger" th:errors="*{price}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('quantity')} ? 'text-danger'">
+                    <label for="edit-product-quantity" class="font-weight-bold">Количество</label>
+                    <input type="number" step="1" class="form-control text-center" id="edit-product-quantity"
+                           name="quantity" th:field="*{quantity}">
+                    <th:block th:if="${#fields.hasErrors('quantity')}">
+                        <small class="text-danger" th:errors="*{quantity}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('categories')} ? 'text-danger'">
+                    <label for="edit-product-categories" class="font-weight-bold">Категория</label>
+                    <select multiple="" class="form-control" id="edit-product-categories" name="categories"
+                            th:field="*{categories}">
+                    </select>
+                    <th:block th:if="${#fields.hasErrors('categories')}">
+                        <small class="text-danger" th:errors="*{categories}"></small>
+                    </th:block>
+                </div>
+
+                <hr class="hr-2 bg-secondary">
+
+                <div class="button-holder d-flex justify-content-center">
+                    <button type="submit" class="btn btn-secondary">Редактирай</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer>
+    <th:block th:include="~{fragments/footer}"></th:block>
+</footer>
+</body>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        fetch('/categories/fetch')
+            .then((response) => response.json())
+            .then((json) => {
+
+                console.log(json);
+
+                let categories = [[${model.categories}]];
+                json.forEach((category) =>
+                    $('#edit-product-categories').append(
+                        categories.includes(category.name)
+                            ? `<option value="${category.id}" selected>${category.name}</option>`
+                            : `<option value="${category.id}">${category.name}</option>`));
+            })
+            .catch((err) => console.log(err));
+    })
+</script>
+
+</html>

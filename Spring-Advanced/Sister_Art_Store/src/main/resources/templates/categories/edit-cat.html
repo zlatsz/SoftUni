@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <th:block th:include="~{fragments/navbar}"/>
+    </div>
+</header>
+
+<main>
+    <div class="d-flex justify-content-center align-items-center container">
+        <div class="row" >
+            <form class="text-center border border-light p-5"
+                  th:action="@{/categories/edit/{id}(id=${model.id})}" th:method="post"
+                  th:object="${model}">
+
+                <h4 class="text-center font-weight-bolder">Редактирай категория</h4>
+                <hr/>
+                <div class="form-group" th:classappend="${#fields.hasErrors('mainCategory')} ? 'text-danger'">
+                    <label for="main" class="font-weight-bold">Основна категория</label>
+                    <input type="text" class="form-control mb-4" id="main" name="main"
+                           th:field="*{mainCategory}" readonly>
+                    <th:block th:if="${#fields.hasErrors('mainCategory')}">
+                        <small class="text-danger" th:errors="*{mainCategory}"></small>
+                    </th:block>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'text-danger'">
+                    <label for="name" class="font-weight-bold">Под категория</label>
+                    <input type="text" class="form-control mb-4" id="name" name="name"  placeholder="Name"
+                           th:field="*{name}">
+                    <th:block th:if="${#fields.hasErrors('name')}">
+                        <small class="text-danger" th:errors="*{name}"></small>
+                    </th:block>
+                </div>
+
+                <div class="button-holder d-flex justify-content-center">
+                    <button type="submit" class="btn btn-dark">Редактирай</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

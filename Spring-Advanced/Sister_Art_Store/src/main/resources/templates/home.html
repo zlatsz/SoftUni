@@ -5,7 +5,7 @@
     <th:block th:include="~{/fragments/head}"></th:block>
 </head>
 
-<body>
+<body th:background="${url}">
 <header>
     <div class="container">
         <!-- Navigation -->
@@ -16,15 +16,49 @@
 <main>
     <div class="container">
 
-        <div class="d-flex" style="padding-top: 8px">
-            <h5 style="padding-right: 2px"> Здравей, [(${#authentication.principal.username})]! За да влезеш в профила си -
-            </h5>
+        <div class="d-flex justify-content-center mt-2" style="padding-top: 8px">
+            <h4 style="padding-right: 2px"> Здравей, [(${#authentication.principal.username})]! За да влезеш в профила
+                си -
+            </h4>
             <a th:href="@{/users/profile}" style="color: black" value="action">
-              <h5> цък! </h5>
+                <h4> цък! </h4>
             </a>
         </div>
-        <!-- /.row -->
 
+        <div class="d-flex row mt-2">
+            <div class="col-lg-3">
+
+                <h3 class="my-4 text-center">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕</h3>
+
+                <div class="list-group" th:each="c : ${categories}" th:object="${c}">
+                    <a th:href="@{/categories/details/{id}(id=${c.id})}" class="list-group-item text-dark"
+                       th:text="*{name}">Category 2</a>
+                </div>
+
+            </div>
+            <div class="d-flex col-lg-9 mt-2">
+
+                <div class="col-lg-4 col-md-6 mb-4" th:each="p : ${products}" th:object="${p}">
+                    <div class="card h-10">
+                        <a th:href="@{/products/details/{id}(id=${p.id})}">
+                            <img class="card-img-top" width="300" height="175" th:src="*{imageUrl}" alt=""></a>
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <a th:href="@{/products/details/{id}(id=${p.id})}" th:text="*{name}"
+                                   class="text-primary">Item
+                                    One</a>
+                            </h4>
+                            <h5 th:text="|*{price} лв.|">$24.99</h5>
+                            <p class="card-text" th:text="*{description}">Lorem ipsum </p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
     </div>
     <!-- /.container -->
 </main>

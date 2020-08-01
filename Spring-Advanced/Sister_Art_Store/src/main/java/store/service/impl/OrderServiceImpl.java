@@ -1,0 +1,113 @@
+package store.service.impl;
+
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+import store.error.OrderNotFoundException;
+import store.error.ProductNotFoundException;
+import store.model.entity.Order;
+import store.model.service.OrderServiceModel;
+import store.repository.OrderRepository;
+import store.service.OrderService;
+import store.service.ProductService;
+import store.service.UserService;
+
+import javax.validation.Validator;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    private final OrderRepository orderRepository;
+    private final ProductService productService;
+    private final UserService userService;
+    private final ModelMapper modelMapper;
+    private final Validator validator;
+
+    public OrderServiceImpl(
+            OrderRepository orderRepository,
+            ProductService productService, UserService userService, ModelMapper modelMapper, Validator validator) {
+        this.orderRepository = orderRepository;
+        this.productService = productService;
+        this.userService = userService;
+        this.modelMapper = modelMapper;
+        this.validator = validator;
+    }
+
+//    @Override
+//    public BigDecimal calcTotal(List<ShoppingCartItem> cart) {
+//        BigDecimal result = new BigDecimal(0);
+//        for (ShoppingCartItem item : cart) {
+//            result = result.add(item
+//                    .getProduct()
+//                    .getPrice()
+//                    .multiply(new BigDecimal(item.getQuantity())));
+//        }
+//        return result;
+//    }
+
+//    @Override
+//    public OrderServiceModel prepareOrder(List<ShoppingCartItem> cart, String customer) {
+//        OrderServiceModel orderServiceModel = new OrderServiceModel();
+//        orderServiceModel.setCustomer(this.userService.findUserByUserName(customer));
+//        List<OrderProductServiceModel> products = new ArrayList<>();
+//        for (ShoppingCartItem item : cart) {
+//            OrderProductServiceModel orderProductServiceModel
+//                    = this.modelMapper.map(item.getProduct(), OrderProductServiceModel.class);
+//            String productId = orderProductServiceModel.getProduct().getId();
+//            ProductServiceModel productServiceModel = this.productService.findProductById(productId);
+//            int productQuantity = productServiceModel.getQuantity();
+//            if (item.getQuantity() > productQuantity) {
+//                throw new IllegalArgumentException(String.format(GlobalConstants.PRODUCT_LIMITED_QUANTITY,
+//                        productQuantity, item.getProduct().getProduct().getName()));
+//            }
+//        }
+//        for (ShoppingCartItem item : cart) {
+//            OrderProductServiceModel orderProductServiceModel
+//                    = this.modelMapper.map(item.getProduct(), OrderProductServiceModel.class);
+//            String productId = orderProductServiceModel.getProduct().getId();
+//            ProductServiceModel productServiceModel = this.productService.findProductById(productId);
+//            this.productService.decreaseProductQuantity(productId, item.getQuantity(), productServiceModel);
+//            orderProductServiceModel.setQuantity(item.getQuantity());
+//            products.add(orderProductServiceModel);
+//        }
+//        orderServiceModel.setProducts(products);
+//        orderServiceModel.setTotalPrice(this.calcTotal(cart));
+//        return orderServiceModel;
+//    }
+
+    @Override
+    public void createOrder(OrderServiceModel orderServiceModel) {
+        if (!validator.validate(orderServiceModel).isEmpty()) {
+            throw new OrderNotFoundException("Order not found.");
+        }
+        orderServiceModel.setFinishedOn(LocalDateTime.now());
+        this.orderRepository.save(this.modelMapper.map(orderServiceModel, Order.class));
+    }
+
+    @Override
+    public List<OrderServiceModel> findAllOrders() {
+        List<Order> orders = this.orderRepository.findAll();
+        return orders
+                .stream()
+                .map(o -> this.modelMapper.map(o, OrderServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderServiceModel> findOrdersByCustomer(String username) {
+        return this.orderRepository.findAllOrdersByCustomer_UsernameOrderByFinishedOn(username)
+                .stream()
+                .map(o -> modelMapper.map(o, OrderServiceModel.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public OrderServiceModel findOrderById(String id) {
+        return this.orderRepository.findById(id)
+                .map(o -> this.modelMapper.map(o, OrderServiceModel.class))
+                .orElseThrow(() -> new OrderNotFoundException("Order not found"));
+    }
+}

@@ -16,6 +16,7 @@ public class CategoryAddBindingModel {
 
     public CategoryAddBindingModel() {
     }
+
     @Enumerated(value = EnumType.STRING)
     public MainCategory getMainCategory() {
         return mainCategory;
@@ -27,7 +28,7 @@ public class CategoryAddBindingModel {
 
     @NotNull
     @NotEmpty
-    @Length(min = 3, max = 20, message = "Password must be between 3 and 20 character")
+    @Length(min = 3, max = 20, message = "Category must be between 3 and 20 character")
     public String getName() {
         return name;
     }

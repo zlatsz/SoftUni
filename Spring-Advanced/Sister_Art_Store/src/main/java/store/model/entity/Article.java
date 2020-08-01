@@ -4,27 +4,19 @@ package store.model.entity;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "articles")
 public class Article extends BaseEntity{
 
-    private MainCategory mainCategory;
     private String name;
     private String pdfUrl;
     private LocalDateTime postTime;
     private User uploader;
+    private Set<Comment> comments;
 
     public Article() {
-    }
-
-    @Enumerated(value = EnumType.STRING)
-    public MainCategory getMainCategory() {
-        return this.mainCategory;
-    }
-
-    public void setMainCategory(MainCategory mainCategory) {
-        this.mainCategory = mainCategory;
     }
 
     @Column(name = "article_name", nullable = false)
@@ -64,4 +56,12 @@ public class Article extends BaseEntity{
         this.uploader = uploader;
     }
 
+    @OneToMany(mappedBy="article", fetch = FetchType.EAGER, cascade=CascadeType.MERGE)
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 }

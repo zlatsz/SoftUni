@@ -2,9 +2,9 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="~{fragments/head}"/>
+    <th:block th:include="~{/fragments/head}"></th:block>
 </head>
-<body>
+<body th:background="${url}">
 <header>
     <div class="container">
         <th:block th:include="~{fragments/navbar}"/>
@@ -41,7 +41,7 @@
                 <th class="col-md-2 text-center">#</th>
                 <th class="col-md-2 text-center">Продукти</th>
                 <th class="col-md-2 text-center">Стойност</th>
-                <th class="col-md-2 text-center">Статус</th>
+                <th class="col-md-2 text-center">Дата</th>
             </tr>
             </thead>
             <tbody>

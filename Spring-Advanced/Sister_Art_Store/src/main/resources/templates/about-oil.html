@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <!-- Navigation -->
+        <th:block th:include="~{/fragments/navbar}"></th:block>
+    </div>
+</header>
+<!-- Page Content -->
+<main>
+    <div class="container">
+        <a th:href="@{/users/login}">
+            <img class="d-block img-fluid" th:src="@{/images/aboutOil.pdf}" alt="About oil">
+        </a>
+    </div>
+    <!-- /.container -->
+</main>
+<!-- Footer -->
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+
+</body>
+
+</html>

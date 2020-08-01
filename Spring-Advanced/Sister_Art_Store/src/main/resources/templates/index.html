@@ -5,179 +5,72 @@
     <th:block th:include="~{/fragments/head}"></th:block>
 </head>
 
-<body>
+<body th:background="${url}">
 <header>
     <div class="container">
         <!-- Navigation -->
         <th:block th:include="~{/fragments/navbar}"></th:block>
     </div>
 </header>
+
 <!-- Page Content -->
 <main>
     <div id="page" class="container">
 
-        <div class="row">
-
-            <div class="col-lg-3">
-
-                <h3 class="my-4 text-center">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕</h3>
-
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">Handmade</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+        <div class="row justify-content-center align-content-center">
+            <div id="carouselExampleIndicators" class="carousel slide my-4 w-auto" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <a th:href="@{/aboutSisters}">
+                            <img class="d-block img-thumbnail" th:src="@{/images/car-jew.jpg}" width="1000" height="300"
+                                 alt="First slide">
+                        </a>
+                    </div>
+                    <div class="carousel-item">
+                        <a th:href="@{/aboutOIL}">
+                            <img class="d-block img-thumbnail" th:src="@{/images/set.jpg}" width="1000" height="200"
+                                 alt="Second slide">
+                        </a>
+                    </div>
                 </div>
-
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <!-- /.col-lg-3 -->
+        </div>
+        <div class="col-lg-12 d-flex">
 
-            <div class="col-lg-9">
-
-                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <a href="#">
-                                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-                            </a>
-                        </div>
-                        <div class="carousel-item">
-                            <a href="#">
-                                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
-                            </a>
-                        </div>
+            <div class="col-lg-3 col-md-6 mb-4" th:each="p : ${products}" th:object="${p}">
+                <div class="card h-10" >
+                    <a th:href="@{/products/details/{id}(id=${p.id})}">
+                        <img class="card-img-top" width="300" height="175" th:src="*{imageUrl}" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a th:href="@{/products/details/{id}(id=${p.id})}" th:text="*{name}" class="text-primary">Item
+                                One</a>
+                        </h4>
+                        <h5 th:text="|*{price} лв.|">$24.99</h5>
+                        <p class="card-text" th:text="*{description}">Lorem ipsum </p>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <div class="card-footer">
+                        <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    </div>
                 </div>
-
-                <div class="row">
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item One</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam
-                                    aspernatur!</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item Two</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam
-                                    aspernatur! Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item Three</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam
-                                    aspernatur!</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item Four</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam
-                                    aspernatur!</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item Five</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam
-                                    aspernatur! Lorem ipsum dolor sit amet.</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="#">Item Six</a>
-                                </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet
-                                    numquam
-                                    aspernatur!</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.row -->
-
             </div>
-            <!-- /.col-lg-9 -->
-
         </div>
         <!-- /.row -->
+
+    </div>
+    <!-- /.row -->
 
     </div>
     <!-- /.container -->

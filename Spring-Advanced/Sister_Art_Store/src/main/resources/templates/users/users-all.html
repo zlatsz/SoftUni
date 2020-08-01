@@ -5,7 +5,7 @@
     <th:block th:include="~{/fragments/head}"></th:block>
 </head>
 
-<body>
+<body th:background="${url}">
 <header>
     <div class="container">
         <!-- Navigation -->
@@ -14,8 +14,9 @@
 </header>
 <!-- Page Content -->
 <main>
-    <form class="text-center border border-light w-75 mx-auto">
-        <p class="h4 mb-4" style="padding-top: 30px">Всички потребители</p>
+    <form class="text-center border border-light w-75 mx-auto p-3">
+        <p class="h4 mb-4">Всички потребители</p>
+        <hr class="hr-2 bg-dark w-75">
     </form>
     <div class="d-flex justify-content-center align-items-center container">
         <table class="table table-hover mx-auto justify-content-center">
@@ -34,7 +35,7 @@
                 <tr class="row mx-auto">
                     <th class="col-md-2 text-center" th:text="${iter.index + 1}"></th>
                     <td class="col-md-2 text-center">
-                        <a th:text="${user.username}" th:href="@{/users/details/{id}(id=${user.id})}">View
+                        <a th:text="${user.username}" th:href="@{/users/profile/{id}(id=${user.id})}">View
                             Profile</a>
                     </td>
                     <td class="col-md-2 text-center" th:text="${user.email}"></td>
@@ -61,11 +62,11 @@
                                 </th:block>
                             </th:block>
                         </div>
-
+                    </td>
                     <td class="col-md-2 text-center">
                         <th:block sec:authorize="hasRole('ROLE_ROOT')">
                             <th:block th:if="${!#lists.contains(user.authorities, 'ROLE_ROOT')}">
-                                <form id="add-product-form" class="form w-15 mx-auto"
+                                <form id="add-user-form" class="form w-15 mx-auto"
                                       th:action="@{/users/delete/{id}(id=${user.id})}" method="post">
                                     <div class="button-holder d-flex justify-content-center">
                                         <button type="submit" class="btn btn-danger">Delete User</button>

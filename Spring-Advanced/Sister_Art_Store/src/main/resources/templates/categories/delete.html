@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="delete-category">
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1"
+         role="dialog"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Изтрий категория</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Сигурен ли си, че ще изтриеш категорията?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Затвори</button>
+                    <form
+                            id="formDelete"
+                            th:action="@{/categories/delete}"
+                            th:method="delete">
+                        <input id="deleteId" name="deleteId" type="hidden" value=""/>
+                        <button id="btnDelete" type="submit" class="btn btn-primary">Изтрий</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

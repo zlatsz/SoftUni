@@ -79,7 +79,7 @@ public class UserController extends BaseController{
 
     @GetMapping("/profile")
     @PreAuthorize("isAuthenticated()")
-    @PageTitle("Profile")
+    @PageTitle("User Details")
     public ModelAndView profile(Principal principal, ModelAndView modelAndView){
         UserServiceModel user = this.userService.findUserByUserName(principal.getName());
         UserProfileViewModel model = mapper.map(user, UserProfileViewModel.class);
@@ -98,7 +98,7 @@ public class UserController extends BaseController{
         return view("users/edit-profile", modelAndView);
     }
 
-    @PostMapping("/edit")
+    @PatchMapping("/edit")
     @PreAuthorize("isAuthenticated()")
     public ModelAndView editProfileConfirm(@Valid @ModelAttribute(name = "model") UserEditBindingModel userEditBindingModel,
                                            BindingResult bindingResult){

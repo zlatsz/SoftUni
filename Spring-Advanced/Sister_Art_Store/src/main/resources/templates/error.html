@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <th:block th:include="~{fragments/navbar}"/>
+    </div>
+</header>
+<main>
+    <div class="container text-center justify-content-center align-content-center">
+        <h1 class="text-center text-dark">Опа! Нещо се обърка!</h1>
+        <hr class="hr-2 bg-dark ">
+        <div class="text-center">
+            <h3 th:text="${status}" style="color: red"></h3>
+            <h3 th:text="${message}" style="color: red"></h3>
+        </div>
+    </div>
+</main>
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+</body>
+</html>

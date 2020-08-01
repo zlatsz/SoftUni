@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <th:block th:include="~{fragments/navbar}"/>
+    </div>
+</header>
+
+<main style="padding-top: 20px">
+    <div class="container text-center justify-content-center align-content-center">
+        <div class="row">
+            <div class="col col-md-12 text-center">
+                <h3 th:utext="${model.name}"></h3>
+            </div>
+            <div class="col col-md-12 text-center">
+                <h5 th:each="detail: ${model.uploader}" th:text="|Автор: ${detail.username}|"></h5>
+            </div>
+            <div class="col col-md-12 text-center">
+                <img th:src="${model.pdfUrl}" width="650" height="500" alt="Article">
+            </div>
+            <div class="col col-md-12 text-center">
+                <p th:text="|Дата на публикацията ${{model.postTime}}|"></p>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col col-md-5 text-left">
+                <form id="add-comment" th:action="@{/comments/add/{id}(id=${articleId})}" method="post">
+                    <div class="comment-form">
+                        <label class="text-center text-dark" for="input-comment"></label>
+                        <textarea class="form-control" id="input-comment" name="description" rows="2"></textarea>
+                        <button type="submit" class="btn btn-secondary">Добави коментар</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col col-md-9 text-left mt-5">
+                <th:block th:each="comment, iter : ${comments}">
+                    <ul class="comment-form">
+                        <li>
+                            <a class="post-username"
+                               th:each="detail: ${comment.user}" th:text="|Автор: ${detail.username}|"></a>
+                            <h6 th:utext="${{comment.commentDate}}"></h6>
+                            <h5 th:text="${comment.description}"></h5>
+                            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                <button type="button"
+                                        class="open-delete-dialog btn btn-dark"
+                                        data-toggle="modal"
+                                        data-target="#deleteModal"
+                                        th:data-id="*{comment.id}">
+                                    <i class="fas fa-trash mx-1"></i>
+                                </button>
+                            </th:block>
+                        </li>
+                    </ul>
+                </th:block>
+
+            </div>
+        </div>
+    </div>
+</main>
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+<!-- Behaviour -->
+<script>
+    $(document).on("click", ".open-delete-dialog", function () {
+        $("#deleteId").val($(this).data('id'));
+    });
+</script>
+<!-- EO: Behaviour-->
+<div th:replace="articles/delete-com :: delete-comment">
+    Modal dialog for delete
+</div>
+</body>
+</html>

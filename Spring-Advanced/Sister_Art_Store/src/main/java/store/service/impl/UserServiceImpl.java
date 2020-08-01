@@ -29,7 +29,8 @@ public class UserServiceImpl implements UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleService roleService, ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService,
+                           ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.modelMapper = modelMapper;
@@ -116,25 +117,5 @@ public class UserServiceImpl implements UserService {
         user.getAuthorities().clear();
         this.userRepository.delete(user);
     }
-//     @GetMapping("/api/users")
-//    @ResponseBody
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public List<UsersViewModel> allUsers() {
-//
-//        return this.userService.findAllUsers()
-//                .stream()
-//                .map(serviceModel -> this.modelMapper.map(serviceModel, UsersViewModel.class))
-//                .collect(Collectors.toList());
-//    }
-//
-//    @GetMapping("/api/users/find")
-//    @ResponseBody
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public UsersViewModel allUsers(@RequestParam(USERNAME) String username) {
-//
-//        UserServiceModel byUsername = this.userService.findByUsername(username);
-//
-//        return byUsername == null ? new UsersViewModel()
-//                : this.modelMapper.map(byUsername, UsersViewModel.class);
-//    }
+
 }

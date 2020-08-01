@@ -11,8 +11,8 @@ public class Comment extends BaseEntity {
 
     private String description;
     private LocalDateTime commentDate;
-    private List<User> user;
-    private List<Article> article;
+    private User user;
+    private Article article;
 
     public Comment() {
     }
@@ -35,24 +35,21 @@ public class Comment extends BaseEntity {
         this.commentDate = commentDate;
     }
 
-    @ManyToMany(targetEntity = User.class)
-    @JoinTable(name = "comments_users", joinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
-    public List<User> getUser() {
-        return this.user;
+    @ManyToOne
+    public User getUser() {
+        return user;
     }
-    public void setUser(List<User> user) {
+
+    public void setUser(User user) {
         this.user = user;
     }
 
-    @ManyToMany(targetEntity = Article.class)
-    @JoinTable(name = "comments_articles", joinColumns = @JoinColumn(name = "comment_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "article_id", referencedColumnName = "id"))
-    public List<Article> getArticle() {
-        return this.article;
+    @ManyToOne()
+    public Article getArticle() {
+        return article;
     }
 
-    public void setArticle(List<Article> article) {
+    public void setArticle(Article article) {
         this.article = article;
     }
 }

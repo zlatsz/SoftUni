@@ -27,7 +27,7 @@ public class Product extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     public String getDescription() {
         return this.description;
     }
