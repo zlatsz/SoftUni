@@ -10,7 +10,7 @@ public class OrderNotFoundException extends RuntimeException {
     private int statusCode;
 
     public OrderNotFoundException() {
-        this.statusCode = HttpStatus.NOT_FOUND.value();
+
     }
 
     public OrderNotFoundException(String message) {

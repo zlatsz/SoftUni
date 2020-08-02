@@ -9,15 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import store.model.binding.CategoryAddBindingModel;
+import store.model.entity.Category;
+import store.model.entity.Product;
 import store.model.service.CategoryServiceModel;
 import store.model.service.ProductServiceModel;
 import store.model.view.CategoryAllViewModel;
+import store.model.view.ProductAllViewModel;
 import store.service.CategoryService;
 import store.service.ProductService;
 import store.validation.CategoryAddValidator;
 import store.validation.CategoryEditValidator;
 import store.web.annotations.PageTitle;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -141,5 +145,27 @@ public class CategoryController extends BaseController {
                 .collect(Collectors.toList());
     }
 
+
+    @GetMapping("/details/{id}")
+    @PreAuthorize("isAuthenticated()")
+    @PageTitle("Category products")
+    public ModelAndView details(@PathVariable String id, ModelAndView modelAndView) {
+        List<CategoryAllViewModel> categories = this.categoryService
+                .findAllCategories()
+                .stream()
+                .map(category -> this.modelMapper.map(category, CategoryAllViewModel.class))
+                .collect(Collectors.toList());
+        modelAndView.addObject("categories", categories);
+        Category category =this.modelMapper.map(this.categoryService.findCategoryById(id), Category.class);
+        List<ProductAllViewModel> model= new ArrayList<>();
+        List<ProductServiceModel> products = new ArrayList<>(this.productService.findAllProducts());
+        for (ProductServiceModel product : products) {
+            if (product.getCategories().stream().anyMatch(p -> p.getName().equals(category.getName()))){
+                model.add(this.modelMapper.map(product, ProductAllViewModel.class));
+            }
+        }
+        modelAndView.addObject("model", model);
+        return view("categories/details", modelAndView);
+    }
 
 }

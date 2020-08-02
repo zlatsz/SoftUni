@@ -4,12 +4,15 @@ package store.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import store.error.ProductAlreadyExistsException;
 import store.error.ProductNotFoundException;
 import store.model.entity.Category;
 import store.model.entity.Product;
 import store.model.service.ProductServiceModel;
 import store.repository.ProductRepository;
+import store.service.CategoryService;
 import store.service.ProductService;
+import store.validation.ProductValidation;
 
 import javax.validation.Validator;
 import java.util.List;
@@ -20,24 +23,42 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     //    private final OfferRepository offerRepository;
-//    private final ProductValidationService productValidation;
+    private final CategoryService categoryService;
+    private final ProductValidation productValidation;
     private final ModelMapper modelMapper;
     private final Validator validator;
 
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ModelMapper modelMapper, Validator validator) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CategoryService categoryService, ProductValidation productValidation,
+                              ModelMapper modelMapper, Validator validator) {
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
+        this.productValidation = productValidation;
         this.modelMapper = modelMapper;
         this.validator = validator;
     }
 
     @Override
     public ProductServiceModel createProduct(ProductServiceModel productServiceModel) {
-        if (!validator.validate(productServiceModel).isEmpty()) {
+        if (!productValidation.isValid(productServiceModel)) {
             throw new ProductNotFoundException("Product not found.");
         }
-        Product product = this.modelMapper.map(productServiceModel, Product.class);
+        Product product = this.productRepository
+                .findByName(productServiceModel.getName())
+                .orElse(null);
+
+        if (product != null) {
+            throw new ProductAlreadyExistsException("Product with this name already exists");
+        }
+        product = this.modelMapper.map(productServiceModel, Product.class);
+
+        List<Category> categories = productServiceModel.getCategories().stream()
+                .map(c -> this.modelMapper.map(c, Category.class))
+                .collect(Collectors.toList());
+        product.setCategories(categories);
+
         return this.modelMapper.map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
     }
 
@@ -117,15 +138,20 @@ public class ProductServiceImpl implements ProductService {
 //            }
 //        }
 //        return list;
-                return this.productRepository.findAll()
+        return this.productRepository.findAll()
                 .stream()
                 .filter(product -> product.getCategories().stream().anyMatch(categoryStream -> categoryStream.getName().equals(category)))
                 .map(product -> this.modelMapper.map(product, ProductServiceModel.class))
                 .collect(Collectors.toList());
-//       return this.productRepository.findAllByCategories(category)
-//       .stream()
-//       .map(product -> this.modelMapper.map(product, ProductServiceModel.class))
-//                .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public ProductServiceModel decreaseProductQuantity(String productId, int value, ProductServiceModel productServiceModel) {
+        Product product = this.productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        product.setQuantity(product.getQuantity() - value);
+        return this.modelMapper
+                .map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
     }
 }

@@ -12,10 +12,10 @@ public class Category extends BaseEntity {
 
     private MainCategory mainCategory;
     private String name;
+    private List<Product> productList;
 
     public Category() {
     }
-    
 
     @Enumerated(value = EnumType.STRING)
     public MainCategory getMainCategory() {
@@ -34,5 +34,14 @@ public class Category extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @ManyToMany(mappedBy = "categories", targetEntity = Product.class)
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
     }
 }

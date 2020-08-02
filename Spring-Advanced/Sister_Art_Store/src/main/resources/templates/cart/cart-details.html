@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <th:block th:include="~{fragments/navbar}"/>
+    </div>
+</header>
+
+<main>
+    <form class="text-center border border-light w-75 mx-auto p-3">
+        <p class="h4 mb-4">Кошница</p>
+        <hr class="hr-2 bg-dark w-100">
+    </form>
+
+    <div class="justify-content-center align-items-center container">
+        <table class="table table-hover mx-auto text-md-center justify-content-center">
+            <thead class="table-form">
+            <tr class="row mx-auto">
+                    <th class="col-md-2 text-center ">Снимка</th>
+                    <th class="col-md-2 text-center ">Име</th>
+                    <th class="col-md-2 text-center ">Описание</th>
+                    <th class="col-md-2 text-center">Цена</th>
+                    <th class="col-md-1 text-center ">Количество</th>
+                    <th class="col-md-2 text-center ">Изтрий</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="item : ${#session.getAttribute('shopping-cart')}" th:object="${item}">
+                    <tr class="row mx-auto">
+                        <th class="col-md-2 text-center"><img th:src="*{product.product.imageUrl}" alt="Product"
+                                                              height="100" width="100"></th>
+                        <td class="col-md-2 text-center" th:text="*{product.product.name}"></td>
+                        <td class="col-md-2 text-center " th:text="*{product.product.description}"></td>
+                        <td class="col-md-2 text-center" th:text="*{product.product.price}"></td>
+                        <td class="col-md-1 text-center m" th:text="*{quantity}"></td>
+                        <td class="col-md-2 text-center">
+                            <button type="button"
+                                    class="open-delete-dialog btn btn-dark"
+                                    data-toggle="modal"
+                                    data-target="#deleteModal"
+                                    th:data-id="*{product.product.id}">
+                                <i class="fas fa-trash mx-1"></i>
+                            </button>
+<!--                            <form th:action="@{/cart/remove-product}" th:method="delete">-->
+<!--                                <div class="button-holder d-flex justify-content-center">-->
+<!--                                    <input type="hidden" name="id" th:value="*{product.product.id}">-->
+<!--                                    <button type="submit" class="btn btn-danger" style="font-size: 30px">Remove</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+            <hr class="hr-2 bg-dark w-100">
+            <div class="text-center textForm">
+                <h3 th:text="|Total: ${totalPrice}|"></h3>
+            </div>
+            <form th:action="@{/cart/checkout}" th:method="post">
+                <div class="button-holder d-flex justify-content-center">
+                    <button type="submit" class="btn btn-success">Приключи поръчката</button>
+                </div>
+            </form>
+    </div>
+</main>
+<!-- Footer -->
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+<script>
+    $(document).on("click", ".open-delete-dialog", function () {
+        $("#deleteId").val($(this).data('id'));
+    });
+</script>
+<!-- EO: Behaviour-->
+<div th:replace="cart/delete :: delete-product-cart">
+    Modal dialog for delete
+</div>
+</body>
+
+</html>

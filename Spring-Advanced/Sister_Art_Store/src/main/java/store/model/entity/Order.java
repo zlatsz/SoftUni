@@ -28,7 +28,7 @@ public class Order extends BaseEntity{
     }
 
 
-    @ManyToMany(targetEntity = OrderProduct.class, cascade = CascadeType.ALL)
+    @ManyToMany(targetEntity = OrderProduct.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "orders_products", joinColumns = @JoinColumn(name = "order_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"))
     public List<OrderProduct> getProducts() {

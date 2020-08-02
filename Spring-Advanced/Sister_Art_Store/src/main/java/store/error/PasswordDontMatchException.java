@@ -9,7 +9,7 @@ public class PasswordDontMatchException extends RuntimeException {
     private int statusCode;
 
     public PasswordDontMatchException() {
-        this.statusCode = HttpStatus.UNAUTHORIZED.value();
+
     }
 
     public PasswordDontMatchException(String message) {

@@ -9,7 +9,7 @@ public class ArticleNotFoundException extends RuntimeException  {
     private int statusCode;
 
     public ArticleNotFoundException() {
-        this.statusCode = HttpStatus.NOT_FOUND.value();
+
     }
 
     public ArticleNotFoundException(String message) {

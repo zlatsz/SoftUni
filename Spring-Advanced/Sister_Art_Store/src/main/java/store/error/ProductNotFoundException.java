@@ -10,7 +10,7 @@ public class ProductNotFoundException extends RuntimeException {
     private int statusCode;
 
     public ProductNotFoundException() {
-        this.statusCode = HttpStatus.NOT_FOUND.value();
+
     }
 
     public ProductNotFoundException(String message) {

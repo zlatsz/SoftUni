@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import store.model.binding.UserEditBindingModel;
 import store.model.binding.UserRegisterBindingModel;
 import store.model.service.RoleServiceModel;
 import store.model.service.UserServiceModel;
+import store.model.view.OrderViewModel;
 import store.model.view.UserAllViewModel;
 import store.model.view.UserProfileViewModel;
+import store.service.OrderService;
 import store.service.UserService;
 import store.validation.UserEditValidator;
 import store.validation.UserRegisterValidator;
@@ -31,13 +32,15 @@ import java.util.stream.Collectors;
 public class UserController extends BaseController{
 
     private final UserService userService;
+    private final OrderService orderService;
     private final UserRegisterValidator userRegisterValidator;
     private final UserEditValidator userEditValidator;
     private final ModelMapper mapper;
 
     @Autowired
-    public UserController(UserService userService, UserRegisterValidator userRegisterValidator, UserEditValidator userEditValidator, ModelMapper mapper) {
+    public UserController(UserService userService, OrderService orderService, UserRegisterValidator userRegisterValidator, UserEditValidator userEditValidator, ModelMapper mapper) {
         this.userService = userService;
+        this.orderService = orderService;
         this.userRegisterValidator = userRegisterValidator;
         this.userEditValidator = userEditValidator;
         this.mapper = mapper;
@@ -84,6 +87,12 @@ public class UserController extends BaseController{
         UserServiceModel user = this.userService.findUserByUserName(principal.getName());
         UserProfileViewModel model = mapper.map(user, UserProfileViewModel.class);
         modelAndView.addObject("model", model);
+        List<OrderViewModel> orderViewModels = orderService.findAllOrders()
+                .stream()
+                .filter(p->p.getCustomer().getUsername().equals(principal.getName()))
+                .map(o -> mapper.map(o, OrderViewModel.class))
+                .collect(Collectors.toList());
+        modelAndView.addObject("orders", orderViewModels);
         return view("users/profile", modelAndView);
     }
 

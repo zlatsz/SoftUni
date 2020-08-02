@@ -50,10 +50,10 @@
                 <div class="form-group mx-auto">
                     <label for="quantity" class="font-weight-bold">Количество</label>
                     <input id="quantity" class="form-control text-center" type="number" value="1"
-                           min="1" step="1" name="quantity"/>
+                           min="1" step="1" th:max="${product.quantity}" name="quantity"/>
                 </div>
                 <input type="hidden" name="id" th:value="${product.id}">
-                <button type="submit" class="btn btn-secondary">Купи</button>
+                <button type="submit" class="btn btn-success">Купи</button>
             </form>
         </div>
     </div>

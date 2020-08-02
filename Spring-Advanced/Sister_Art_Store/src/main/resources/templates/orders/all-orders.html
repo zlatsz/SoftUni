@@ -26,7 +26,8 @@
                 <th class="col-md-2 text-center">Потребител</th>
                 <th class="col-md-2 text-center">Дата</th>
                 <th class="col-md-2 text-center">Обща сума</th>
-                <th class="col-md-3 text-center">Детайли</th>
+                <th class="col-md-2 text-center">Детайли</th>
+                <th class="col-md-2 text-center">Статус</th>
             </tr>
             </thead>
 
@@ -39,10 +40,19 @@
                     </td>
                     <td class="col-md-2 text-center" th:text="${{order.finishedOn}}"></td>
                     <td class="col-md-2 text-center" th:text="${order.totalPrice}"></td>
-                    <td class="col-md-3 text-center d-flex justify-content-center">
-                        <a th:href="@{/orders/all/details/{id}(id=*{order.id})}" class="btn btn-info"
-                           style="font-size: 30px">Продукти</a>
+                    <td class="col-md-2 text-center d-flex justify-content-center">
+                        <a th:href="@{/orders/all/details/{id}(id=*{order.id})}" class="btn btn-success">Продукти</a>
                     </td>
+<!--                    <td class="col-md-2 text-center" >-->
+<!--                        <label for="status" class="col-form-label">Въведи статус-->
+<!--                        </label>-->
+<!--                        <select class="browser-default custom-select" id="status" name="status">-->
+<!--                            <option th:each="o : ${T(store.model.entity.Status).values()}"-->
+<!--                                    th:text="${o}" th:value="${o}">Food-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                        <button class="btn btn-dark my-4 btn-block" type="submit">Въведи</button>-->
+<!--                    </td>-->
                 </tr>
             </th:block>
             </tbody>

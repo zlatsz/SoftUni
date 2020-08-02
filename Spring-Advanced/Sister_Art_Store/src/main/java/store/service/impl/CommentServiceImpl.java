@@ -8,8 +8,8 @@ import store.model.service.ArticleServiceModel;
 import store.model.service.CommentServiceModel;
 import store.repository.CommentRepository;
 import store.service.CommentService;
+import store.validation.CommentValidation;
 
-import javax.validation.Validator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,17 +19,18 @@ public class CommentServiceImpl implements CommentService {
 
     private final CommentRepository commentRepository;
     private final ModelMapper modelMapper;
-    private final Validator validator;
+    private CommentValidation commentValidation;
 
-    public CommentServiceImpl(CommentRepository commentRepository, ModelMapper modelMapper, Validator validator) {
+
+    public CommentServiceImpl(CommentRepository commentRepository, ModelMapper modelMapper, CommentValidation commentValidation) {
         this.commentRepository = commentRepository;
         this.modelMapper = modelMapper;
-        this.validator = validator;
+        this.commentValidation = commentValidation;
     }
 
     @Override
     public CommentServiceModel addComment(CommentServiceModel commentServiceModel, ArticleServiceModel articleServiceModel) {
-        if (!validator.validate(commentServiceModel).isEmpty()){
+        if (!commentValidation.isValid(commentServiceModel)){
             throw new IllegalArgumentException("Comment not found");
         }
         Comment comment = this.modelMapper.map(commentServiceModel, Comment.class);

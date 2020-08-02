@@ -35,28 +35,30 @@
     </div>
     <div class="col-lg-9 text-md-right text-center table-responsive">
         <h3 class="text-lg-center font-weight-bolder" style="padding-right: 200px" >Всички поръчки</h3>
-        <table class="table table-hover justify-content-center">
+        <table class="table table-hover mx-auto text-md-center justify-content-center">
             <thead class="table-form">
             <tr class="row mx-auto">
-                <th class="col-md-2 text-center">#</th>
-                <th class="col-md-2 text-center">Продукти</th>
-                <th class="col-md-2 text-center">Стойност</th>
+                <th class="col-md-1 text-center">#</th>
+                <th class="col-md-2 text-center">Потребител</th>
                 <th class="col-md-2 text-center">Дата</th>
+                <th class="col-md-2 text-center">Обща сума</th>
+                <th class="col-md-3 text-center">Детайли</th>
             </tr>
             </thead>
+
             <tbody>
             <th:block th:each="order, iter : ${orders}">
                 <tr class="row mx-auto">
-                    <th class="col-md-2 text-center" th:text="${iter.index + 1}"></th>
+                    <th class="col-md-1 text-center" th:text="${iter.index + 1}"></th>
                     <td class="col-md-2 text-center">
-                        <a th:text="${#strings.replace(#strings.listJoin(user.order.products, ', '), ',', '')}">
-                        </a>
+                        <a th:text="${order.customer.username}"></a>
                     </td>
-                    <td class="col-md-2 text-center" th:text="${order.sum}"></td>
-
-                    <td class="col-md-2 text-center"
-                        th:text="${order.status}"></td>
-                    <td class="col-md-2 text-center">
+                    <td class="col-md-2 text-center" th:text="${{order.finishedOn}}"></td>
+                    <td class="col-md-2 text-center" th:text="${order.totalPrice}"></td>
+                    <td class="col-md-3 text-center d-flex justify-content-center">
+                        <a th:href="@{/orders/all/details/{id}(id=*{order.id})}" class="btn btn-success">Продукти</a>
+                    </td>
+                </tr>
             </th:block>
             </tbody>
         </table>

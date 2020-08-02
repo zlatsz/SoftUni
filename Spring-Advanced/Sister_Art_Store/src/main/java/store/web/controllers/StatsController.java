@@ -1,10 +1,9 @@
 package store.web.controllers;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import store.service.StatsService;
+import store.service.impl.StatsService;
 
 @Controller
 public class StatsController {

@@ -8,16 +8,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import store.error.PasswordDontMatchException;
-import store.model.entity.Role;
 import store.model.entity.User;
 import store.model.service.UserServiceModel;
 import store.repository.UserRepository;
 import store.service.RoleService;
 import store.service.UserService;
+import store.error.UserNameTakenException;
+import store.error.UserWrongCredentialsException;
+import store.validation.UserServiceModelValidator;
 
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,18 +28,28 @@ public class UserServiceImpl implements UserService {
     private final RoleService roleService;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserServiceModelValidator validator;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, RoleService roleService,
-                           ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
+                           ModelMapper modelMapper, BCryptPasswordEncoder bCryptPasswordEncoder, UserServiceModelValidator validator) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.validator = validator;
     }
 
     @Override
     public UserServiceModel registerUser(UserServiceModel userServiceModel) {
+        if (!validator.isValid(userServiceModel)){
+            throw new UserWrongCredentialsException("User was not created");
+        }
+
+        if (userRepository.findByUsername(userServiceModel.getUsername()).isPresent()){
+            throw new UserNameTakenException("User name is already taken!");
+        }
+
         this.roleService.seedRolesInDb();
         if (this.userRepository.count() == 0) {
             userServiceModel.setAuthorities(this.roleService.findAllRoles());

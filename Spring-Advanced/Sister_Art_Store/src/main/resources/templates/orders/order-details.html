@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="~{fragments/head}"></th:block>
+    <th:block th:include="~{/fragments/head}"></th:block>
 </head>
-<body>
+
+<body th:background="${url}">
 <header>
-    <th:block th:include="~{fragments/navbar}"></th:block>
+    <div class="container">
+        <!-- Navigation -->
+        <th:block th:include="~{/fragments/navbar}"></th:block>
+    </div>
 </header>
-<main class="mt-3">
-    <div class="bg-image-cart">
-    <h1 class="text-center nothing" style="font-size: 50px" th:text="|Поръчка: ${order.id}|"></h1>
-    <h3 class="text-center nothing" style="size: 20px">Продукти</h3>
-    <hr class="hr-2 bg-white w-75">
-    <table class="table table-hover w-75 mx-auto">
-        <thead>
-        <tr class="row mx-auto">
-            <th class="col-md-1 text-center nothing " style="font-size: 40px">#</th>
-            <th class="col-md-2 text-center nothing " style="font-size: 40px">Име</th>
-            <th class="col-md-3 text-center nothing " style="font-size: 40px">Снимка</th>
-            <th class="col-md-3 text-center nothing " style="font-size: 40px">Описание</th>
-            <th class="col-md-2 text-center nothing " style="font-size: 40px">Цена</th>
-            <th class="col-md-2 text-center nothing " style="font-size: 40px">Количество</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="product, iter : ${order.products}">
+<main>
+    <form class="text-center border border-light w-75 mx-auto p-3">
+        <h1 class="text-center" th:text="|Поръчка: ${order.id}|"></h1>
+        <p class="h4 mb-4">Продукти</p>
+        <hr class="hr-2 bg-dark w-75">
+    </form>
+    <div class="d-flex justify-content-center align-items-center container">
+        <table class="table table-hover mx-auto text-md-center justify-content-center">
+            <thead class="table-form">
             <tr class="row mx-auto">
-                <th class="col-md-1 text-center nothing " style="font-size: 40px" th:text="${iter.index + 1}"></th>
-                <td class="col-md-2 text-center textForm" th:text="*{product.name}"></td>
-                <td class="col-md-3 text-center"><img th:src="*{product.imageUrl}" alt="Product" height="50" width="50"></td>
-                <td class="col-md-2 text-center mx-auto textForm" th:text="*{product.description}"></td>
-                <td class="col-md-2 text-center textForm" th:text="*{product.price}"></td>
-                <td class="col-md-2 text-center textForm" th:text="*{product.quantity}"></td>
+                <th class="col-md-1 text-center">#</th>
+                <th class="col-md-2 text-center">Име</th>
+                <th class="col-md-3 text-center">Снимка</th>
+                <th class="col-md-2 text-center">Описание</th>
+                <th class="col-md-2 text-center">Цена</th>
+                <th class="col-md-2 text-center">Количество</th>
             </tr>
-        </th:block>
-        </tbody>
-    </table>
-    <hr class="hr-2 bg-white w-75">
+            </thead>
+            <tbody>
+            <th:block th:each="p, iter : ${products}">
+                <tr class="row mx-auto">
+                    <th class="col-md-1 text-center"  th:text="${iter.index + 1}"></th>
+                    <td class="col-md-2 text-center" th:text="*{p.product.name}"></td>
+                    <td class="col-md-3 text-center"><img th:src="*{p.product.imageUrl}" alt="Product" height="50"
+                                                          width="50"></td>
+                    <td class="col-md-2 text-center mx-auto" th:text="*{p.product.description}"></td>
+                    <td class="col-md-2 text-center" th:text="*{p.price}"></td>
+                    <td class="col-md-2 text-center" th:text="*{p.quantity}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
     </div>
 </main>
 <footer>

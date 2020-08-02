@@ -3,10 +3,11 @@ package store.model.service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class OrderServiceModel extends BaseServiceModel {
 
-    private List<OrderProductServiceModel> products;
+    private Set<OrderProductServiceModel> products;
     private UserServiceModel customer;
     private BigDecimal totalPrice;
     private LocalDateTime finishedOn;
@@ -14,11 +15,11 @@ public class OrderServiceModel extends BaseServiceModel {
     public OrderServiceModel() {
     }
 
-    public List<OrderProductServiceModel> getProducts() {
+    public Set<OrderProductServiceModel> getProducts() {
         return products;
     }
 
-    public void setProducts(List<OrderProductServiceModel> products) {
+    public void setProducts(Set<OrderProductServiceModel> products) {
         this.products = products;
     }
 

@@ -9,7 +9,7 @@ public class UserNotFoundException extends RuntimeException{
     private int statusCode;
 
     public UserNotFoundException() {
-        this.statusCode = HttpStatus.NOT_FOUND.value();
+
     }
 
     public UserNotFoundException(String message) {

@@ -6,15 +6,22 @@ import org.springframework.stereotype.Service;
 import store.error.OrderNotFoundException;
 import store.error.ProductNotFoundException;
 import store.model.entity.Order;
+import store.model.service.OrderProductServiceModel;
 import store.model.service.OrderServiceModel;
+import store.model.service.ProductServiceModel;
+import store.model.view.ShoppingCartItem;
 import store.repository.OrderRepository;
 import store.service.OrderService;
 import store.service.ProductService;
 import store.service.UserService;
 
 import javax.validation.Validator;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,53 +43,50 @@ public class OrderServiceImpl implements OrderService {
         this.validator = validator;
     }
 
-//    @Override
-//    public BigDecimal calcTotal(List<ShoppingCartItem> cart) {
-//        BigDecimal result = new BigDecimal(0);
-//        for (ShoppingCartItem item : cart) {
-//            result = result.add(item
-//                    .getProduct()
-//                    .getPrice()
-//                    .multiply(new BigDecimal(item.getQuantity())));
-//        }
-//        return result;
-//    }
+    @Override
+    public BigDecimal calcTotal(List<ShoppingCartItem> cart) {
+        BigDecimal result = new BigDecimal(0);
+        for (ShoppingCartItem item : cart) {
+            result = result.add(item
+                    .getProduct()
+                    .getPrice()
+                    .multiply(new BigDecimal(item.getQuantity())));
+        }
+        return result;
+    }
 
-//    @Override
-//    public OrderServiceModel prepareOrder(List<ShoppingCartItem> cart, String customer) {
-//        OrderServiceModel orderServiceModel = new OrderServiceModel();
-//        orderServiceModel.setCustomer(this.userService.findUserByUserName(customer));
-//        List<OrderProductServiceModel> products = new ArrayList<>();
-//        for (ShoppingCartItem item : cart) {
-//            OrderProductServiceModel orderProductServiceModel
-//                    = this.modelMapper.map(item.getProduct(), OrderProductServiceModel.class);
-//            String productId = orderProductServiceModel.getProduct().getId();
-//            ProductServiceModel productServiceModel = this.productService.findProductById(productId);
-//            int productQuantity = productServiceModel.getQuantity();
-//            if (item.getQuantity() > productQuantity) {
-//                throw new IllegalArgumentException(String.format(GlobalConstants.PRODUCT_LIMITED_QUANTITY,
-//                        productQuantity, item.getProduct().getProduct().getName()));
-//            }
-//        }
-//        for (ShoppingCartItem item : cart) {
-//            OrderProductServiceModel orderProductServiceModel
-//                    = this.modelMapper.map(item.getProduct(), OrderProductServiceModel.class);
-//            String productId = orderProductServiceModel.getProduct().getId();
-//            ProductServiceModel productServiceModel = this.productService.findProductById(productId);
-//            this.productService.decreaseProductQuantity(productId, item.getQuantity(), productServiceModel);
-//            orderProductServiceModel.setQuantity(item.getQuantity());
-//            products.add(orderProductServiceModel);
-//        }
-//        orderServiceModel.setProducts(products);
-//        orderServiceModel.setTotalPrice(this.calcTotal(cart));
-//        return orderServiceModel;
-//    }
+    @Override
+    public OrderServiceModel prepareOrder(List<ShoppingCartItem> cart, String customer) {
+        OrderServiceModel orderServiceModel = new OrderServiceModel();
+        orderServiceModel.setCustomer(this.userService.findUserByUserName(customer));
+        Set<OrderProductServiceModel> products = new HashSet<>();
+        for (ShoppingCartItem item : cart) {
+            OrderProductServiceModel orderProductServiceModel
+                    = this.modelMapper.map(item.getProduct(), OrderProductServiceModel.class);
+            String productId = orderProductServiceModel.getProduct().getId();
+            ProductServiceModel productServiceModel = this.productService.findProductById(productId);
+            int productQuantity = productServiceModel.getQuantity();
+            if (item.getQuantity() > productQuantity) {
+                throw new IllegalArgumentException(String.format("Имаме само %d брой от продукта: %s! Моля коригирайте поръчката от кошницата!",
+                        productQuantity, item.getProduct().getProduct().getName()));
+            }
+        }
+        for (ShoppingCartItem item : cart) {
+            OrderProductServiceModel orderProductServiceModel
+                    = this.modelMapper.map(item.getProduct(), OrderProductServiceModel.class);
+            String productId = orderProductServiceModel.getProduct().getId();
+            ProductServiceModel productServiceModel = this.productService.findProductById(productId);
+            this.productService.decreaseProductQuantity(productId, item.getQuantity(), productServiceModel);
+            orderProductServiceModel.setQuantity(item.getQuantity());
+            products.add(orderProductServiceModel);
+        }
+        orderServiceModel.setProducts(products);
+        orderServiceModel.setTotalPrice(this.calcTotal(cart));
+        return orderServiceModel;
+    }
 
     @Override
     public void createOrder(OrderServiceModel orderServiceModel) {
-        if (!validator.validate(orderServiceModel).isEmpty()) {
-            throw new OrderNotFoundException("Order not found.");
-        }
         orderServiceModel.setFinishedOn(LocalDateTime.now());
         this.orderRepository.save(this.modelMapper.map(orderServiceModel, Order.class));
     }

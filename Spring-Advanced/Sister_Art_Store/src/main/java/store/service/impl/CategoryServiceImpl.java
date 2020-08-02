@@ -9,8 +9,8 @@ import store.model.entity.Category;
 import store.model.service.CategoryServiceModel;
 import store.repository.CategoryRepository;
 import store.service.CategoryService;
+import store.validation.CategoryValidation;
 
-import javax.validation.Validator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,20 +19,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
-    private final Validator validator;
-
+    private CategoryValidation categoryValidation;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper, Validator validator) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper, CategoryValidation categoryValidation) {
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
-        this.validator = validator;
+        this.categoryValidation = categoryValidation;
     }
 
 
     @Override
     public CategoryServiceModel addCategory(CategoryServiceModel categoryServiceModel) {
-        if (!validator.validate(categoryServiceModel).isEmpty()){
+        if (!categoryValidation.isValid(categoryServiceModel)){
             throw new CategoryNotFoundException("Category not found");
         }
         Category category = this.modelMapper.map(categoryServiceModel, Category.class);

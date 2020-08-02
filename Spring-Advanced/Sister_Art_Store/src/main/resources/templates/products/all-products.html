@@ -24,9 +24,9 @@
             <tr class="row mx-auto">
                 <th class="col-md-1 text-center">#</th>
                 <th class="col-md-2 text-center">Име</th>
-                <th class="col-md-3 text-center">Снимка</th>
+                <th class="col-md-2 text-center">Снимка</th>
                 <th class="col-md-2 text-center">Цена</th>
-                <th class="col-md-1 text-center">Количество</th>
+                <th class="col-md-2 text-center">Количество</th>
                 <th class="col-md-3 text-center">Действие</th>
             </tr>
             </thead>
@@ -38,9 +38,9 @@
                     <td class="col-md-2 text-center">
                         <a th:text="${product.name}" th:href="@{/products/details/{id}(id=${product.id})}">Details</a>
                     </td>
-                    <td class="col-md-3 text-center"><img th:src="${product.imageUrl}" width="50" height="50" alt="Product"></td>
+                    <td class="col-md-2 text-center"><img th:src="${product.imageUrl}" width="50" height="50" alt="Product"></td>
                     <td class="col-md-2 text-center" th:text="${product.price}"></td>
-                    <td class="col-md-1 text-center" th:text="${product.quantity}"></td>
+                    <td class="col-md-2 text-center" th:text="${product.quantity}"></td>
                     <td class="col-md-3 text-center d-flex justify-content-center">
                         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                             <a class="btn btn-success"

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/fragments/head}"></th:block>
+</head>
+
+<body th:background="${url}">
+<header>
+    <div class="container">
+        <!-- Navigation -->
+        <th:block th:include="~{/fragments/navbar}"></th:block>
+    </div>
+</header>
+<!-- Page Content -->
+<main>
+    <div class="container">
+        <div class="d-flex row mt-2">
+            <div class="col-lg-3">
+
+                <h3 class="my-4 text-center">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕</h3>
+
+                <div class="list-group" th:each="c : ${categories}" th:object="${c}">
+                    <a th:href="@{/categories/details/{id}(id=${c.id})}" class="list-group-item text-dark"
+                       th:text="*{name}">Category 2</a>
+                </div>
+
+            </div>
+            <div class="col-lg-9 mt-2">
+                    <h4 style="padding-right: 2px"> Избери доставка :
+                    </h4>
+                <h4 style="padding-right: 2px"> Продължи с пазаруването -
+                </h4>
+                <a th:href="@{/home}" class="text-dark">
+                    <h4> цък! </h4>
+                </a>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</main>
+<!-- Footer -->
+<footer id="border" class="page-footer font-small mdb-color pt-4">
+    <th:block th:include="~{/fragments/footer}"></th:block>
+</footer>
+
+</body>
+
+</html>

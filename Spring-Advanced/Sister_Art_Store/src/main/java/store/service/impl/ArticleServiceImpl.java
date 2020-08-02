@@ -3,21 +3,14 @@ package store.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import store.error.ArticleNotFoundException;
-import store.error.CategoryNotFoundException;
 import store.model.entity.Article;
-import store.model.entity.Category;
-import store.model.entity.Comment;
 import store.model.service.ArticleServiceModel;
-import store.model.service.CategoryServiceModel;
-import store.model.service.CommentServiceModel;
 import store.repository.ArticleRepository;
 import store.service.ArticleService;
+import store.validation.ArticleValidation;
 
-import javax.validation.Validator;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,18 +18,18 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
     private final ModelMapper modelMapper;
-    private final Validator validator;
+    private ArticleValidation articleValidation;
 
-    public ArticleServiceImpl(ArticleRepository articleRepository, ModelMapper modelMapper, Validator validator) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, ModelMapper modelMapper, ArticleValidation articleValidation) {
         this.articleRepository = articleRepository;
         this.modelMapper = modelMapper;
-        this.validator = validator;
+        this.articleValidation = articleValidation;
     }
 
 
     @Override
     public ArticleServiceModel addArticle(ArticleServiceModel articleServiceModel) {
-        if (!validator.validate(articleServiceModel).isEmpty()){
+        if (!articleValidation.isValid(articleServiceModel)){
             throw new ArticleNotFoundException("Article not found");
         }
         Article article = this.modelMapper.map(articleServiceModel, Article.class);

@@ -10,7 +10,7 @@ public class CategoryNotFoundException extends RuntimeException  {
     private int statusCode;
 
     public CategoryNotFoundException() {
-        this.statusCode = HttpStatus.NOT_FOUND.value();
+
 
     }
 

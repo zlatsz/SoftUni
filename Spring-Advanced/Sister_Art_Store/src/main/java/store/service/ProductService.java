@@ -22,4 +22,6 @@ public interface ProductService {
 
     List<Product> listAll(String keyword);
 
+    ProductServiceModel decreaseProductQuantity(String productId, int quantity, ProductServiceModel productServiceModel);
+
 }

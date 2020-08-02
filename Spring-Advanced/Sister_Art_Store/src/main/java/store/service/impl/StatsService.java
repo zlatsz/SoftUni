@@ -1,4 +1,4 @@
-package store.service;
+package store.service.impl;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
