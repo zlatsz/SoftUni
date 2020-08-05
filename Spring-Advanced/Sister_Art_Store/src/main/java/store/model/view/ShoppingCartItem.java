@@ -2,7 +2,7 @@ package store.model.view;
 
 import java.io.Serializable;
 
-public class ShoppingCartItem {
+public class ShoppingCartItem implements Serializable {
 
     private OrderProductViewModel product;
     private int quantity;

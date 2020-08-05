@@ -3,19 +3,23 @@ package store.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import store.error.ProductAlreadyExistsException;
 import store.error.ProductNotFoundException;
 import store.model.entity.Category;
 import store.model.entity.Product;
 import store.model.service.ProductServiceModel;
+import store.model.view.ProductViewIndexModel;
 import store.repository.ProductRepository;
 import store.service.CategoryService;
 import store.service.ProductService;
 import store.validation.ProductValidation;
 
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,18 +30,19 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryService categoryService;
     private final ProductValidation productValidation;
     private final ModelMapper modelMapper;
-    private final Validator validator;
 
+
+    private final List<ProductViewIndexModel> offers = new ArrayList<>();
 
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository,
                               CategoryService categoryService, ProductValidation productValidation,
-                              ModelMapper modelMapper, Validator validator) {
+                              ModelMapper modelMapper) {
         this.productRepository = productRepository;
         this.categoryService = categoryService;
         this.productValidation = productValidation;
         this.modelMapper = modelMapper;
-        this.validator = validator;
+
     }
 
     @Override
@@ -154,4 +159,30 @@ public class ProductServiceImpl implements ProductService {
         return this.modelMapper
                 .map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
     }
+
+//    @Scheduled(fixedRate = 50000)
+//    @Scheduled(initialDelay = 0, fixedRate = 3600000)
+//    public void scheduleProducts() {
+//        offers.clear();
+//        System.out.println("Change offers");
+//        this.indexView();
+//    }
+//
+//    @Override
+//    public List<ProductViewIndexModel> indexView() {
+//        List<ProductServiceModel> products = this.findAllProducts();
+//        if (products.size()<4) {
+//            return null;
+//        }
+//        Random rnd = new Random();
+//        for (int i = 0; i < 4; i++) {
+//            ProductViewIndexModel product = this.modelMapper.map(products.get(rnd.nextInt(products.size())), ProductViewIndexModel.class);
+//            if(offers.stream().anyMatch(o->o.getId().equals(product.getId()))) {
+//                i--;
+//            } else {
+//                offers.add(product);
+//            }
+//        }
+//        return offers;
+//    }
 }

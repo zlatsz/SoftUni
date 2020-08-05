@@ -18,6 +18,7 @@ import store.model.service.UserServiceModel;
 import store.model.view.CategoryAllViewModel;
 import store.model.view.ProductAllViewModel;
 import store.model.view.ProductDetailsViewModel;
+import store.model.view.ProductViewIndexModel;
 import store.service.CategoryService;
 import store.service.ProductService;
 import store.web.annotations.PageTitle;
@@ -53,7 +54,9 @@ public class HomeController extends BaseController {
                 .findAllProducts()
                 .stream()
                 .map(p -> this.modelMapper.map(p, ProductAllViewModel.class))
+                .limit(4)
                 .collect(Collectors.toList());
+//        List<ProductViewIndexModel> products = this.productService.indexView();
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("products", products);
         return view("index", modelAndView);

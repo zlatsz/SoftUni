@@ -32,7 +32,8 @@ public class UserEditValidator implements Validator {
     public void validate(Object model, Errors errors) {
         UserEditBindingModel userEditBindingModel = (UserEditBindingModel) model;
 
-        User user = this.userRepository.findByUsername(userEditBindingModel.getUsername()).orElse(null);
+        User user = this.userRepository.findByUsername(userEditBindingModel.getUsername())
+                .orElse(null);
 
         if(user!=null) {
             if (!this.bCryptPasswordEncoder.matches(userEditBindingModel.getOldPassword(), user.getPassword())) {
