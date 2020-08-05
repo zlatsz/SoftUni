@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-    //    private final OfferRepository offerRepository;
     private final CategoryService categoryService;
     private final ProductValidation productValidation;
     private final ModelMapper modelMapper;
@@ -106,12 +105,6 @@ public class ProductServiceImpl implements ProductService {
                         .map(c -> this.modelMapper.map(c, Category.class))
                         .collect(Collectors.toList())
         );
-
-//        this.offerRepository.findByProduct_Id(product.getId())
-//                .ifPresent((o) -> {
-//                    o.setPrice(product.getPrice().multiply(new BigDecimal(GlobalConstants.DISCOUNT_RATIO)));
-//                    this.offerRepository.save(o);
-//                });
 
         return this.modelMapper
                 .map(this.productRepository.saveAndFlush(product), ProductServiceModel.class);
