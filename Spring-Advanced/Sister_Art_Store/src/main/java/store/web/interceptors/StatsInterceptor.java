@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import store.service.impl.StatsService;
+import store.service.StatsService;
 
 @Component
 public class StatsInterceptor extends HandlerInterceptorAdapter {

@@ -1,9 +1,9 @@
 package store.service;
 
 
+import store.model.entity.IndexProduct;
 import store.model.entity.Product;
 import store.model.service.ProductServiceModel;
-import store.model.view.ProductViewIndexModel;
 
 import java.util.List;
 
@@ -25,5 +25,5 @@ public interface ProductService {
 
     ProductServiceModel decreaseProductQuantity(String productId, int quantity, ProductServiceModel productServiceModel);
 
-//    List<ProductViewIndexModel> indexView();
+    List<IndexProduct> indexView();
 }

@@ -3,7 +3,7 @@ package store.web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import store.service.impl.StatsService;
+import store.service.StatsService;
 
 @Controller
 public class StatsController {

@@ -9,16 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import store.model.entity.IndexProduct;
 import store.model.entity.Product;
-import store.model.service.ProductServiceModel;
-import store.model.service.UserServiceModel;
 import store.model.view.CategoryAllViewModel;
 import store.model.view.ProductAllViewModel;
-import store.model.view.ProductDetailsViewModel;
-import store.model.view.ProductViewIndexModel;
 import store.service.CategoryService;
 import store.service.ProductService;
 import store.web.annotations.PageTitle;
@@ -50,13 +45,13 @@ public class HomeController extends BaseController {
                 .stream()
                 .map(category -> this.modelMapper.map(category, CategoryAllViewModel.class))
                 .collect(Collectors.toList());
-        List<ProductAllViewModel> products = this.productService
-                .findAllProducts()
-                .stream()
-                .map(p -> this.modelMapper.map(p, ProductAllViewModel.class))
-                .limit(4)
-                .collect(Collectors.toList());
-//        List<ProductViewIndexModel> products = this.productService.indexView();
+//        List<ProductAllViewModel> products = this.productService
+//                .findAllProducts()
+//                .stream()
+//                .map(p -> this.modelMapper.map(p, ProductAllViewModel.class))
+//                .limit(4)
+//                .collect(Collectors.toList());
+        List<IndexProduct> products = this.productService.indexView();
         modelAndView.addObject("categories", categories);
         modelAndView.addObject("products", products);
         return view("index", modelAndView);
