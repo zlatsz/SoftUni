@@ -17,5 +17,5 @@ public interface CommentService {
 
     Optional<Comment> findCommentById(String id);
 
-
+    void cleanUpOldComment();
 }

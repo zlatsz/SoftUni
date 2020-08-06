@@ -1,6 +1,7 @@
 package store.service.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import store.model.entity.Article;
 import store.model.entity.Comment;
@@ -10,6 +11,8 @@ import store.repository.CommentRepository;
 import store.service.CommentService;
 import store.validation.CommentValidation;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,5 +62,10 @@ public class CommentServiceImpl implements CommentService {
         return this.commentRepository.findById(id);
     }
 
+    @Override
+    public void cleanUpOldComment() {
+        Instant endTime = Instant.now().minus(1460, ChronoUnit.DAYS);
+        this.commentRepository.deleteByCommentDateBefore(endTime);
+    }
 
 }
