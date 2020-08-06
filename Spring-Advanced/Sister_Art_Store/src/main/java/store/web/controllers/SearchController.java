@@ -62,7 +62,6 @@ public class SearchController extends BaseController {
             modelAndView.addObject("model", model);
             return view("search-result", modelAndView );
         }
-
         return view("home");
     }
 }
