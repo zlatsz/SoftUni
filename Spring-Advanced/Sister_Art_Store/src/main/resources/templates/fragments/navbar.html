@@ -48,33 +48,6 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-
-                <form th:action="@{/api/search}">
-                    <div class="nav-item">
-                        <div class="input-group">
-                            <input type="text" class="form-control rounded-0"
-                                   name="keyword" id="keyword" th:value="${keyword}"
-                                   aria-describedby="inputGroupPrepend2" required>
-                            <div class="input-group-prepend">
-                                <input type="submit" value="търси" class="btn btn-success btn-sm rounded-0"
-                                       id="inputGroupPrepend2"
-                                       onclick="clearSearch()">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!--                <form th:action="@{/}">-->
-                <!--                    Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />-->
-                <!--                    &nbsp;-->
-                <!--                    <input type="submit" value="Search" />-->
-                <!--                    &nbsp;-->
-                <!--                    <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />-->
-                <!--                </form>-->
-                <script type="text/javascript">
-                    function clearSearch() {
-                        window.location = "[[@{/}]]";
-                    }
-                </script>
                 <th:block sec:authorize="isAnonymous()">
                     <li class="nav-item">
                         <a class="nav-link" style="padding-left: 14px" th:href="@{/users/login}">Вход</a>

@@ -3,6 +3,8 @@ package store.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import store.error.ProductAlreadyExistsException;
@@ -71,14 +73,6 @@ public class ProductServiceImpl implements ProductService {
                 .stream()
                 .map(p -> this.modelMapper.map(p, ProductServiceModel.class))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Product> listAll(String keyword) {
-        if (keyword != null) {
-            return productRepository.search(keyword);
-        }
-        return productRepository.findAll();
     }
 
     @Override
@@ -179,5 +173,9 @@ public class ProductServiceImpl implements ProductService {
         this.indexProductRepository.saveAll(offers);
     }
 
+    @Override
+    public List<Product> findAllBySearch(String productName) {
+        return this.productRepository.search(productName);
+    }
 
 }

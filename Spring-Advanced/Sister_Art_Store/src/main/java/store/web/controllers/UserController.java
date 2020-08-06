@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import store.model.binding.UserEditBindingModel;
 import store.model.binding.UserRegisterBindingModel;
+import store.model.service.OrderServiceModel;
 import store.model.service.RoleServiceModel;
 import store.model.service.UserServiceModel;
 import store.model.view.OrderViewModel;
@@ -160,10 +161,16 @@ public class UserController extends BaseController{
 
     @PostMapping("/delete/{id}")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView deleteMessage(@PathVariable String id) {
-        this.userService.deleteUser(id);
-
-        return redirect("/users/all");
+    public ModelAndView deleteMessage(@PathVariable String id, ModelAndView modelAndView) {
+        UserServiceModel user = this.userService.findUserById(id);
+        List<OrderServiceModel> ordersByCustomer = this.orderService.findOrdersByCustomer(user.getUsername());
+        if (!ordersByCustomer.isEmpty()){
+            modelAndView.addObject("notFound", true);
+            return view("users/users-all", modelAndView);
+        } else {
+            this.userService.deleteUser(id);
+            return redirect("/users/all");
+        }
     }
 
     private Set<String> getAuthoritiesToString(UserServiceModel userServiceModel) {

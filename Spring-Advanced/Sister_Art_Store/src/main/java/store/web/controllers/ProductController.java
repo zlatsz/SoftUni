@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import store.model.binding.ProductAddBindingModel;
+import store.model.binding.SearchBindingModel;
 import store.model.service.CategoryServiceModel;
 import store.model.service.ProductServiceModel;
 import store.model.view.CategoryAllViewModel;
@@ -19,6 +20,7 @@ import store.validation.ProductAddValidator;
 import store.validation.ProductEditValidator;
 import store.web.annotations.PageTitle;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,5 +199,20 @@ public class ProductController extends BaseController {
         }
         modelAndView.addObject("oil",oil);
         return view("products/all-oil", modelAndView);
+    }
+
+    @PostMapping("/search")
+    @PreAuthorize("isAuthenticated()")
+    public ModelAndView searchConfirm(@ModelAttribute(name = "model") SearchBindingModel model,
+                                      BindingResult bindingResult,
+                                      HttpSession session) {
+
+        if (bindingResult.hasErrors()){
+            return view("home");
+        }
+
+        session.setAttribute("searched", true);
+        session.setAttribute("input", model.getSearch());
+        return redirect("/search?page=1");
     }
 }

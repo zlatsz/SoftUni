@@ -17,6 +17,7 @@
     <form class="text-center border border-light w-75 mx-auto p-3">
         <p class="h4 mb-4">Всички потребители</p>
         <hr class="hr-2 bg-dark w-75">
+        <h4 th:if="${notFound}" class="text-danger">Потребителят има направени поръчки!</h4>
     </form>
     <div class="d-flex justify-content-center align-items-center container">
         <table class="table table-hover mx-auto justify-content-center">

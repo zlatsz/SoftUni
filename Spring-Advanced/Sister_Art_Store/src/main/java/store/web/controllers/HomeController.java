@@ -7,9 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import store.model.binding.SearchBindingModel;
 import store.model.entity.IndexProduct;
 import store.model.entity.Product;
 import store.model.view.CategoryAllViewModel;
@@ -18,6 +22,8 @@ import store.service.CategoryService;
 import store.service.ProductService;
 import store.web.annotations.PageTitle;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,6 +79,8 @@ public class HomeController extends BaseController {
                 .map(p -> this.modelMapper.map(p, ProductAllViewModel.class))
                 .collect(Collectors.toList());
         modelAndView.addObject("products", products);
+        SearchBindingModel model = new SearchBindingModel();
+        modelAndView.addObject("model", model);
         return view("home", modelAndView);
     }
 
@@ -87,14 +95,14 @@ public class HomeController extends BaseController {
 //                : this.modelMapper.map(products, ProductViewModel.class);
 //    }
 
-    @RequestMapping("/")
-    public String viewHomePage(Model model, @Param("keyword") String keyword) {
-        List<Product> products = this.productService.listAll(keyword);
-        model.addAttribute("products", products);
-        model.addAttribute("keyword", keyword);
-
-        return "search-result";
-    }
+//    @RequestMapping("/")
+//    public String viewHomePage(Model model, @Param("keyword") String keyword) {
+//        List<Product> products = this.productService.listAll(keyword);
+//        model.addAttribute("products", products);
+//        model.addAttribute("keyword", keyword);
+//
+//        return "search-result";
+//    }
 
     @GetMapping("/aboutSisters")
     @PreAuthorize("isAnonymous()")
@@ -109,4 +117,12 @@ public class HomeController extends BaseController {
     public String viewAboutOil(){
         return "about-oil";
     }
+
+    @GetMapping("/contacts")
+    @PreAuthorize("isAnonymous()")
+    @PageTitle("Contacts")
+    public String contacts(){
+        return "contacts";
+    }
+
 }

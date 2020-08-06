@@ -129,4 +129,9 @@ public class UserServiceImpl implements UserService {
         this.userRepository.delete(user);
     }
 
+    @Override
+    public UserServiceModel findUserById(String id) {
+        return this.modelMapper.map(this.userRepository.findUserById(id), UserServiceModel.class);
+    }
+
 }

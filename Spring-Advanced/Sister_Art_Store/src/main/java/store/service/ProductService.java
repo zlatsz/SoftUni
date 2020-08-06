@@ -1,6 +1,8 @@
 package store.service;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import store.model.entity.IndexProduct;
 import store.model.entity.Product;
 import store.model.service.ProductServiceModel;
@@ -21,9 +23,10 @@ public interface ProductService {
 
     List<ProductServiceModel> findAllByCategory(String category);
 
-    List<Product> listAll(String keyword);
 
     ProductServiceModel decreaseProductQuantity(String productId, int quantity, ProductServiceModel productServiceModel);
 
     List<IndexProduct> indexView();
+
+   List<Product> findAllBySearch(String formattedInput);
 }

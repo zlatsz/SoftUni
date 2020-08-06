@@ -24,4 +24,5 @@ public interface UserService extends UserDetailsService {
 
     void deleteUser(String id);
 
+    UserServiceModel findUserById(String id);
 }
