@@ -1,11 +1,9 @@
 package store.service;
 
-import store.model.entity.Comment;
 import store.model.service.ArticleServiceModel;
 import store.model.service.CommentServiceModel;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CommentService {
 
@@ -15,7 +13,7 @@ public interface CommentService {
 
     void deleteComment(String deleteId);
 
-    Optional<Comment> findCommentById(String id);
+    CommentServiceModel findCommentById(String id);
 
     void cleanUpOldComment();
 }

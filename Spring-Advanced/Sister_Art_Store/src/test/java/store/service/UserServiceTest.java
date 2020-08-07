@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import store.error.UserNameTakenException;
@@ -42,7 +43,7 @@ public class UserServiceTest {
     @InjectMocks
     UserServiceImpl service;
     @Mock
-    UserRepository userRepository;
+    UserRepository mockUserRepository;
     @Mock
     RoleService roleService;
     @Mock
@@ -56,7 +57,7 @@ public class UserServiceTest {
     UserServiceModel model;
 
     @Before
-    public void initTests() {
+    public void setUp() {
         user = new User();
         model = new UserServiceModel();
         model.setUsername("name");
@@ -64,6 +65,10 @@ public class UserServiceTest {
         model.setPassword("1234");
         model.setAuthorities(Set.of(new RoleServiceModel()));
         user.setUsername("pesho");
+
+        model.setEmail("email@abv.bg");
+        user.setPassword("1234");
+        user.setAuthorities(Set.of(new Role()));
 
     }
 
@@ -82,12 +87,12 @@ public class UserServiceTest {
                 .thenReturn(user);
         Mockito.when(modelMapper.map(user, UserServiceModel.class))
                 .thenReturn(model);
-        Mockito.when(userRepository.saveAndFlush(user))
+        Mockito.when(mockUserRepository.saveAndFlush(user))
                 .thenReturn(user);
         UserServiceModel result = service.registerUser(model);
 
         Mockito.verify(modelMapper).map(model, User.class);
-        Mockito.verify(userRepository).saveAndFlush(user);
+        Mockito.verify(mockUserRepository).saveAndFlush(user);
         Mockito.verify(modelMapper).map(user, UserServiceModel.class);
 
         assertEquals(model, result);
@@ -95,7 +100,7 @@ public class UserServiceTest {
 
     @Test
     public void loadUserByUsername_WhenUserExist_ShouldWork() {
-        Mockito.when(userRepository.findByUsername("name"))
+        Mockito.when(mockUserRepository.findByUsername("name"))
                 .thenReturn(Optional.of(user));
         User userResult = (User) service.loadUserByUsername("name");
         assertEquals(user, userResult);
@@ -103,14 +108,14 @@ public class UserServiceTest {
 
     @Test(expected = UsernameNotFoundException.class)
     public void loadUserByUsername_WhenNotUserExist_ShouldThrow() {
-        Mockito.when(userRepository.findByUsername("name"))
+        Mockito.when(mockUserRepository.findByUsername("name"))
                 .thenThrow(UsernameNotFoundException.class);
         service.loadUserByUsername("name");
     }
 
     @Test
     public void findByUsername_WhenUserExist_ShouldWork() {
-        Mockito.when(userRepository.findByUsername("name"))
+        Mockito.when(mockUserRepository.findByUsername("name"))
                 .thenReturn(Optional.of(user));
         User userResult = (User) service.loadUserByUsername("name");
         assertEquals(user, userResult);
@@ -118,7 +123,7 @@ public class UserServiceTest {
 
     @Test(expected = UsernameNotFoundException.class)
     public void findByUsername_WhenNotUserExist_ShouldThrow() {
-        Mockito.when(userRepository.findByUsername("name"))
+        Mockito.when(mockUserRepository.findByUsername("name"))
                 .thenThrow(UsernameNotFoundException.class);
         service.loadUserByUsername("name");
     }
@@ -127,7 +132,7 @@ public class UserServiceTest {
     public void editUserProfile_WhenAllOk_ShouldWork() {
         user.setPassword("1234");
         model.setUsername("name");
-        Mockito.when(userRepository.findByUsername("name"))
+        Mockito.when(mockUserRepository.findByUsername("name"))
                 .thenReturn(Optional.of(user));
         Mockito.when(encoder.matches("1234", "1234"))
                 .thenReturn(true);
@@ -141,7 +146,7 @@ public class UserServiceTest {
     public void registerUser_WhenUserAlreadyExist_ShouldThrow() {
         Mockito.when(validator.isValid(model))
                 .thenReturn(true);
-        Mockito.when(userRepository.findByUsername("name"))
+        Mockito.when(mockUserRepository.findByUsername("name"))
                 .thenThrow(UserNameTakenException.class);
         service.registerUser(model);
     }
@@ -150,7 +155,7 @@ public class UserServiceTest {
     public void findAllUsers_WhenThereIsUsers_ShouldWork(){
         List<User> users = new ArrayList<>();
         users.add(user);
-        Mockito.when(userRepository.findAll())
+        Mockito.when(mockUserRepository.findAll())
                 .thenReturn(users);
         int result = service.findAllUsers().size();
         assertEquals(users.size(), result);
@@ -162,4 +167,13 @@ public class UserServiceTest {
         Assertions.assertEquals(0, userProfileServiceModels.size());
     }
 
+    @Test
+    public void testUserFound() {
+        when(mockUserRepository.findByUsername(model.getUsername())).
+                thenReturn(Optional.of(user));
+
+        UserDetails actualDetails = service.loadUserByUsername(model.getUsername());
+
+        Assertions.assertEquals(user.getUsername(), actualDetails.getUsername());
+    }
 }

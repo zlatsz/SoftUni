@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Example;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,8 +29,9 @@ import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.security.Principal;
@@ -42,7 +44,7 @@ import java.util.List;
 public class ArticleControllerTests {
 
     @Autowired
-    private MockMvc mvc;
+    private MockMvc mockMvc;
 
     @Mock
     Principal principal;
@@ -88,36 +90,6 @@ public class ArticleControllerTests {
 
         List<ArticleDetailsViewModel> viewModels = (List<ArticleDetailsViewModel>) result.getModel().get("articles");
         assertTrue(viewModels.isEmpty());
-    }
-
-    @Test
-    @WithMockUser(value = "TestUser")
-    public void list_returnsCorrectView() throws Exception {
-        this.mvc.perform(get("/articles/details"))
-                .andExpect(view().name("articles/details"));
-    }
-
-    @Test
-    @WithMockUser(value = "TestUser")
-    public void list_returnsCorrectAttribute() throws Exception {
-        this.mvc.perform(get("/articles/details"))
-                .andExpect(view().name("articles/details"))
-                .andExpect(model().attributeExists("articles"));
-    }
-
-    @Test
-    @WithMockUser(value = "TestUser", roles = {"ADMIN"})
-    public void all_returnsCorrectView() throws Exception {
-        this.mvc.perform(get("/articles/all"))
-                .andExpect(view().name("article/all-articles"));
-    }
-
-    @Test
-    @WithMockUser(value = "TestUser", roles = {"ADMIN"})
-    public void all_returnsCorrectAttribute() throws Exception {
-        this.mvc.perform(get("/articles/all"))
-                .andExpect(view().name("article/all-articles"))
-                .andExpect(model().attributeExists("articles"));
     }
 
 }

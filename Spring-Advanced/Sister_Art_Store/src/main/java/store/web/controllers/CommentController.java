@@ -57,7 +57,7 @@ public class CommentController extends BaseController {
     @DeleteMapping("/delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView delete(@ModelAttribute(name="deleteId") String deleteId) {
-        Comment comment = this.commentService.findCommentById(deleteId).orElse(null);
+        Comment comment = modelMapper.map(this.commentService.findCommentById(deleteId), Comment.class);
         Article article = comment.getArticle();
         this.commentService.deleteComment(deleteId);
         return redirect("/articles/details/" + article.getId());

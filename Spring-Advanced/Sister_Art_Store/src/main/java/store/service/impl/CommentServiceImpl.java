@@ -1,12 +1,12 @@
 package store.service.impl;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import store.error.CommentNotFoundException;
 import store.model.entity.Article;
 import store.model.entity.Comment;
 import store.model.service.ArticleServiceModel;
+import store.model.service.CategoryServiceModel;
 import store.model.service.CommentServiceModel;
 import store.repository.CommentRepository;
 import store.service.CommentService;
@@ -15,7 +15,6 @@ import store.validation.CommentValidation;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,8 +58,10 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Optional<Comment> findCommentById(String id) {
-        return this.commentRepository.findById(id);
+    public CommentServiceModel findCommentById(String id) {
+        Comment comment = this.commentRepository.findById(id)
+                .orElseThrow(CommentNotFoundException::new);
+        return this.modelMapper.map(comment, CommentServiceModel.class);
     }
 
     @Override
