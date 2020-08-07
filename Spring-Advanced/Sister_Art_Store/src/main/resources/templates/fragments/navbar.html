@@ -38,6 +38,7 @@
 
                     </div>
                 </li>
+                <th:block sec:authorize="isAnonymous()">
                 <li class="nav-item text-center d-flex justify-content-center align-items-center">
                     <a class="nav-link" th:href="@{/contacts}">
                         <i class="fas fa-phone-volume" style='font-size:24px'></i>
@@ -46,6 +47,7 @@
                         <!--                             th:width="30" th:height="24" alt="Contacts"/> -->
                     </a>
                 </li>
+                </th:block>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <th:block sec:authorize="isAnonymous()">

@@ -13,7 +13,7 @@ public interface OrderService {
 
     OrderServiceModel prepareOrder(List<ShoppingCartItem> cart, String customer);
 
-    void createOrder(OrderServiceModel cartServiceModel);
+    boolean createOrder(OrderServiceModel orderServiceModel);
 
     List<OrderServiceModel> findAllOrders();
 

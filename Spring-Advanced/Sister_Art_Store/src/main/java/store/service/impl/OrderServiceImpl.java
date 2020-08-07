@@ -4,7 +4,6 @@ package store.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import store.error.OrderNotFoundException;
-import store.error.ProductNotFoundException;
 import store.model.entity.Order;
 import store.model.service.OrderProductServiceModel;
 import store.model.service.OrderServiceModel;
@@ -18,7 +17,6 @@ import store.service.UserService;
 import javax.validation.Validator;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -86,9 +84,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(OrderServiceModel orderServiceModel) {
+    public boolean createOrder(OrderServiceModel orderServiceModel) {
         orderServiceModel.setFinishedOn(LocalDateTime.now());
         this.orderRepository.save(this.modelMapper.map(orderServiceModel, Order.class));
+        return true;
     }
 
     @Override

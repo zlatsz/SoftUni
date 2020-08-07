@@ -3,6 +3,7 @@ package store.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import store.error.CommentNotFoundException;
 import store.model.entity.Article;
 import store.model.entity.Comment;
 import store.model.service.ArticleServiceModel;
@@ -34,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentServiceModel addComment(CommentServiceModel commentServiceModel, ArticleServiceModel articleServiceModel) {
         if (!commentValidation.isValid(commentServiceModel)){
-            throw new IllegalArgumentException("Comment not found");
+            throw new CommentNotFoundException("Comment not found");
         }
         Comment comment = this.modelMapper.map(commentServiceModel, Comment.class);
         Article article = this.modelMapper.map(articleServiceModel, Article.class);

@@ -33,7 +33,7 @@ public class UserControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository mockUserRepository;
 
     @Autowired
     UserController userController;
@@ -69,7 +69,7 @@ public class UserControllerTest {
                                 .param("confirmPassword", "1234")
                                 .param("email", "1234@abv.bg")
                 );
-        Assert.assertEquals(0, this.userRepository.count());
+        Assert.assertEquals(0, this.mockUserRepository.count());
     }
 
 

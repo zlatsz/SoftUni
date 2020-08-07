@@ -82,7 +82,7 @@ public class ArticleController extends BaseController {
     @GetMapping("/info")
     @PreAuthorize("hasRole('ROLE_USER')")
     @PageTitle("All Articles")
-    public ModelAndView allArticlesInfo(ModelAndView modelAndView) {
+    public ModelAndView allArticlesInfo(ModelAndView modelAndView, Principal principal) {
         List<CategoryAllViewModel> categories = this.categoryService
                 .findAllCategories()
                 .stream()
