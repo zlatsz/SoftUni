@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import store.model.binding.ArticleAddBindingModel;
 import store.model.binding.CommentAddBindingModel;
+import store.model.binding.SearchBindingModel;
 import store.model.entity.Article;
 import store.model.service.*;
 import store.model.view.*;
@@ -94,6 +95,8 @@ public class ArticleController extends BaseController {
                         .stream()
                         .map(a -> this.modelMapper.map(a, ArticleDetailsViewModel.class))
                         .collect(Collectors.toList()));
+        SearchBindingModel model = new SearchBindingModel();
+        modelAndView.addObject("model", model);
         return view("articles/all-details", modelAndView);
     }
 

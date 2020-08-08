@@ -15,12 +15,21 @@
 <!-- Page Content -->
 <main>
     <div class="container">
-        <div class="d-flex row">
+        <div class="d-flex row mt-2">
             <div class="col-lg-3">
 
                 <h3 class="my-4 text-center">𝑺𝒊𝒔𝒕𝒆𝒓𝒔 𝑨𝒓𝒕</h3>
+                <div class="row ">
+                    <form class="form-inline justify-content-center mt-2 mt-md-0 flex-wrap"
+                          th:action="@{/products/search}" method="post" th:object="${model}">
 
-                <div class="list-group" th:each="c : ${categories}" th:object="${c}">
+                        <input class="form-control mr-sm-1" type="text" placeholder="Намерете продукт" aria-label="Search"
+                               th:field="*{search}"  name="search">
+
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Търси</button>
+                    </form>
+                </div>
+                <div class="list-group mt-2" th:each="c : ${categories}" th:object="${c}">
                     <a th:href="@{/categories/details/{id}(id=${c.id})}" class="list-group-item text-dark"
                        th:text="*{name}">Category 2</a>
                 </div>

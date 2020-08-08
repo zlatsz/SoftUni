@@ -63,7 +63,7 @@ public class UserControllerTest {
 
     @Test
     @Transactional
-    public void register_failRegistersUserCorrectly_redirectCorrectly() throws Exception {
+    public void register_RegistersUserCorrectly() throws Exception {
         this.mvc
                 .perform(
                         post("/register")
@@ -72,7 +72,20 @@ public class UserControllerTest {
                                 .param("confirmPassword", "1234")
                                 .param("email", "1234@abv.bg")
                 );
-        Assert.assertEquals(0, this.mockUserRepository.count());
+        Assert.assertEquals(1, this.mockUserRepository.count());
     }
 
+    @Test
+    public void testNewUser() throws Exception {
+        this.mvc.perform(
+                post("/users/register").
+                        with(csrf()).
+                        contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("username", "gosh")
+                        .param("password", "1234")
+                        .param("confirmPassword", "1234")
+                        .param("email", "12@abv.bg"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/users/login"));
+    }
 }

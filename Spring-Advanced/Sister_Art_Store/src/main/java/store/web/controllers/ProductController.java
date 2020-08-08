@@ -177,6 +177,8 @@ public class ProductController extends BaseController {
             }
         }
         modelAndView.addObject("jewellery", jewellery);
+        SearchBindingModel model = new SearchBindingModel();
+        modelAndView.addObject("model", model);
         return view("products/all-jewellery", modelAndView);
     }
 
@@ -198,6 +200,8 @@ public class ProductController extends BaseController {
             }
         }
         modelAndView.addObject("oil",oil);
+        SearchBindingModel model = new SearchBindingModel();
+        modelAndView.addObject("model", model);
         return view("products/all-oil", modelAndView);
     }
 

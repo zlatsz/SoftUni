@@ -19,7 +19,7 @@ public class BackGroundImgInterceptor extends HandlerInterceptorAdapter {
         int day = localDate.getDayOfWeek().getValue();
 
         if (day > 0 && day <= 5) {
-            url = "/images/logo.png";
+            url = "/images/logo-bg.png";
         } else if (day == 7 || day == 6) {
             url = "/images/oil.jpg";
         }

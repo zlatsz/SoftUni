@@ -29,5 +29,21 @@ public class HomeControllerTest {
     public void home_ReturnsCorrectView() throws Exception {
         this.mvc.perform(get("/home")).andExpect(view().name("home"));
     }
+
+    @Test
+    public void oil_ReturnsCorrectView() throws Exception {
+        this.mvc.perform(get("/aboutOil")).andExpect(view().name("about-oil"));
+    }
+
+    @Test
+    public void sister_ReturnsCorrectView() throws Exception {
+        this.mvc.perform(get("/aboutSisters")).andExpect(view().name("about-us"));
+    }
+
+    @Test
+    public void contact_ReturnsCorrectView() throws Exception {
+        this.mvc.perform(get("/contacts")).andExpect(view().name("contacts"));
+    }
+
 }
 
