@@ -84,26 +84,6 @@ public class HomeController extends BaseController {
         return view("home", modelAndView);
     }
 
-//    @GetMapping("/api/search")
-//    @ResponseBody
-//    @PreAuthorize("isAnonymous()")
-//    public ProductViewModel allUsers(@Param("keyword") String name) {
-//
-//        List<Product> products = this.productService.listAll(name);
-//
-//        return products == null ? new ProductViewModel()
-//                : this.modelMapper.map(products, ProductViewModel.class);
-//    }
-
-//    @RequestMapping("/")
-//    public String viewHomePage(Model model, @Param("keyword") String keyword) {
-//        List<Product> products = this.productService.listAll(keyword);
-//        model.addAttribute("products", products);
-//        model.addAttribute("keyword", keyword);
-//
-//        return "search-result";
-//    }
-
     @GetMapping("/aboutSisters")
     @PreAuthorize("isAnonymous()")
     @PageTitle("About Us")

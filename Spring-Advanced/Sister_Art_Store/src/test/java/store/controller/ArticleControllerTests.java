@@ -79,17 +79,4 @@ public class ArticleControllerTests {
         assertTrue(viewModels.isEmpty());
     }
 
-    @Test
-    @WithMockUser
-    public void getArticle_whenUploaderNoArticle() {
-        ModelAndView modelAndView = new ModelAndView();
-        when(principal.getName())
-                .thenReturn("");
-
-        ModelAndView result = controller.allArticlesInfo(modelAndView, principal);
-
-        List<ArticleDetailsViewModel> viewModels = (List<ArticleDetailsViewModel>) result.getModel().get("articles");
-        assertTrue(viewModels.isEmpty());
-    }
-
 }
