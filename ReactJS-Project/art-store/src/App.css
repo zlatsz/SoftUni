@@ -2,10 +2,3 @@
   margin: 0;
   padding: 0;
 }
-
-@import url('https://fonts.googleapis.com/css?family=Roboto');
-
-.app {
-  font-family: "Roboto", sans-serif;
-  font-size: 18px;
-}
