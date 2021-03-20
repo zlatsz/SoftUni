@@ -21,6 +21,7 @@
 
 .div-landing-logo img{
   width: 40%;
+  border-radius: 50%;
 }
 
 
@@ -48,6 +49,7 @@
 .fr-landing-header-logo-center{
   width: 10%;
   padding-top: 15px;
+  border-radius: 55%;
 }
 
 .fr-landing-header-title {
@@ -72,7 +74,7 @@
 }
 
 .fr-landing-header-button-header:hover {
-  background: black;
+  background:purple;
   cursor: pointer;
 }
 
