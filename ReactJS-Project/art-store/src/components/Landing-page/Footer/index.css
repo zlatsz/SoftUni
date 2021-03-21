@@ -1,5 +1,5 @@
 .landing-footer {
-    margin-top: 35px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -9,11 +9,17 @@
     font-weight: lighter;
   }
 
-  .landing-footer-link i.fa::before{
+  .landing-footer-link .fab{
+      color: white;
       padding-right: 5px;
   }
+
+  .fa-facebook-f:before, .fa-link:before{
+    padding-right: 3px;
+  }
   
-  .landing-footer-link i.fa {
+  .landing-footer-link .fas {
     color: white;
-    padding-right: 15px;
+    padding-right: 10px;
+ 
   }

@@ -18,7 +18,7 @@ const Blog = () => {
                     available in the building. The three-story space highlighted the best of SoHo
                     including the incredible architecture and the high-end food and entertainment
                         found in the area.</p>
-                    <button>Прочети повече...</button>
+                    <Link to="/login"><button>Прочети повече...</button></Link>
                 </div>
                 <img src={process.env.PUBLIC_URL + '/set.jpg'} alt="oil" />
             </article>

@@ -19,7 +19,7 @@ const Header = () => {
                 <img className="fr-landing-header-logo-center" src="logo.png" alt="logo" />
                 <h3 className="fr-landing-header-title">Sisters Art Store</h3>
                 <h1 className="fr-landing-header-content">Правим всичко с много любов и внимание!</h1>
-                <button className="fr-landing-header-button-header">Влез</button>
+                <Link to="/login"><button className="fr-landing-header-button-header">Влез</button></Link>
             </>
             <section className="landing-options">
                 <article className="landing-options-option">
