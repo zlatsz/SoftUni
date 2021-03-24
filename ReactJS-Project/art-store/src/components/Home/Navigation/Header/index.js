@@ -1,6 +1,8 @@
 import "./index.css"
 import { Link, NavLink } from 'react-router-dom';
 import { Component } from 'react';
+// import AddProducts from "../../AddProducts"
+// import Profiles from "../../Profiles"
 
 class Header extends Component {
     state = {
@@ -30,16 +32,16 @@ class Header extends Component {
                             <NavLink to="/products/all" className="header-navigation-bottom-left-title"> Продукти </NavLink>
                             <ul className="header-navigation-bottom-left-sub">
                                 <li className="header-navigation-bottom-left-sub-item ">
-                                <NavLink to="/products/jewellery">Бижута</NavLink>
+                                    <NavLink to="/products/jewellery">Бижута</NavLink>
                                 </li>
                                 <li className="header-navigation-bottom-left-sub-item ">
-                                <NavLink to="/products/cosmetics">Козметика</NavLink>
+                                    <NavLink to="/products/cosmetics">Козметика</NavLink>
                                 </li>
                                 <li className="header-navigation-bottom-left-sub-item ">
-                                <NavLink to="/products/carts">Картички</NavLink>
+                                    <NavLink to="/products/carts">Картички</NavLink>
                                 </li>
                                 <li className="header-navigation-bottom-left-sub-item ">
-                                <NavLink to="/products/more">Още...</NavLink>
+                                    <NavLink to="/products/more">Още...</NavLink>
                                 </li>
                             </ul>
                         </li>
@@ -48,6 +50,22 @@ class Header extends Component {
                         </li>
                         <li>
                             <NavLink to="/blog"> Блог </NavLink>
+                        </li>
+                    </ul>
+                    <ul className="header-navigation-bottom-middle">
+                        <li className="header-navigation-bottom-middle-products">
+                             <a> Добави <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                             <ul className="header-navigation-bottom-middle-sub">
+                                <li className="header-navigation-bottom-middle-sub-item ">
+                                    <NavLink to="/add-products">Добави продукт</NavLink>
+                                </li>
+                                <li className="header-navigation-bottom-middle-sub-item ">
+                                    <NavLink to="/add-posts">Добави статия</NavLink>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="header-navigation-bottom-middle-profiles">
+                            <NavLink to="/profiles"> Потребители </NavLink>
                         </li>
                     </ul>
                     <ul className="header-navigation-bottom-right">

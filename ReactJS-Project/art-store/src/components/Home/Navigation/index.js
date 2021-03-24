@@ -1,7 +1,7 @@
 import './index.css';
 import Header from './Header';
 import Carousel from './Carousel';
-import Products from "./Products";
+import Products from "../../Products";
 import { useEffect, useState } from 'react';
 
 const Navigation = () => {
@@ -37,7 +37,7 @@ const Navigation = () => {
         return () => {
             clearInterval(intervalId);
         };
-    }, []);
+    }, [slides.length]);
     return (
         <>
         <header className="home-header">

@@ -1,0 +1,52 @@
+.login-page {
+    margin: 0 auto;
+    padding: 0;
+    /* max-width: 1270px; */
+    height: 600px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(/src/images/oil.jpg) no-repeat;
+    object-fit: cover;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.add-product-wrapper {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-product-content {
+    background-color: white;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 5px -1px #424242;
+    padding: 10px;
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.add-product-content input {
+padding-top: 5px;
+}
+
+.add-product-submit {
+    margin: 24px auto;
+    text-transform: uppercase;
+    border-radius: 40px;
+    line-height: 0px;
+    background-color: #AB5FAC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    padding: 20px;
+}
+
+.add-product-submit:hover {
+    background: purple;
+    cursor: pointer;
+}
