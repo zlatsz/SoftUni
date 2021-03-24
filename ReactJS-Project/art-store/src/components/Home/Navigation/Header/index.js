@@ -1,8 +1,6 @@
 import "./index.css"
 import { Link, NavLink } from 'react-router-dom';
 import { Component } from 'react';
-// import AddProducts from "../../AddProducts"
-// import Profiles from "../../Profiles"
 
 class Header extends Component {
     state = {

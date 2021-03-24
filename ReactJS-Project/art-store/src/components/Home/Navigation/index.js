@@ -10,12 +10,14 @@ const Navigation = () => {
         {
             id: 1,
             title: "First Slide",
-            link: process.env.PUBLIC_URL + '/car-jew.jpg'
+            link: process.env.PUBLIC_URL + '/car-jew.jpg',
+            path: '/products/all'
         },
         {
             id: 2,
             title: "Second Slide",
-            link: process.env.PUBLIC_URL + '/set.jpg'
+            link: process.env.PUBLIC_URL + '/set.jpg',
+            path: '/blog'
         },
     ];
     const slideNext = (e) => {

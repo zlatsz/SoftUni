@@ -12,7 +12,7 @@ const AddProducts = () => {
     return (
         <>
             <section className="login-page">
-                <Link to="/" className="login-logo">
+                <Link to="/home" className="login-logo">
                     <img src="logo.png" alt="logo" />
                 </Link>
                 <article className="add-product-wrapper">

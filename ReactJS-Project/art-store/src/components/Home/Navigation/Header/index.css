@@ -158,3 +158,11 @@
   background: #AB5FAC;
 }
 
+.header-navigation-bottom-left-sub-item{
+  padding: 5px;
+}
+
+.header-navigation-bottom-left-sub-item:hover{
+  background: #AB5FAC;
+}
+
