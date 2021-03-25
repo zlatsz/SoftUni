@@ -8,10 +8,10 @@ const Carousel = (props) => {
             <NavLink to={props.image.path}><img className="home-header-carousel-img" src={props.image.link} alt="Slider_image" /></NavLink>
             <article className="home-header-carousel-btn-wrapper">
                 <button onClick={props.slidePrev}>
-                <i class="fas fa-caret-left fa-2x"></i>
+                <i className="fas fa-caret-left fa-2x"></i>
                 </button>
                 <button onClick={props.slideNext}>
-                <i class="fas fa-caret-right fa-2x"></i>
+                <i className="fas fa-caret-right fa-2x"></i>
                 </button>
 
             </article>

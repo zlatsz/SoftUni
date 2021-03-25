@@ -16,10 +16,10 @@ class Header extends Component {
                         <img src="logo.png" alt="logo" />
                     </Link>
                     <form className="home-search" onSubmit={this.submitHandler}>
-                        <i class="fas fa-phone-volume">0888808808</i>
+                        <i className="fas fa-phone-volume">0888808808</i>
                         <input type="text" value={search} onChange={this.changeHandler} />
 
-                        <button type="submit" className="home-search-btn"><i class="fa fa-search fa-lg"></i></button>
+                        <button type="submit" className="home-search-btn"><i className="fa fa-search fa-lg"></i></button>
 
                     </form>
 
@@ -52,7 +52,7 @@ class Header extends Component {
                     </ul>
                     <ul className="header-navigation-bottom-middle">
                         <li className="header-navigation-bottom-middle-products">
-                             <a> Добави <i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                             <a> Добави <i className="fa fa-caret-down" aria-hidden="true"></i></a>
                              <ul className="header-navigation-bottom-middle-sub">
                                 <li className="header-navigation-bottom-middle-sub-item ">
                                     <NavLink to="/add-products">Добави продукт</NavLink>
@@ -68,13 +68,13 @@ class Header extends Component {
                     </ul>
                     <ul className="header-navigation-bottom-right">
                         <li className="header-navigation-bottom-right-profile">
-                            <NavLink to="/profile"> <i class="fas fa-user fa-lg" /></NavLink>
+                            <NavLink to="/profile"> <i className="fas fa-user fa-lg" /></NavLink>
                         </li>
                         <li className="header-navigation-bottom-right-profile">
-                            <NavLink to="/cart"> <i class="fas fa-shopping-cart"></i></NavLink>
+                            <NavLink to="/cart"> <i className="fas fa-shopping-cart"></i></NavLink>
                         </li>
                         <li className="header-navigation-bottom-right-profile">
-                            <NavLink to="/logout"> <i class="fas fa-sign-out-alt"></i></NavLink>
+                            <NavLink to="/logout"> <i className="fas fa-sign-out-alt"></i></NavLink>
                         </li>
                     </ul>
                 </nav>

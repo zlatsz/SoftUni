@@ -11,13 +11,12 @@ const Blog = () => {
             <article className='landing-blog-wrapper'>
                 <div className="landing-about-blog">
                     <h3>ЕТЕРИЧНИТЕ МАСЛА И ТЯХНОТО ВЛИЯНИЕ ЗА ЖИВОТ БЕЗ БОЛЕСТ</h3>
-                    <p>On Tuesday, April 3, 2018 Luxury Portfolio and Mansion Global co-hosted
-                    вЂњA Night in SohoвЂќ in one of ManhattanвЂ™s premier penthouses at One Vandam
-                    listed by Stribling & Associates. The event was the perfect opportunity to
-                    highlight the potential to entertain 100+ people in this, the last penthouse
-                    available in the building. The three-story space highlighted the best of SoHo
-                    including the incredible architecture and the high-end food and entertainment
-                        found in the area.</p>
+                    <p>Хармонията между духа и тялото е най-доброто, което можем да пожелаем за себе си и близките си.
+                       Етеричните масла се използват от древни времена не само заради аромата, но и въздействието им върху ума, 
+                       тялото и емоциите. Доказано е, че имат способността да намаляват болката и възпаленията, 
+                       да облекчават депресивни състояния и да подобряват паметта.
+                       В този блог ще се постараем да ви предоставим систематизирана информация за приложението 
+                       на етеричните масла на doTerra.</p>
                     <Link to="/login"><button>Прочети повече...</button></Link>
                 </div>
                 <img src={process.env.PUBLIC_URL + '/set.jpg'} alt="oil" />
