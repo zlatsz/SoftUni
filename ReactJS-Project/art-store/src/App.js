@@ -5,8 +5,9 @@ import LandingPage from './components/Landing-page';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
-import AddProducts from "./components/AddProducts/";
+import AddProducts from "./components/AddProducts";
 import Profiles from "./components/Profiles";
+import AddPosts from "./components/AddPosts";
 import './App.css';
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
           <Route path="/home" exact component={Home} />
           <Route path="/add-products" exact component={AddProducts} />
           <Route path="/profiles" exact component={Profiles} />
+          <Route path="/add-posts" exact component={AddPosts} />
         </Switch>
     );
   }
