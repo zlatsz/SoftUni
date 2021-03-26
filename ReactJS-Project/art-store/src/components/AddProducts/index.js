@@ -2,11 +2,20 @@ import './index.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from "../Landing-page/Footer"
+import * as productsService from '../../services/productsService';
 
-const AddProducts = () => {
+const AddProducts = ({
+    history,
+}) => {
 
     const onSubmitHandler = function (e) {
         e.preventDefault();
+        const { category, name, description, imageURL, price } = e.target;
+
+        productsService.create(name.value, description.value, imageURL.value, category.value, price.value)
+            .then(() => {
+                history.push('/home');
+            })
     };
 
     return (
@@ -20,10 +29,10 @@ const AddProducts = () => {
                     <form className="add-product-content" onSubmit={onSubmitHandler}>
                         <label htmlFor="category">Категория</label>
                         <select type="text" name="category" id="category" >
-                            <option> jewellery </option>
-                            <option> cosmetic </option>
-                            <option> cart </option>
-                            <option> other </option>
+                            <option value="jewellery"> jewellery </option>
+                            <option value="cosmetic"> cosmetic </option>
+                            <option value="cart"> cart </option>
+                            <option value="other"> other </option>
                         </select>
 
                         <label htmlFor="name">Име</label>

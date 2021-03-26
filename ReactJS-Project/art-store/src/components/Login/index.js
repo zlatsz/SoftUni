@@ -10,13 +10,13 @@ class Login extends Component {
     };
 
     changeHandler(event) {
-        this.setState({value: event.target.value});
-      }
-      submitHandler(event) {
+        this.setState({ value: event.target.value });
+    }
+    submitHandler(event) {
         event.preventDefault();
         // Doing some AJAX with the data...
-      }
-    
+    }
+
 
     render() {
         const { email, password } = this.state;

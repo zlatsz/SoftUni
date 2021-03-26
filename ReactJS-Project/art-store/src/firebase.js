@@ -1,7 +1,6 @@
  var firebaseConfig = {
     apiKey: "AIzaSyDeOQ2G6uKZEWG659FSpvsTsiHwv8Td1P4",
     authDomain: "reactjs-532f1.firebaseapp.com",
-    databaseURL: "https://reactjs-532f1.firebaseapp.com",
     projectId: "reactjs-532f1",
     storageBucket: "reactjs-532f1.appspot.com",
     messagingSenderId: "198128184220",
