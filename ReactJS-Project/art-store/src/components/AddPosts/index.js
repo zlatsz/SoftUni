@@ -2,11 +2,20 @@ import './index.css';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from "../Landing-page/Footer"
+import * as postsService from '../../services/postsService';
 
-const AddPosts = () => {
+const AddPosts = ({
+    history,
+}) => {
 
     const onSubmitHandler = function (e) {
         e.preventDefault();
+        const { name, author, imageURL } = e.target;
+
+        postsService.create(name.value, author.value, imageURL.value)
+            .then(() => {
+                history.push('/home');
+            })
     };
 
     return (

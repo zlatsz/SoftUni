@@ -12,7 +12,7 @@ const AddProducts = ({
         e.preventDefault();
         const { category, name, description, imageURL, price } = e.target;
 
-        productsService.create(name.value, description.value, imageURL.value, category.value, price.value)
+        productsService.create(category.value, name.value, description.value, imageURL.value, price.value)
             .then(() => {
                 history.push('/home');
             })
