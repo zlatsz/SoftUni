@@ -1,16 +1,21 @@
 const url = 'https://reactjs-532f1-default-rtdb.firebaseio.com/posts/';
 
-export const getAll = () => {
+export async function getAll() {
+    let data = await fetch(url +'.json');
+    let response = await data.json();
+    let all = [];
+    if (response) {
+        Object.keys(response).forEach(key => {
+            all.push({ id: key, ...response[key] });
+        });
+    }
+    return all;
+};
 
-    return fetch(url)
-        .then(res => res.json())
-        .catch(error => console.log(error));
-}
-
-export const getOne = (postId) => {
-    return fetch(`${url}/${postId}`)
-        .then(res => res.json())
-        .catch(error => console.log(error));
+export async function getOne(id) {
+    let data = await fetch(url+id+'.json');
+    let response = await data.json();
+    return response;
 }
 
 export const create = (postName, author, imageURL) => {

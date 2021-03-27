@@ -28,13 +28,13 @@ const ProductDetails = ({
     };
 
     const onSubmitHandler = function (e) {
-        // e.preventDefault();
-        // // const { productId, quantity, userId } = e.target;
+        e.preventDefault();
+        // const { productId, quantity, userId } = e.target;
 
-        // // productsService.create(category.value, name.value, description.value, imageURL.value, price.value)
-        // //     .then(() => {
-        // //         history.push('/cart');
-        // //     })
+        // productsService.create(category.value, name.value, description.value, imageURL.value, price.value)
+        //     .then(() => {
+        //         history.push('/cart');
+        //     })
     };
     
     return (
