@@ -1,5 +1,4 @@
 import './index.css';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from "../Landing-page/Footer"
 import * as postsService from '../../services/postsService';
@@ -14,7 +13,7 @@ const AddPosts = ({
 
         postsService.create(name.value, author.value, imageURL.value)
             .then(() => {
-                history.push('/home');
+                history.push('/blog');
             })
     };
 

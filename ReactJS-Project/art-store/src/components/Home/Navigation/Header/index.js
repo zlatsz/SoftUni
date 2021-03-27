@@ -13,7 +13,7 @@ class Header extends Component {
                 <section className="header-navigation-upper">
                     <h3>Sisters Art Store</h3>
                     <Link to="/home" className="header-home-logo">
-                        <img src="logo.png" alt="logo" />
+                        <img src= {process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
                     </Link>
                     <form className="home-search" onSubmit={this.submitHandler}>
                         <i className="fas fa-phone-volume">0888808808</i>
@@ -27,10 +27,10 @@ class Header extends Component {
                 <nav className="header-navigation-bottom">
                     <ul className="header-navigation-bottom-left">
                         <li className="header-navigation-bottom-left-item">
-                            <NavLink to="/products/all" className="header-navigation-bottom-left-title"> Продукти </NavLink>
+                            <a className="header-navigation-bottom-left-title"> Продукти </a>
                             <ul className="header-navigation-bottom-left-sub">
                                 <li className="header-navigation-bottom-left-sub-item ">
-                                    <NavLink to="/products/jewellery">Бижута</NavLink>
+                                    <NavLink to="/products/jewelleries">Бижута</NavLink>
                                 </li>
                                 <li className="header-navigation-bottom-left-sub-item ">
                                     <NavLink to="/products/cosmetics">Козметика</NavLink>
@@ -39,7 +39,7 @@ class Header extends Component {
                                     <NavLink to="/products/carts">Картички</NavLink>
                                 </li>
                                 <li className="header-navigation-bottom-left-sub-item ">
-                                    <NavLink to="/products/more">Още...</NavLink>
+                                    <NavLink to="/products/others">Още...</NavLink>
                                 </li>
                             </ul>
                         </li>

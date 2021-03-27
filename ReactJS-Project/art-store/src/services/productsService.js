@@ -1,12 +1,40 @@
 const url = 'https://reactjs-532f1-default-rtdb.firebaseio.com/products/';
 
-export const getAll = (category = '') => {
-    let productsUrl = url + ((category && category !== 'all') ? `?category=${category}` : '');
+export async function getAll() {
+    let data = await fetch(url +'.json');
+    let response = await data.json();
+    let all = [];
+    if (response) {
+        Object.keys(response).forEach(key => {
+            all.push({ id: key, ...response[key] });
+        });
+    }
+    return all;
+};
 
-    return fetch(productsUrl)
-        .then(res => res.json())
-        .catch(error => console.log(error));
-}
+export async function getCategory(category){
+    let urlJ = ('https://reactjs-532f1-default-rtdb.firebaseio.com/products.json') ;
+    let productsUrl =(urlJ + `?orderBy="category"&equalTo="${category}"&print=pretty`);
+    let data = await fetch(productsUrl);
+    let response = await data.json();
+    let all = [];
+    if (response) {
+        Object.keys(response).forEach(key => {
+            all.push({ id: key, ...response[key] });
+        });
+    }
+    return all;
+};
+
+// export const getCategory = (category = '') => {
+//     let urlJ = ('https://reactjs-532f1-default-rtdb.firebaseio.com/products.json') ;
+//     let productsUrl =(urlJ + `?orderBy="category"&equalTo="${category}"&print=pretty`);
+
+//     return fetch(productsUrl)
+//         .then(res => res.json())
+//         .catch(error => console.log(error));
+// };
+
 
 export const getOne = (productId) => {
     return fetch(`${url}/${productId}`)

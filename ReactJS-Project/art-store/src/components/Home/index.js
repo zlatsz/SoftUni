@@ -1,6 +1,6 @@
 import './index.css';
 import Navigation from './Navigation';
-// import Products from './Products';
+import Products from '../Products/HomeView';
 import Footer from './Footer';
 
 const Home = () => {
@@ -8,7 +8,7 @@ const Home = () => {
         <>
             <Navigation />
 
-            {/* <Products /> */}
+            <Products />
     
             <Footer />
 

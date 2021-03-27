@@ -1,7 +1,6 @@
 import './index.css';
 import Header from './Header';
 import Carousel from './Carousel';
-import Products from "../../Products";
 import { useEffect, useState } from 'react';
 
 const Navigation = () => {
@@ -52,7 +51,6 @@ const Navigation = () => {
             />
 
         </header>
-        <Products/>
         </>
     );
 };

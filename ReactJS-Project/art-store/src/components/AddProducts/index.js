@@ -1,5 +1,4 @@
 import './index.css';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from "../Landing-page/Footer"
 import * as productsService from '../../services/productsService';
@@ -29,10 +28,10 @@ const AddProducts = ({
                     <form className="add-product-content" onSubmit={onSubmitHandler}>
                         <label htmlFor="category">Категория</label>
                         <select type="text" name="category" id="category" >
-                            <option value="jewellery"> jewellery </option>
-                            <option value="cosmetic"> cosmetic </option>
-                            <option value="cart"> cart </option>
-                            <option value="other"> other </option>
+                            <option value="jewelleries"> Бижута </option>
+                            <option value="cosmetics"> Козметика</option>
+                            <option value="carts"> Картички </option>
+                            <option value="others"> Други </option>
                         </select>
 
                         <label htmlFor="name">Име</label>
