@@ -26,20 +26,10 @@ export async function getCategory(category){
     return all;
 };
 
-// export const getCategory = (category = '') => {
-//     let urlJ = ('https://reactjs-532f1-default-rtdb.firebaseio.com/products.json') ;
-//     let productsUrl =(urlJ + `?orderBy="category"&equalTo="${category}"&print=pretty`);
-
-//     return fetch(productsUrl)
-//         .then(res => res.json())
-//         .catch(error => console.log(error));
-// };
-
-
-export const getOne = (productId) => {
-    return fetch(`${url}/${productId}`)
-        .then(res => res.json())
-        .catch(error => console.log(error));
+export async function getOne(id) {
+    let data = await fetch(url+id+'.json');
+    let response = await data.json();
+    return response;
 }
 
 export const create = (category, productName, description, imageURL,price ) => {
@@ -60,3 +50,14 @@ export const create = (category, productName, description, imageURL,price ) => {
     
     return  fetch((url+'.json'), postInfo);
 };
+
+export const like = (productId, likes) => {
+    return fetch(url+productId+'.json', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({likes})
+    })
+        .then(res => res.json());
+}

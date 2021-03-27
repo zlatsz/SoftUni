@@ -8,7 +8,8 @@ import Home from './components/Home';
 import AddProducts from "./components/AddProducts";
 import Profiles from "./components/Profiles";
 import AddPosts from "./components/AddPosts";
-import Products from "./components/Products/CategoryView"
+import Products from "./components/Products/CategoryView";
+import ProductDetails from "./components/Product/ProductDetails";
 import './App.css';
 
 class App extends Component {
@@ -31,6 +32,7 @@ class App extends Component {
           <Route path="/profiles" exact component={Profiles} />
           <Route path="/add-posts" exact component={AddPosts} />
           <Route path="/products/:category" component={Products} />
+          <Route path="/product/details/:productId" exact component={ProductDetails} />
         </Switch>
     );
   }
