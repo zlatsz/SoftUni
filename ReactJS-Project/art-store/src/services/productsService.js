@@ -61,3 +61,21 @@ export const like = (productId, likes) => {
     })
         .then(res => res.json());
 }
+
+export const edit = async (productId, category, name, description, imageURL,price ) => {
+    const res = await fetch(url + productId + '.json', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ category, name, description, imageURL, price })
+    });
+    return await res.json();
+}
+
+export const deleteProduct = (productId) => {
+    return fetch(url+productId+'.json', {
+        method: 'DELETE',
+    })
+        .then(res => res.json());
+}

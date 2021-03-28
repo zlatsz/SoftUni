@@ -43,3 +43,7 @@
     background: purple;
     cursor: pointer;
 }
+
+.modal-title{
+    margin-bottom: 20px;
+}
