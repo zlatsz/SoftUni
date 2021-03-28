@@ -33,3 +33,10 @@ export const create = (postName, author, imageURL) => {
     
     return  fetch((url+'.json'), postInfo);
 };
+
+export const deletePost = (productId) => {
+    return fetch(url+productId+'.json', {
+        method: 'DELETE',
+    })
+        .then(res => res.json());
+}

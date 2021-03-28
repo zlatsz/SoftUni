@@ -12,6 +12,7 @@ import Products from "./components/Products/CategoryView";
 import ProductDetails from "./components/Product/ProductDetails";
 import EditProduct from "./components/Product/EditProduct";
 import Blog from "./components/Blog";
+import PostDetails from "./components/Post/PostDetails";
 import './App.css';
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
           <Route path="/product/details/:productId" exact component={ProductDetails} />
           <Route path="/product/edit/:productId" exact component={EditProduct} />
           <Route path="/blog" exact component={Blog} />
+          <Route path="/blog/:postId" exact component={PostDetails} />
         </Switch>
     );
   }

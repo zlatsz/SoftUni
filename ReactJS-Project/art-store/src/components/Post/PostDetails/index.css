@@ -1,0 +1,25 @@
+.blog-post-article{
+    max-width: 1270px;
+    max-height: 800px;
+    margin:0 auto;
+}
+
+.blog-post-article_text{
+    text-align: center;
+    margin: 10px;
+}
+
+.blog-post-article_text h4{
+    text-align:right;
+}
+
+.blog-post-image {
+    margin: 0 auto;
+}
+.blog-post-image img{
+    margin: 0 auto;
+    width: 1200px;
+    height: 600px;
+    object-fit: cover;
+}
+
