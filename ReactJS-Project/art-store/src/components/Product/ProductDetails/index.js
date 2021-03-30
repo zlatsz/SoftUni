@@ -12,9 +12,7 @@ const ProductDetails = ({
 
 }) => {
 
-    let [product, setProduct] = useState({});
-
-
+    const [product, setProduct] = useState({});
 
     useEffect(() => {
         productsService.getOne(match.params.productId)
@@ -23,7 +21,6 @@ const ProductDetails = ({
 
     const onLikeButtonClickHandler = () => {
         let incrementedLikes = product.likes + 1;
-
         productsService.like(match.params.productId, incrementedLikes)
             .then((updatedProduct) => {
                 setProduct(state => ({ ...state, likes: Number(updatedProduct.likes) }))

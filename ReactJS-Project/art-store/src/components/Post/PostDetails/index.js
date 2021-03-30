@@ -10,14 +10,14 @@ const PostDetails = ({
     history
 }) => {
 
-    let [post, setPost] = useState({});
+    const [post, setPost] = useState({});
 
     useEffect(() => {
         postsService.getOne(match.params.postId)
             .then(res => setPost(res));
     }, [match.params.postId]);
 
-    let [isModalOpen, setModalOpen] = useState(false);
+    const [isModalOpen, setModalOpen] = useState(false);
 
     const openModalHandler = function (e) {
         setModalOpen(true);

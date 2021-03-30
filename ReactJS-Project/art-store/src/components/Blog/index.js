@@ -11,12 +11,13 @@ const Blog = ({
 
 }) => {
 
-    let [post, setPost] = useState({});
+    const [post, setPost] = useState({});
 
     useEffect(() => {
         postsService.getAll()
             .then(res => setPost(res));
     }, []);
+    
    let data = Array.from(post);
 
     return (

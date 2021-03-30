@@ -9,7 +9,7 @@ const EditProduct = ({
 
 }) => {
     
-    let [product, setProduct] = useState({});
+    const [product, setProduct] = useState({});
 
     useEffect(() => {
         productsService.getOne(match.params.productId)
