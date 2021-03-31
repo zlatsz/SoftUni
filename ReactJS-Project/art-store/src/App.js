@@ -1,8 +1,8 @@
-import { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-
+import { AuthProvider } from './contexts/authentication'
 import LandingPage from './components/Landing-page';
 import Login from './components/Login';
+import Logout from './components/Logout';
 import Register from './components/Register';
 import Home from './components/Home';
 import AddProducts from "./components/AddProducts";
@@ -15,33 +15,26 @@ import Blog from "./components/Blog";
 import PostDetails from "./components/Post/PostDetails";
 import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      authUser: null,
-    };
-  }
-
-  render() {
-    return (
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/home" exact component={Home} />
-          <Route path="/add-products" exact component={AddProducts} />
-          <Route path="/profiles" exact component={Profiles} />
-          <Route path="/add-posts" exact component={AddPosts} />
-          <Route path="/products/:category" component={Products} />
-          <Route path="/product/details/:productId" exact component={ProductDetails} />
-          <Route path="/product/edit/:productId" exact component={EditProduct} />
-          <Route path="/blog" exact component={Blog} />
-          <Route path="/blog/:postId" exact component={PostDetails} />
-        </Switch>
-    );
-  }
+const App = () => {
+  return (
+    <AuthProvider>
+      <Switch>
+        <Route path="/" exact component={LandingPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
+        <Route path="/register" component={Register} />
+        <Route path="/home" exact component={Home} />
+        <Route path="/add-products" exact component={AddProducts} />
+        <Route path="/profiles" exact component={Profiles} />
+        <Route path="/add-posts" exact component={AddPosts} />
+        <Route path="/products/:category" component={Products} />
+        <Route path="/product/details/:productId" exact component={ProductDetails} />
+        <Route path="/product/edit/:productId" exact component={EditProduct} />
+        <Route path="/blog" exact component={Blog} />
+        <Route path="/blog/:postId" exact component={PostDetails} />
+      </Switch>
+    </AuthProvider>
+  );
 }
 
 export default App;
