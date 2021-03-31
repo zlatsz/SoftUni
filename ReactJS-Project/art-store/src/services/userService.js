@@ -1,3 +1,4 @@
+
 export const adminCheck = (user) => {
     const email = '123@abv.bg';
     if (user.email===email) {
@@ -6,3 +7,4 @@ export const adminCheck = (user) => {
         return false;
     }
 }
+

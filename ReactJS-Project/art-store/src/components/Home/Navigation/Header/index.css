@@ -97,6 +97,7 @@
 
 .header-navigation-bottom-right-profile:hover {
   background: purple;
+  cursor: pointer;
 }
 
 .header-navigation-bottom-left-item .header-navigation-bottom-left-sub {

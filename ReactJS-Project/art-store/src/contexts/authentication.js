@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import firebase from "../firebase";
-import * as adminService from "../services/adminService";
+import * as adminService from "../services/userService";
 
-export const AuthContext = React.createContext();
+export const AuthContext = React.createContext({currentUser: null});
 
 export const AuthProvider = ({ children }) => {
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
         const isAdmin = adminService.adminCheck(user);
         user['isAdmin'] = isAdmin;
       }
-      setCurrentUser(user)
+      setCurrentUser(user);
     });
   }, []);
 

@@ -1,11 +1,28 @@
 import "./index.css"
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, withRouter  } from 'react-router-dom';
 import { Component } from 'react';
+import firebase from "../../../../firebase";
 
 class Header extends Component {
-    state = {
-        search: '',
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            search: '',
+        }
+
+        this.logout = this.logout.bind(this);
     }
+
+
+    logout = () => {
+        firebase.auth().signOut().then(() => {
+            this.props.history.push('/')
+        }).catch((error) => {
+            console.log(error.message)
+        });
+    }
+
     render() {
         const { search } = this.state;
         return (
@@ -13,7 +30,7 @@ class Header extends Component {
                 <section className="header-navigation-upper">
                     <h3>Sisters Art Store</h3>
                     <Link to="/home" className="header-home-logo">
-                        <img src= {process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
+                        <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
                     </Link>
                     <form className="home-search" onSubmit={this.submitHandler}>
                         <i className="fas fa-phone-volume">0888808808</i>
@@ -52,8 +69,8 @@ class Header extends Component {
                     </ul>
                     <ul className="header-navigation-bottom-middle">
                         <li className="header-navigation-bottom-middle-products">
-                             <a> Добави <i className="fa fa-caret-down" aria-hidden="true"></i></a>
-                             <ul className="header-navigation-bottom-middle-sub">
+                            <a> Добави <i className="fa fa-caret-down" aria-hidden="true"></i></a>
+                            <ul className="header-navigation-bottom-middle-sub">
                                 <li className="header-navigation-bottom-middle-sub-item ">
                                     <NavLink to="/add-products">Добави продукт</NavLink>
                                 </li>
@@ -73,8 +90,8 @@ class Header extends Component {
                         <li className="header-navigation-bottom-right-profile">
                             <NavLink to="/cart"> <i className="fas fa-shopping-cart"></i></NavLink>
                         </li>
-                        <li className="header-navigation-bottom-right-profile">
-                            <NavLink to="/logout"> <i className="fas fa-sign-out-alt"></i></NavLink>
+                        <li className="header-navigation-bottom-right-profile" onClick={this.logout}>
+                            <a> <i className="fas fa-sign-out-alt"></i> </a>
                         </li>
                     </ul>
                 </nav>
@@ -85,4 +102,4 @@ class Header extends Component {
     };
 };
 
-export default Header;
+export default withRouter(Header);

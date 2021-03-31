@@ -1,6 +1,7 @@
 import "./index.css"
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom';
+import { AuthContext } from '../../contexts/authentication';
 import firebase from '../../firebase';
 import Footer from "../Landing-page/Footer"
 
@@ -11,14 +12,21 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const signIn = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         firebase.auth()
             .signInWithEmailAndPassword(email, password)
-            .catch((error) => alert(error.message))
+            .catch((error) => alert(error.message));
 
+        // history.push('/home');
+    }
+
+    const { currentUser } = useContext(AuthContext);
+
+    if (currentUser) {
         history.push('/home')
     }
+
     return (
         <>
             <section className="login-page">

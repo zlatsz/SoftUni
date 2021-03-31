@@ -10,7 +10,7 @@ const Navigation = () => {
             id: 1,
             title: "First Slide",
             link: process.env.PUBLIC_URL + '/car-jew.jpg',
-            path: '/products/all'
+            path: '/products/jewelleries'
         },
         {
             id: 2,

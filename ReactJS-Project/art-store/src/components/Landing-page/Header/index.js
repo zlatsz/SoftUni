@@ -10,9 +10,9 @@ const Header = () => {
                 </Link>
                 <ul>
                     <i className="fa fa-map-marker" aria-hidden="true"></i>
-                    <li><a href="">Местоположение</a></li>
+                    <li><a >Местоположение</a></li>
                     <i className="fa fa-phone" aria-hidden="true"></i>
-                    <li><a href="">Телефон</a></li>
+                    <li><a >Телефон</a></li>
                 </ul>
             </div>
             <>
