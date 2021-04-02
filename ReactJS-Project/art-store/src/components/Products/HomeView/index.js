@@ -1,7 +1,7 @@
-import "./index.css"
+import "./index.css";
 import { Component } from 'react';
 import * as productsService from '../../../services/productsService';
-import Product from "../../Product/ProductView"
+import Product from "../../Product/ProductView";
 
 class Products extends Component {
     constructor(props) {

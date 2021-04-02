@@ -1,25 +1,36 @@
-import "./index.css"
-import { useState } from 'react'
+import "./index.css";
+import { useContext, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import firebase from '../../firebase';
-import Footer from "../Landing-page/Footer"
+import { AuthContext } from '../../contexts/authentication';
+import firebase from '../../utils/firebase';
+import Footer from "../Landing-page/Footer";
 
 const Register = () => {
     const history = useHistory();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [repeatPassword, setRepeatPassword] = useState('');
-
     const signUp = (e) => {
         e.preventDefault()
-
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        const repeatPassword = e.target.repeatPassword.value;
+        if(repeatPassword!==password){
+            alert("Password didn't match");
+            return;
+        }
         firebase.auth()
             .createUserWithEmailAndPassword(email, password)
             .catch((error) => alert(error.message))
 
-        history.push('/home')
+        // history.push('/home')
     }
+
+    const { currentUser } = useContext(AuthContext);
+
+    useEffect(() => {
+        if (currentUser) {
+            history.push('/home');
+        }
+    },[currentUser, history] );
 
         return (
             <>
@@ -31,13 +42,13 @@ const Register = () => {
                         <h2>Регистрирай се:</h2>
                         <form className="register-page-content" onSubmit={signUp}>
                             <i className="fas fa-envelope fa-lg" aria-hidden="true"></i>
-                            <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input type="text" placeholder="Email" id="email"/>
 
                             <i className="fa fa-lock fa-lg" aria-hidden="true"></i>
-                            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" placeholder="Password" id="password"  />
 
                             <i className="fa fa-unlock fa-lg" aria-hidden="true"></i>
-                            <input type="password" placeholder="Repeat Password" value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)} />
+                            <input type="password" placeholder="Repeat Password" id="repeatPassword" />
 
                             <button type="submit" className="register-page-submit" value="">Влез</button>
                         </form>

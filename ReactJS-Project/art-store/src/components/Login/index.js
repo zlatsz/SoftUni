@@ -1,18 +1,18 @@
-import "./index.css"
-import { useState, useContext } from 'react'
+import "./index.css";
+import { useContext,useEffect} from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../contexts/authentication';
-import firebase from '../../firebase';
-import Footer from "../Landing-page/Footer"
+import firebase from '../../utils/firebase';
+import Footer from "../Landing-page/Footer";
 
 const Login = () => {
     const history = useHistory();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
     const signIn = (e) => {
         e.preventDefault();
+
+        const email = e.target.email.value;
+        const password = e.target.password.value;
 
         firebase.auth()
             .signInWithEmailAndPassword(email, password)
@@ -23,9 +23,11 @@ const Login = () => {
 
     const { currentUser } = useContext(AuthContext);
 
-    if (currentUser) {
-        history.push('/home')
-    }
+    useEffect(() => {
+        if (currentUser) {
+            history.push('/home');
+        }
+    },[currentUser, history] );
 
     return (
         <>
@@ -37,12 +39,12 @@ const Login = () => {
                     <h2>Влез в профила си:</h2>
                     <form className="login-page-content" onSubmit={signIn}>
                         <i className="fas fa-envelope fa-lg" aria-hidden="true"></i>
-                        <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        <input type="text" placeholder="Email" id="email" />
 
                         <i className="fa fa-lock fa-lg" aria-hidden="true"></i>
-                        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" placeholder="Password" id="password" />
 
-                        <button type="submit" className="login-page-submit" value="">Влез</button>
+                        <button type="submit" className="login-page-submit" defaultValue="">Влез</button>
                     </form>
                     <h3>Регистрирай се <Link to="/register"><span>ТУК</span></Link></h3>
                 </article>

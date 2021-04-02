@@ -1,9 +1,11 @@
 import './index.css';
 import Header from './Header';
 import Carousel from './Carousel';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../contexts/authentication';
 
 const Navigation = () => {
+    const { currentUser } = useContext(AuthContext);
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [
         {
@@ -43,7 +45,7 @@ const Navigation = () => {
         <>
         <header className="home-header">
             <Header />
-
+            <h2>Welcome, {currentUser?.email}</h2>
             <Carousel
                 image={slides[currentSlide]}
                 slideNext={slideNext}

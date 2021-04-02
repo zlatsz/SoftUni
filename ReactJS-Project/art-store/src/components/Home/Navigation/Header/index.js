@@ -1,19 +1,26 @@
 import "./index.css"
 import { Link, NavLink, withRouter  } from 'react-router-dom';
 import { Component } from 'react';
-import firebase from "../../../../firebase";
+import { AuthContext } from '../../../../contexts/authentication';
+import firebase from "../../../../utils/firebase";
 
 class Header extends Component {
+
+    static contextType = AuthContext;
+
     constructor(props) {
         super(props);
 
         this.state = {
             search: '',
-        }
-
+        };
+        
         this.logout = this.logout.bind(this);
     }
 
+    componentDidMount(){
+        const user = this.context;
+    }
 
     logout = () => {
         firebase.auth().signOut().then(() => {
@@ -25,6 +32,7 @@ class Header extends Component {
 
     render() {
         const { search } = this.state;
+        const { ...currentUser } = this.context;
         return (
             <section className="header-navigation-wrapper">
                 <section className="header-navigation-upper">
@@ -34,13 +42,13 @@ class Header extends Component {
                     </Link>
                     <form className="home-search" onSubmit={this.submitHandler}>
                         <i className="fas fa-phone-volume">0888808808</i>
-                        <input type="text" value={search} onChange={this.changeHandler} />
+                        <input type="text" id="search" />
 
                         <button type="submit" className="home-search-btn"><i className="fa fa-search fa-lg"></i></button>
-
+                    
                     </form>
-
                 </section>
+                <div>{currentUser.email}</div>
                 <nav className="header-navigation-bottom">
                     <ul className="header-navigation-bottom-left">
                         <li className="header-navigation-bottom-left-item">
@@ -67,6 +75,7 @@ class Header extends Component {
                             <NavLink to="/blog"> Блог </NavLink>
                         </li>
                     </ul>
+                    
                     <ul className="header-navigation-bottom-middle">
                         <li className="header-navigation-bottom-middle-products">
                             <a> Добави <i className="fa fa-caret-down" aria-hidden="true"></i></a>
@@ -80,7 +89,7 @@ class Header extends Component {
                             </ul>
                         </li>
                         <li className="header-navigation-bottom-middle-profiles">
-                            <NavLink to="/profiles"> Потребители </NavLink>
+                            <NavLink to="/profiles"> Поръчки </NavLink>
                         </li>
                     </ul>
                     <ul className="header-navigation-bottom-right">

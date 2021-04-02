@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import firebase from "../firebase";
+import firebase from "../utils/firebase";
 import * as adminService from "../services/userService";
 
 export const AuthContext = React.createContext({currentUser: null});
