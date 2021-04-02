@@ -3,9 +3,10 @@ import { useEffect, useState, useContext } from 'react';
 import Header from "../../Home/Navigation/Header";
 import Footer from "../../Home/Footer";
 import * as productsService from '../../../services/productsService';
+
 import { AuthContext } from '../../../contexts/authentication';
 import Modal from 'react-modal';
-import "./index.css"
+import "./index.css";
 
 const ProductDetails = ({
     match,
@@ -31,12 +32,12 @@ const ProductDetails = ({
 
     const onSubmitHandler = function (e) {
         e.preventDefault();
-        // const { productId, quantity, userId } = e.target;
+        const productId = match.params.productId;
+        const productName = product.name;
+        const quantity = e.target.quantity.value;
+        const price = product.price;
+        const user = currentUser.email;
 
-        // productsService.create(category.value, name.value, description.value, imageURL.value, price.value)
-        //     .then(() => {
-        //         history.push('/cart');
-        //     })
     };
 
     let [isModalOpen, setModalOpen] = useState(false);
@@ -87,7 +88,7 @@ const ProductDetails = ({
                     <label htmlFor="quantity">Количество</label>
                     <input type="number" name="quantity" defaultValue="0"/>
 
-                    <button type="submit" className="detail-products-list-item-button" value="">Купи</button>
+                    <button type="submit" className="detail-products-list-item-button" >Купи</button>
                 </form>
 
                 <p className="detail-products-list-item-likes"> {product.likes}

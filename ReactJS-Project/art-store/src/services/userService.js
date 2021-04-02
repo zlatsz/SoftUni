@@ -1,4 +1,4 @@
-import firebase from "../utils/firebase";
+const url = 'https://reactjs-532f1-default-rtdb.firebaseio.com/orders/';
 
 export const adminCheck = (user) => {
     const email = '123@abv.bg';
@@ -10,24 +10,30 @@ export const adminCheck = (user) => {
 }
 
 
+export const create = (user) => {
+  let order = {
+      user
+  };
+
+  let postInfo = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order)
+  };
+  
+  return  fetch((url+'.json'), postInfo);
+};
+
+
 export async function getAll() {
-    const listAllUsers = (nextPageToken) => {
-        firebase
-          .auth()
-          .listUsers(100, nextPageToken)
-        //   .then((listUsersResult) => {
-        //     listUsersResult.users.forEach((userRecord) => {
-        //       console.log('user', userRecord.toJSON());
-        //     });
-        //     if (listUsersResult.pageToken) {
-        //       // List next batch of users.
-        //       listAllUsers(listUsersResult.pageToken);
-        //     }
-        //   })
-          .catch((error) => {
-            console.log('Error listing users:', error);
-          });
-      };
-     return listAllUsers();
+    let data = await fetch(url +'.json');
+    let response = await data.json();
+    let all = [];
+    if (response) {
+        Object.keys(response).forEach(key => {
+            all.push({ id: key, ...response[key] });
+        });
+    }
+    return all;
 };
 

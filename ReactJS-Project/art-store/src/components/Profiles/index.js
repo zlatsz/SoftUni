@@ -16,7 +16,7 @@ const Profiles = ({
         userService.getAll()
             .then(res => setUsers(res));
     }, []);
-
+    
     return (
         <>
             <header className="home-header">
