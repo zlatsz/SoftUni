@@ -1,7 +1,8 @@
 import Modal from 'react-modal';
 import Header from "../../Home/Navigation/Header";
 import Footer from "../../Home/Footer";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../contexts/authentication';
 import * as postsService from '../../../services/postsService';
 import "./index.css"
 
@@ -9,7 +10,7 @@ const PostDetails = ({
     match,
     history
 }) => {
-
+    const { currentUser } = useContext(AuthContext);
     const [post, setPost] = useState({});
 
     useEffect(() => {
@@ -62,17 +63,19 @@ const PostDetails = ({
                 <div className="blog-post-article_text">
                     <h4>Автор: {post.author}</h4>
                 </div>
-                <div className="detail-products-list-item-admin">
-                    <button className="detail-products-list-item-button blog-btn" onClick={openModalHandler}>Изтрий</button>
-                    <Modal
-                        isOpen={isModalOpen}
-                        style={modalStyle}
-                        onRequestClose={closeModalHandler}>
-                        <h1 className="modal-title">Потвърди, че искаш да го изтриеш!</h1>
-                        <button className="detail-products-list-item-button" onClick={closeModalHandler}>Затвори</button>
-                        <button className="detail-products-list-item-button" onClick={deleteModalHandler}>Изтрий</button>
-                    </Modal>
-                </div>
+                {currentUser.isAdmin &&
+                    <div className="detail-products-list-item-admin">
+                        <button className="detail-products-list-item-button blog-btn" onClick={openModalHandler}>Изтрий</button>
+                        <Modal
+                            isOpen={isModalOpen}
+                            style={modalStyle}
+                            onRequestClose={closeModalHandler}>
+                            <h1 className="modal-title">Потвърди, че искаш да го изтриеш!</h1>
+                            <button className="detail-products-list-item-button" onClick={closeModalHandler}>Затвори</button>
+                            <button className="detail-products-list-item-button" onClick={deleteModalHandler}>Изтрий</button>
+                        </Modal>
+                    </div>
+                }
             </section>
             <Footer />
         </>

@@ -1,5 +1,5 @@
 import "./index.css"
-import { Link, NavLink, withRouter  } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Component } from 'react';
 import { AuthContext } from '../../../../contexts/authentication';
 import firebase from "../../../../utils/firebase";
@@ -14,12 +14,8 @@ class Header extends Component {
         this.state = {
             search: '',
         };
-        
-        this.logout = this.logout.bind(this);
-    }
 
-    componentDidMount(){
-        const user = this.context;
+        this.logout = this.logout.bind(this);
     }
 
     logout = () => {
@@ -32,7 +28,8 @@ class Header extends Component {
 
     render() {
         const { search } = this.state;
-        const { ...currentUser } = this.context;
+        const currentUser = this.context;
+        let userProperty = Object.values(currentUser);
         return (
             <section className="header-navigation-wrapper">
                 <section className="header-navigation-upper">
@@ -45,10 +42,9 @@ class Header extends Component {
                         <input type="text" id="search" />
 
                         <button type="submit" className="home-search-btn"><i className="fa fa-search fa-lg"></i></button>
-                    
+
                     </form>
                 </section>
-                <div>{currentUser.email}</div>
                 <nav className="header-navigation-bottom">
                     <ul className="header-navigation-bottom-left">
                         <li className="header-navigation-bottom-left-item">
@@ -75,23 +71,24 @@ class Header extends Component {
                             <NavLink to="/blog"> Блог </NavLink>
                         </li>
                     </ul>
-                    
-                    <ul className="header-navigation-bottom-middle">
-                        <li className="header-navigation-bottom-middle-products">
-                            <a> Добави <i className="fa fa-caret-down" aria-hidden="true"></i></a>
-                            <ul className="header-navigation-bottom-middle-sub">
-                                <li className="header-navigation-bottom-middle-sub-item ">
-                                    <NavLink to="/add-products">Добави продукт</NavLink>
-                                </li>
-                                <li className="header-navigation-bottom-middle-sub-item ">
-                                    <NavLink to="/add-posts">Добави статия</NavLink>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className="header-navigation-bottom-middle-profiles">
-                            <NavLink to="/profiles"> Поръчки </NavLink>
-                        </li>
-                    </ul>
+                    { userProperty[0].isAdmin &&
+                        <ul className="header-navigation-bottom-middle">
+                            <li className="header-navigation-bottom-middle-products">
+                                <a> Добави <i className="fa fa-caret-down" aria-hidden="true"></i></a>
+                                <ul className="header-navigation-bottom-middle-sub">
+                                    <li className="header-navigation-bottom-middle-sub-item ">
+                                        <NavLink to="/add-products">Добави продукт</NavLink>
+                                    </li>
+                                    <li className="header-navigation-bottom-middle-sub-item ">
+                                        <NavLink to="/add-posts">Добави статия</NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li className="header-navigation-bottom-middle-profiles">
+                                <NavLink to="/profiles"> Поръчки </NavLink>
+                            </li>
+                        </ul>
+                    }
                     <ul className="header-navigation-bottom-right">
                         <li className="header-navigation-bottom-right-profile">
                             <NavLink to="/profile"> <i className="fas fa-user fa-lg" /></NavLink>

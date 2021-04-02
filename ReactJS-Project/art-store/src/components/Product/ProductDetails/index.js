@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Header from "../../Home/Navigation/Header";
 import Footer from "../../Home/Footer";
 import * as productsService from '../../../services/productsService';
+import { AuthContext } from '../../../contexts/authentication';
 import Modal from 'react-modal';
 import "./index.css"
 
@@ -12,6 +13,7 @@ const ProductDetails = ({
 
 }) => {
 
+    const { currentUser } = useContext(AuthContext);
     const [product, setProduct] = useState({});
 
     useEffect(() => {
@@ -93,7 +95,7 @@ const ProductDetails = ({
                         <i className="fas fa-heart"></i>Харесай!
                         </button>
                 </p>
-
+                {currentUser.isAdmin &&
                 <div className="detail-products-list-item-admin">
                     <Link to={`/product/edit/${match.params.productId}`}><button className="detail-products-list-item-likes-button">Редактирай</button></Link>
                     <button className="detail-products-list-item-button" onClick={openModalHandler}>Изтрий</button>
@@ -106,6 +108,7 @@ const ProductDetails = ({
                         <button className="detail-products-list-item-button" onClick={deleteModalHandler}>Изтрий</button>
                     </Modal>
                 </div>
+                }
             </section>
             <Footer />
         </>
