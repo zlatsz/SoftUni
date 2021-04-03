@@ -38,6 +38,19 @@ export async function getOne(id) {
     return response;
 }
 
+export async function getOrder(id) {
+    let data = await fetch(url + id + '.json');
+    let response = await data.json();
+    let products = response.products;
+    let all = [];
+    if (products) {
+        Object.keys(products).forEach(key => {
+            all.push({ id: key, ...products[key] });
+        });
+    }
+    return all;
+}
+
 
 export const deleteCart = (idToken, orderId) => {
     return fetch(url + orderId + `.json?auth=${idToken}`, {
@@ -46,10 +59,11 @@ export const deleteCart = (idToken, orderId) => {
         .then(res => res.json());
 }
 
-export const add = async (idToken, cartId, productId, productName, quantity, price) => {
+export const add = async (idToken, cartId, productId, productName, productPic,quantity, price) => {
     let order = {
             productId,
             productName,
+            productPic,
             quantity,
             price
     };

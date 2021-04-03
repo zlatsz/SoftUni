@@ -1,0 +1,30 @@
+.cart-wrapper{
+    max-height: 600px;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #CCCCCC;
+    margin-top:15px;
+}
+
+table thead tr {
+    background: #AB5FAC;
+    color: #FFFFFF;
+}
+
+table tbody > tr {
+    background: #F1F1F1;
+}
+
+table tbody tr:last-child {
+    background: #FFFFFF;
+}
+
+table td, table th {
+    padding-left: 0.3em;
+}

@@ -36,9 +36,10 @@ const ProductDetails = ({
         e.preventDefault();
         const productId = match.params.productId;
         const productName = product.name;
+        const productPic = product.imageURL;
         const quantity = e.target.quantity.value;
         const price = product.price;
-        ordersService.add(currentUser.token,cart.name,productId,productName,quantity,price)
+        ordersService.add(currentUser.token,cart.name,productId,productName,productPic,quantity,price)
         .then(() => {
             history.push(`/cart/${cart.name}`);
         })
