@@ -29,7 +29,7 @@ const PostDetails = ({
     }
 
     const deleteModalHandler = function (e) {
-        postsService.deletePost(currentUser.token,match.params.productId)
+        postsService.deletePost(currentUser.token,match.params.postId)
             .then(() => {
                 history.push('/blog');
             })
@@ -69,6 +69,7 @@ const PostDetails = ({
                         <Modal
                             isOpen={isModalOpen}
                             style={modalStyle}
+                            ariaHideApp={false}
                             onRequestClose={closeModalHandler}>
                             <h1 className="modal-title">Потвърди, че искаш да го изтриеш!</h1>
                             <button className="detail-products-list-item-button" onClick={closeModalHandler}>Затвори</button>

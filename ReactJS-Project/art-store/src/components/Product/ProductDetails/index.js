@@ -3,7 +3,9 @@ import { useEffect, useState, useContext } from 'react';
 import Header from "../../Home/Navigation/Header";
 import Footer from "../../Home/Footer";
 import * as productsService from '../../../services/productsService';
+import * as ordersService from '../../../services/ordersService';
 import { AuthContext } from '../../../contexts/authentication';
+import {CartContext} from '../../../contexts/shoppingCart';
 import Modal from 'react-modal';
 import "./index.css";
 
@@ -14,6 +16,7 @@ const ProductDetails = ({
 }) => {
 
     const { currentUser } = useContext(AuthContext);
+    const { cart } = useContext(CartContext);
     const [product, setProduct] = useState({});
 
     useEffect(() => {
@@ -35,8 +38,10 @@ const ProductDetails = ({
         const productName = product.name;
         const quantity = e.target.quantity.value;
         const price = product.price;
-        const user = currentUser.email;
-
+        ordersService.add(currentUser.token,cart.name,productId,productName,quantity,price)
+        .then(() => {
+            history.push(`/cart/${cart.name}`);
+        })
     };
 
     let [isModalOpen, setModalOpen] = useState(false);
@@ -85,7 +90,7 @@ const ProductDetails = ({
 
                 <form className="detail-products-list-item-cart" onSubmit={onSubmitHandler}>
                     <label htmlFor="quantity">Количество</label>
-                    <input type="number" name="quantity" defaultValue="0"/>
+                    <input type="number" name="quantity" defaultValue="1"/>
 
                     <button type="submit" className="detail-products-list-item-button" >Купи</button>
                 </form>
@@ -102,6 +107,7 @@ const ProductDetails = ({
                     <Modal
                         isOpen={isModalOpen}
                         style={modalStyle}
+                        ariaHideApp={false}
                         onRequestClose={closeModalHandler}>
                         <h1 className="modal-title">Потвърди, че искаш да го изтриеш!</h1>
                         <button className="detail-products-list-item-button" onClick={closeModalHandler}>Затвори</button>

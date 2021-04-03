@@ -34,8 +34,8 @@ export const create = (idToken, postName, author, imageURL) => {
     return  fetch((url+`.json?auth=${idToken}`), postInfo);
 };
 
-export const deletePost = (idToken,productId) => {
-    return fetch(url+productId+`.json?auth=${idToken}`, {
+export const deletePost = (idToken,postId) => {
+    return fetch(url+postId+`.json?auth=${idToken}`, {
         method: 'DELETE',
     })
         .then(res => res.json());

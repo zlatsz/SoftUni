@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
         user['isAdmin'] = isAdmin;
       }
       setCurrentUser(user);
-      console.log(user);
     });
   }, []);
 

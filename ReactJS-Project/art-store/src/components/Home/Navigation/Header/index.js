@@ -2,11 +2,13 @@ import "./index.css"
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Component } from 'react';
 import { AuthContext } from '../../../../contexts/authentication';
-import firebase from "../../../../utils/firebase";
+import Context from "../Context";
+
 
 class Header extends Component {
 
     static contextType = AuthContext;
+   
 
     constructor(props) {
         super(props);
@@ -15,18 +17,7 @@ class Header extends Component {
             search: '',
         };
 
-        this.logout = this.logout.bind(this);
-
-        console.log(this.props);
-    }
-
-    logout = () => {
-
-        firebase.auth().signOut().then(() => {
-            this.props.history.push('/')
-        }).catch((error) => {
-            console.log(error.message)
-        });
+        // this.logout = this.logout.bind(this);
     }
 
     render() {
@@ -93,15 +84,7 @@ class Header extends Component {
                         </ul>
                     }
                     <ul className="header-navigation-bottom-right">
-                        <li className="header-navigation-bottom-right-profile">
-                            <NavLink to="/profile"> <i className="fas fa-user fa-lg" /></NavLink>
-                        </li>
-                        <li className="header-navigation-bottom-right-profile">
-                            <NavLink to="/cart"> <i className="fas fa-shopping-cart"></i></NavLink>
-                        </li>
-                        <li className="header-navigation-bottom-right-profile" onClick={this.logout}>
-                            <a> <i className="fas fa-sign-out-alt"></i> </a>
-                        </li>
+                        <Context/>
                     </ul>
                 </nav>
 

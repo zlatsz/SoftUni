@@ -11,14 +11,15 @@ export const CartProvider = ({ children }) => {
 
     const { currentUser } = useContext(AuthContext);
     const [cart, setCart] = useState([]);
-
+   
 
     useEffect(() => {
-      if(currentUser){
+      if (!currentUser.token) return;
+      // if(currentUser){
         ordersService.create(currentUser.token,currentUser.email)
         .then(res => setCart(res));
-      }
-      }, [currentUser]);
+      // } 
+      }, [currentUser.email, currentUser.token]);
   
     return (
       <CartContext.Provider

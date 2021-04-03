@@ -19,11 +19,11 @@ import './App.css';
 const App = () => {
   return (
     <AuthProvider>
-      <CartProvider>
-        <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+      <Switch>
+        <Route path="/" exact component={LandingPage} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <CartProvider>
           <Route path="/home" exact component={Home} />
           <Route path="/add-products" exact component={AddProducts} />
           <Route path="/profiles" exact component={Profiles} />
@@ -33,9 +33,9 @@ const App = () => {
           <Route path="/product/edit/:productId" exact component={EditProduct} />
           <Route path="/blog" exact component={Blog} />
           <Route path="/blog/:postId" exact component={PostDetails} />
-          <Route path="/cart" exact component={Cart} />
-        </Switch>
-      </CartProvider>
+          <Route path="/cart/:orderId" exact component={Cart} />
+        </CartProvider>
+      </Switch>
     </AuthProvider>
   );
 }
