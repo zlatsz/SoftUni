@@ -1,17 +1,19 @@
 import './index.css';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/authentication';
 import Footer from "../Landing-page/Footer"
 import * as postsService from '../../services/postsService';
 
 const AddPosts = ({
     history,
 }) => {
-
+    const { currentUser } = useContext(AuthContext);
     const onSubmitHandler = function (e) {
         e.preventDefault();
         const { name, author, imageURL } = e.target;
 
-        postsService.create(name.value, author.value, imageURL.value)
+        postsService.create(currentUser.token,name.value, author.value, imageURL.value)
             .then(() => {
                 history.push('/blog');
             })

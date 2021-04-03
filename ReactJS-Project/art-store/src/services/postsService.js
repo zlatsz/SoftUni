@@ -18,7 +18,7 @@ export async function getOne(id) {
     return response;
 }
 
-export const create = (postName, author, imageURL) => {
+export const create = (idToken, postName, author, imageURL) => {
     let post = {
         name: postName,
         author,
@@ -31,11 +31,11 @@ export const create = (postName, author, imageURL) => {
         body: JSON.stringify(post)
     };
     
-    return  fetch((url+'.json'), postInfo);
+    return  fetch((url+`.json?auth=${idToken}`), postInfo);
 };
 
-export const deletePost = (productId) => {
-    return fetch(url+productId+'.json', {
+export const deletePost = (idToken,productId) => {
+    return fetch(url+productId+`.json?auth=${idToken}`, {
         method: 'DELETE',
     })
         .then(res => res.json());

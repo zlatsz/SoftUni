@@ -3,7 +3,6 @@ import { useEffect, useState, useContext } from 'react';
 import Header from "../../Home/Navigation/Header";
 import Footer from "../../Home/Footer";
 import * as productsService from '../../../services/productsService';
-
 import { AuthContext } from '../../../contexts/authentication';
 import Modal from 'react-modal';
 import "./index.css";
@@ -24,7 +23,7 @@ const ProductDetails = ({
 
     const onLikeButtonClickHandler = () => {
         let incrementedLikes = product.likes + 1;
-        productsService.like(match.params.productId, incrementedLikes)
+        productsService.like(currentUser.token,match.params.productId, incrementedLikes)
             .then((updatedProduct) => {
                 setProduct(state => ({ ...state, likes: Number(updatedProduct.likes) }))
             });
@@ -51,7 +50,7 @@ const ProductDetails = ({
     }
 
     const deleteModalHandler = function (e) {
-        productsService.deleteProduct(match.params.productId)
+        productsService.deleteProduct(currentUser.token,match.params.productId)
             .then(() => {
                 history.push('/home');
             })

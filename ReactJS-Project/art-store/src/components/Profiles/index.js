@@ -2,7 +2,7 @@ import "./index.css";
 import Header from "../Home/Navigation/Header";
 import Footer from "../Home/Footer";
 import Unique from "./Unique";
-import * as userService from '../../services/userService';
+import * as ordersService from '../../services/ordersService';
 import { useEffect, useState } from 'react';
 
 const Profiles = ({
@@ -10,11 +10,11 @@ const Profiles = ({
     history
 
 }) => {
-    const [users, setUsers] = useState({});
+    const [usersOrder, setUsersOrder] = useState({});
 
     useEffect(() => {
-        userService.getAll()
-            .then(res => setUsers(res));
+        ordersService.getAll()
+            .then(res => setUsersOrder(res));
     }, []);
     
     return (
@@ -27,7 +27,7 @@ const Profiles = ({
             </header>
             <section className="users-wrapper">
                 <ul className="users-wrapper-items">
-                    {users.map(x =>
+                    {usersOrder.map(x =>
                         <Unique key={x.id} {...x} />
                     )}
                 </ul>

@@ -1,17 +1,19 @@
 import './index.css';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/authentication';
 import Footer from "../Landing-page/Footer"
 import * as productsService from '../../services/productsService';
 
 function AddProducts({
     history,
 }) {
-
+    const { currentUser } = useContext(AuthContext);
     const onSubmitHandler = function (e) {
         e.preventDefault();
         const { category, name, description, imageURL, price } = e.target;
 
-        productsService.create(category.value, name.value, description.value, imageURL.value, price.value)
+        productsService.create(currentUser.token,category.value, name.value, description.value, imageURL.value, price.value)
             .then(() => {
                 history.push('/home');
             });

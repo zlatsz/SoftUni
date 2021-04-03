@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext} from "react";
-import * as userService from '../services/userService';
+import * as ordersService from '../services/ordersService';
 import { AuthContext } from './authentication';
 
 
@@ -12,9 +12,10 @@ export const CartProvider = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
     const [cart, setCart] = useState([]);
 
+
     useEffect(() => {
       if(currentUser){
-        userService.create(currentUser.email)
+        ordersService.create(currentUser.token,currentUser.email)
         .then(res => setCart(res));
       }
       }, [currentUser]);

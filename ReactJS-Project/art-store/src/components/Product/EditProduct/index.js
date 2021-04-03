@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../contexts/authentication';
 import * as productsService from '../../../services/productsService';
 import { Link } from 'react-router-dom';
 import Footer from "../../Landing-page/Footer";
@@ -8,7 +9,7 @@ const EditProduct = ({
     history
 
 }) => {
-    
+    const { currentUser } = useContext(AuthContext);
     const [product, setProduct] = useState({});
 
     useEffect(() => {
@@ -20,7 +21,7 @@ const EditProduct = ({
         e.preventDefault();
         const { category, name, description, imageURL, price} = e.target;
 
-        productsService.edit(match.params.productId,category.value, name.value, description.value, imageURL.value, price.value)
+        productsService.edit(currentUser.token,match.params.productId,category.value, name.value, description.value, imageURL.value, price.value)
             .then(() => {
                 history.push(`/product/details/${match.params.productId}`);
             })

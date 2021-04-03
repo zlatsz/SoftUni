@@ -16,9 +16,12 @@ class Header extends Component {
         };
 
         this.logout = this.logout.bind(this);
+
+        console.log(this.props);
     }
 
     logout = () => {
+
         firebase.auth().signOut().then(() => {
             this.props.history.push('/')
         }).catch((error) => {

@@ -29,7 +29,7 @@ const PostDetails = ({
     }
 
     const deleteModalHandler = function (e) {
-        postsService.deletePost(match.params.productId)
+        postsService.deletePost(currentUser.token,match.params.productId)
             .then(() => {
                 history.push('/blog');
             })

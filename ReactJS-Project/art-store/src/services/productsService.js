@@ -32,7 +32,7 @@ export async function getOne(id) {
     return response;
 }
 
-export const create = (category, productName, description, imageURL,price ) => {
+export const create = (idToken, category, productName, description, imageURL,price ) => {
     let product = {
         name: productName,
         description,
@@ -48,11 +48,11 @@ export const create = (category, productName, description, imageURL,price ) => {
         body: JSON.stringify(product)
     };
     
-    return  fetch((url+'.json'), postInfo);
+    return  fetch((url+`.json?auth=${idToken}`), postInfo);
 };
 
-export const like = (productId, likes) => {
-    return fetch(url+productId+'.json', {
+export const like = (idToken,productId, likes) => {
+    return fetch(url+productId+`.json?auth=${idToken}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -62,8 +62,8 @@ export const like = (productId, likes) => {
         .then(res => res.json());
 }
 
-export const edit = async (productId, category, name, description, imageURL,price ) => {
-    const res = await fetch(url + productId + '.json', {
+export const edit = async (idToken,productId, category, name, description, imageURL,price ) => {
+    const res = await fetch(url + productId + `.json?auth=${idToken}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -73,8 +73,8 @@ export const edit = async (productId, category, name, description, imageURL,pric
     return await res.json();
 }
 
-export const deleteProduct = (productId) => {
-    return fetch(url+productId+'.json', {
+export const deleteProduct = (idToken,productId) => {
+    return fetch(url+productId+`.json?auth=${idToken}`, {
         method: 'DELETE',
     })
         .then(res => res.json());
