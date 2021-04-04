@@ -14,6 +14,7 @@ import EditProduct from "./components/Product/EditProduct";
 import Blog from "./components/Blog";
 import PostDetails from "./components/Post/PostDetails";
 import Cart from "./components/Cart/";
+import Profile from "./components/Login/Profile";
 import './App.css';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/home" exact component={Home} />
           <Route path="/add-products" exact component={AddProducts} />
           <Route path="/profiles" exact component={Profiles} />
+          <Route path="/profile" exact component={Profile} />
           <Route path="/add-posts" exact component={AddPosts} />
           <Route path="/products/:category" component={Products} />
           <Route path="/product/details/:productId" exact component={ProductDetails} />

@@ -53,12 +53,12 @@ const Cart = ({
                 </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {data.map(x =>
                             <OrderView key={x.id} {...x} />
                         )}
                         <tr>
-                            <td colSpan="5">Обща сума: <b>{result}</b> лв.</td>
+                            <td className="total-sum" colSpan="5">Обща сума: <b>{result}</b> лв.</td>
                         </tr>
                     </tbody>
 

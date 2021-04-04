@@ -30,7 +30,7 @@ table td, table th {
     padding-left: 0.3em;
 }
 
-table tbody tr:last-child>td {
+.total-sum {
     border-top: 1px solid #ddd;
     background: #AB5FAC;
     color: #FFFFFF;

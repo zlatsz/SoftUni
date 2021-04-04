@@ -16,7 +16,8 @@ const Profiles = ({
         ordersService.getAll()
             .then(res => setUsersOrder(res));
     }, []);
-    
+
+    let data = Array.from(usersOrder);
     return (
         <>
             <header className="home-header">
@@ -26,11 +27,29 @@ const Profiles = ({
                      </h2>
             </header>
             <section className="users-wrapper">
-                <ul className="users-wrapper-items">
-                    {usersOrder.map(x =>
-                        <Unique key={x.id} {...x} />
-                    )}
-                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                               Потребител
+                </th>
+                            <th>
+                               Брой продукти
+                </th>
+                            <th>
+                                Количество
+                </th>
+                            <th>
+                                Сума
+                </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map(x =>
+                            <Unique key={x.id} {...x} />
+                        )}
+                    </tbody>
+                </table>
 
             </section>
             <Footer />
