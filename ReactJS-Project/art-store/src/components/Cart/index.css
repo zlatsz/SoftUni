@@ -1,4 +1,4 @@
-.cart-wrapper{
+.cart-wrapper {
     max-height: 600px;
     max-width: 800px;
     margin: 0 auto;
@@ -7,9 +7,10 @@
 
 table {
     width: 100%;
-    text-align: center;
     border: 1px solid #CCCCCC;
-    margin-top:15px;
+    margin-top: 15px;
+    border-collapse: separate;
+    text-align: center;
 }
 
 table thead tr {
@@ -17,7 +18,7 @@ table thead tr {
     color: #FFFFFF;
 }
 
-table tbody > tr {
+table tbody>tr {
     background: #F1F1F1;
 }
 
@@ -27,4 +28,43 @@ table tbody tr:last-child {
 
 table td, table th {
     padding-left: 0.3em;
+}
+
+table tbody tr:last-child>td {
+    border-top: 1px solid #ddd;
+    background: #AB5FAC;
+    color: #FFFFFF;
+    text-align: right;
+}
+
+.cart-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.cart-button-wrapper{
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+.cart-button {
+    margin-top: 24px;
+    width: 150px;
+    height: 40px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    letter-spacing: 1px;
+    line-height: 0px;
+    background-color: #AB5FAC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+}
+
+.cart-button:hover {
+    background: purple;
+    cursor: pointer;
 }

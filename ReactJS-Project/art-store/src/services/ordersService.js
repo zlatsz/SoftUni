@@ -60,12 +60,14 @@ export const deleteCart = (idToken, orderId) => {
 }
 
 export const add = async (idToken, cartId, productId, productName, productPic,quantity, price) => {
+    let totalPrice = Number(quantity*price);
     let order = {
             productId,
             productName,
             productPic,
             quantity,
-            price
+            price,
+            totalPrice
     };
 
      const res = await fetch(url + cartId + `/products/.json?auth=${idToken}`, {

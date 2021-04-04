@@ -2,25 +2,36 @@ import { Link } from 'react-router-dom';
 import "./index.css"
 
 const OrderView = ({
+    productId,
     productName,
+    productPic,
     quantity,
-    price
+    price,
+    totalPrice
 }) => {
 
+   
     return (
-
-        <tr className="cart-article">
-            <td>
-                {productName}
-            </td>
-            {/* <div className="blog-image">
-                <Link to={`/blog/${id}`}  ><img className="blog-article_image" src={imageURL} alt="post" /> </Link> 
-                </div>
-                <div className="blog-article_text">
-                    <h3>{name}</h3>
-                </div> */}
-        </tr>
-
+        <>
+            <tr className="cart-article">
+                <td>
+                    {productName}
+                </td>
+                <td>
+                    <Link to={`/product/details/${productId}`}  ><img className="cart-image" src={productPic} alt="product" /> </Link>
+                </td>
+                <td>
+                    {quantity}
+                </td>
+                <td>
+                    {price} лв.
+               </td>
+                <td>
+                    {totalPrice} лв.
+                 </td>
+            </tr>
+          
+        </>
     );
 
 };

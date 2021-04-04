@@ -9,14 +9,12 @@ class Header extends Component {
 
     static contextType = AuthContext;
    
-
     constructor(props) {
         super(props);
 
         this.state = {
             search: '',
         };
-
         // this.logout = this.logout.bind(this);
     }
 

@@ -21,7 +21,9 @@ const Cart = ({
             .then(res => setOrder(res));
     }, [cart.name]);
     let data = Array.from(order);
-    console.log(order);
+    var result = data.reduce(function(tot, arr) { 
+        return tot + arr.totalPrice;
+      },0);
     return (
         <>
             <header className="home-header">
@@ -46,15 +48,23 @@ const Cart = ({
                             <th>
                                 Цена
                 </th>
+                            <th>
+                                Сума
+                </th>
                         </tr>
                     </thead>
                     <tbody>
-                    {data.map(x =>
-                        <OrderView key={x.id} {...x} />
-                    )}
+                        {data.map(x =>
+                            <OrderView key={x.id} {...x} />
+                        )}
+                        <tr>
+                            <td colSpan="5">Обща сума: <b>{result}</b> лв.</td>
+                        </tr>
                     </tbody>
-                </table>
 
+                </table>
+                <Link to="/deliveries" className="cart-button-wrapper"><button type="button" className="cart-button">Завърши</button></Link>
+               
             </section>
             <Footer />
         </>
