@@ -1,9 +1,6 @@
-import "./index.css"
+import { Link } from 'react-router-dom';
 
-const Unique = ({
-    userEmail,
-    products
-}) => {
+const Order = ({id, products, userEmail}) => {
     let size = 0;
     let totalQuantity = 0;
     let sum = 0;
@@ -25,25 +22,25 @@ const Unique = ({
         <>
             <tr className="cart-article">
                 <td>
-                    {userEmail}
+                <Link to={`/cart/${id}`}>Виж пак</Link>
                 </td>
                 <td>
-                   {size} 
+                    {size}
                 </td>
                 <td>
-                   {Number(totalQuantity)} броя
+                    {Number(totalQuantity)} броя
                 </td>
                 <td>
                     {Number(sum)} лв.
                </td>
                 <td>
-                
-                 </td>
+
+                </td>
             </tr>
-          
+
         </>
     );
 
 };
 
-export default Unique;
+export default Order;
