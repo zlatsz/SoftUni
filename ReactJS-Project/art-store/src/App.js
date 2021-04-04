@@ -16,6 +16,7 @@ import PostDetails from "./components/Post/PostDetails";
 import Cart from "./components/Cart/";
 import Profile from "./components/Login/Profile";
 import OldCart from "./components/Cart/OldCart";
+import Deliveries from "./components/Deliveries";
 import './App.css';
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/blog/:postId" exact component={PostDetails} />
           <Route path="/cart/:orderId" exact component={Cart} />
           <Route path="/cart/old/:orderId" exact component={OldCart} />
+          <Route path="/deliveries" exact component={Deliveries} />
         </CartProvider>
       </Switch>
     </AuthProvider>

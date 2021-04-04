@@ -1,0 +1,19 @@
+.old-cart-button {
+    margin-top: 24px;
+    width: 170px;
+    height: 40px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    letter-spacing: 1px;
+    line-height: 0px;
+    background-color: #AB5FAC;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+}
+
+.old-cart-button:hover {
+    background: purple;
+    cursor: pointer;
+}

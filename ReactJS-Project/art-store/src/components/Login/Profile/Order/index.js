@@ -22,7 +22,7 @@ const Order = ({id, products, userEmail}) => {
         <>
             <tr className="cart-article">
                 <td>
-                <Link to={`/cart/${id}`}>Виж пак</Link>
+                <Link to={`/cart/old/${id}`}>Виж пак</Link>
                 </td>
                 <td>
                     {size}
