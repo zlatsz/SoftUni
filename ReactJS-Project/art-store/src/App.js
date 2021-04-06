@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/authentication';
 import { CartProvider } from './contexts/shoppingCart';
 import LandingPage from './components/Landing-page';
-import Map from "./components/Maps";
+import Contacts from "./components/Contacts";
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/Home';
@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/" exact component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/location" component={Map} />
+        <Route path="/contacts" component={Contacts} />
         <CartProvider>
           <Route path="/home" exact component={Home} />
           <Route path="/add-products" exact component={AddProducts} />

@@ -14,7 +14,7 @@ const Map = () => {
     new google.maps.Marker({ position: { lat: 42.6371259, lng: 23.339921}, map });
   }
 
-  return <div ref={ref} style={{ width: 400, height: 300 }} />;
+  return <div ref={ref} style={{ width: 500, height: 300 }} />;
 };
 
 export default Map;
