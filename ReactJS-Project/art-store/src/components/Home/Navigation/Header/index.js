@@ -3,23 +3,14 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 import { Component } from 'react';
 import { AuthContext } from '../../../../contexts/authentication';
 import Context from "../Context";
+import Search from "../Search";
 
 
 class Header extends Component {
 
     static contextType = AuthContext;
-   
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            search: '',
-        };
-        // this.logout = this.logout.bind(this);
-    }
 
     render() {
-        const { search } = this.state;
         const currentUser = this.context;
         let userProperty = Object.values(currentUser);
         return (
@@ -29,13 +20,7 @@ class Header extends Component {
                     <Link to="/home" className="header-home-logo">
                         <img src={process.env.PUBLIC_URL + '/logo.png'} alt="logo" />
                     </Link>
-                    <form className="home-search" onSubmit={this.submitHandler}>
-                        <i className="fas fa-phone-volume">0888808808</i>
-                        <input type="text" id="search" />
-
-                        <button type="submit" className="home-search-btn"><i className="fa fa-search fa-lg"></i></button>
-
-                    </form>
+                    <Search />
                 </section>
                 <nav className="header-navigation-bottom">
                     <ul className="header-navigation-bottom-left">
