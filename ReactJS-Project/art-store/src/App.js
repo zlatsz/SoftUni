@@ -18,6 +18,7 @@ import Cart from "./components/Cart/";
 import Profile from "./components/Login/Profile";
 import OldCart from "./components/Cart/OldCart";
 import Deliveries from "./components/Deliveries";
+import Messages from "./components/Contacts/Messages";
 import './App.css';
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/contacts" component={Contacts} />
+        <Route path="/messages" exact component={Messages} />
         <CartProvider>
           <Route path="/home" exact component={Home} />
           <Route path="/add-products" exact component={AddProducts} />

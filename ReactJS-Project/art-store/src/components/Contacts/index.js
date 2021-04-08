@@ -1,11 +1,10 @@
 import "./index.css";
 import Footer from "../Landing-page/Footer";
 import GoogleMap from "./GoogleMap";
-import { Link, useHistory } from 'react-router-dom';
+import ContactForm from "./ContactForm";
+import { Link} from 'react-router-dom';
 
 const Contacts = () => {
-    const history = useHistory();
-
     return (
         <>
             <section className="contact-page">
@@ -35,10 +34,10 @@ const Contacts = () => {
                             <br />
                             Свържете се с нас на посочения телефон 
                             <br />
-                            или чрез контактната форма =>
+                            или чрез контактната форма ={">"}
                         </h3>
                     </article>
-                    <GoogleMap />
+                    <ContactForm />
 
                 </section>
             </section>

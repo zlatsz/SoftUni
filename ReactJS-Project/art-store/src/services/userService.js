@@ -1,3 +1,5 @@
+const url = 'https://reactjs-532f1-default-rtdb.firebaseio.com/contact/';
+
 export const adminCheck = (user) => {
     const email = '123@abv.bg';
     if (user.email===email) {
@@ -6,3 +8,27 @@ export const adminCheck = (user) => {
         return false;
     }
 }
+
+export async function create(contactName, message) {
+    let postInfo = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contactName,
+            message)
+    };
+    let data = await fetch((url + `.json`), postInfo);
+    let response = await data.json();
+    return response;
+}
+
+export async function getAll() {
+    let data = await fetch(url + '.json');
+    let response = await data.json();
+    let all = [];
+    if (response) {
+        Object.keys(response).forEach(key => {
+            all.push({ id: key, ...response[key] });
+        });
+    }
+    return all;
+};

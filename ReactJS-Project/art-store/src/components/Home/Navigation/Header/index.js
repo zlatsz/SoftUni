@@ -79,6 +79,9 @@ class Header extends Component {
                             <li className="header-navigation-bottom-middle-profiles">
                                 <NavLink to="/profiles"> Поръчки </NavLink>
                             </li>
+                            <li className="header-navigation-bottom-middle-profiles">
+                                <NavLink to="/messages"> Съобщения </NavLink>
+                            </li>
                         </ul>
                     }
                     <ul className="header-navigation-bottom-right">

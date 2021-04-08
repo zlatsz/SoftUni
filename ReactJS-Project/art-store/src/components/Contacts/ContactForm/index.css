@@ -1,0 +1,23 @@
+.contact-page-content {
+    background-color: white;
+    width: 350px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 0 5px -1px #424242;
+    position: relative;
+}
+
+textarea{
+    resize: vertical;
+    min-height: 70px;
+    margin: 10px;
+  }
+
+  .contact-page-content input{
+      min-height: 20px;
+      margin: 10px;
+      margin-top: 20px;
+      
+  }
