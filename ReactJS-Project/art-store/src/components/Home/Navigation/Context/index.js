@@ -18,17 +18,25 @@ const Context = () => {
     }, [cart.name]);
 
     function logout() {
-        if (!order.products) {
-            ordersService.deleteCart(currentUser.token, cart.name)
-                .catch((error) => {
-                    alert(error.message)
-                });
+        if (order) {
+            if (!order.products) {
+                ordersService.deleteCart(currentUser.token, cart.name)
+                    .catch((error) => {
+                        alert(error.message)
+                    });
+            }
+            firebase.auth().signOut().then(() => {
+                history.push('/')
+            }).catch((error) => {
+                alert(error.message)
+            });
+        } else {
+            firebase.auth().signOut().then(() => {
+                history.push('/')
+            }).catch((error) => {
+                alert(error.message)
+            }); 
         }
-        firebase.auth().signOut().then(() => {
-            history.push('/')
-        }).catch((error) => {
-            alert(error.message)
-        });
     }
 
     return (

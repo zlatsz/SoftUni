@@ -20,34 +20,37 @@ import Profile from "./components/Login/Profile";
 import OldCart from "./components/Cart/OldCart";
 import Deliveries from "./components/Deliveries";
 import Messages from "./components/Contacts/Messages";
+import MyErrorBoundary from './components/ErrorBoundary';
 import './App.css';
 
 const App = () => {
   return (
-    <AuthProvider>
-      <Switch>
-        <Route path="/" exact component={LandingPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/contacts" component={Contacts} />
-        <Route path="/messages" exact component={isAuth(Messages)} />
-        <CartProvider>
-          <Route path="/home" exact component={isAuth(Home)} />
-          <Route path="/add-products" exact component={isAuth(AddProducts)} />
-          <Route path="/profiles" exact component={isAuth(Profiles)} />
-          <Route path="/profile" exact component={isAuth(Profile)} />
-          <Route path="/add-posts" exact component={isAuth(AddPosts)} />
-          <Route path="/products/:category" component={isAuth(Products)} />
-          <Route path="/product/details/:productId" exact component={isAuth(ProductDetails)} />
-          <Route path="/product/edit/:productId" exact component={isAuth(EditProduct)} />
-          <Route path="/blog" exact component={isAuth(Blog)} />
-          <Route path="/blog/:postId" exact component={isAuth(PostDetails)} />
-          <Route path="/cart/:orderId" exact component={isAuth(Cart)} />
-          <Route path="/cart/old/:orderId" exact component={isAuth(OldCart)} />
-          <Route path="/deliveries" exact component={isAuth(Deliveries)} />
-        </CartProvider>
-      </Switch>
-    </AuthProvider>
+    <MyErrorBoundary>
+      <AuthProvider>
+        <Switch>
+          <Route path="/" exact component={LandingPage} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <Route path="/contacts" component={Contacts} />
+          <Route path="/messages" exact component={isAuth(Messages)} />
+          <CartProvider>
+            <Route path="/home" exact component={isAuth(Home)} />
+            <Route path="/add-products" exact component={isAuth(AddProducts)} />
+            <Route path="/profiles" exact component={isAuth(Profiles)} />
+            <Route path="/profile" exact component={isAuth(Profile)} />
+            <Route path="/add-posts" exact component={isAuth(AddPosts)} />
+            <Route path="/products/:category" component={isAuth(Products)} />
+            <Route path="/product/details/:productId" exact component={isAuth(ProductDetails)} />
+            <Route path="/product/edit/:productId" exact component={isAuth(EditProduct)} />
+            <Route path="/blog" exact component={isAuth(Blog)} />
+            <Route path="/blog/:postId" exact component={isAuth(PostDetails)} />
+            <Route path="/cart/:orderId" exact component={isAuth(Cart)} />
+            <Route path="/cart/old/:orderId" exact component={isAuth(OldCart)} />
+            <Route path="/deliveries" exact component={isAuth(Deliveries)} />
+          </CartProvider>
+        </Switch>
+      </AuthProvider>
+    </MyErrorBoundary>
   );
 }
 

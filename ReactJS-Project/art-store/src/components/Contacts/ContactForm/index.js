@@ -23,8 +23,6 @@ const ContactForm = () => {
     message: ''
   })
 
-  console.log(formValues);
-
   return (
 
     <form className="contact-page-content" onSubmit={contact} >

@@ -14,13 +14,13 @@ export const CartProvider = ({ children }) => {
 
 
   useEffect(() => {
-    if (currentUser) {
-      if (!currentUser.token) return;
-      // if(currentUser){
+  
+      if (!currentUser) return;
+      if(currentUser.token){
       ordersService.create(currentUser.token, currentUser.email)
         .then(res => setCart(res));
-      // } 
-    }
+      } 
+
   }, [currentUser]);
 
   return (
