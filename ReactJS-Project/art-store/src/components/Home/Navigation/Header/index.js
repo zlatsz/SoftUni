@@ -42,7 +42,7 @@ class Header extends Component {
                             </ul>
                         </li>
                         <li>
-                            <NavLink to="/about-us"> За нас </NavLink>
+                            <NavLink to="/contacts"> За нас </NavLink>
                         </li>
                         <li>
                             <NavLink to="/blog"> Блог </NavLink>
