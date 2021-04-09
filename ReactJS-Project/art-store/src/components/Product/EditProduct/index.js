@@ -14,7 +14,8 @@ const EditProduct = ({
 
     useEffect(() => {
         productsService.getOne(match.params.productId)
-            .then(res => setProduct(res));
+            .then(res => setProduct(res))
+            .catch((error) => alert(error.message));
     }, [match.params.productId]);
 
     const onEditSubmitHandler = function (e) {
@@ -25,6 +26,7 @@ const EditProduct = ({
             .then(() => {
                 history.push(`/product/details/${match.params.productId}`);
             })
+            .catch((error) => alert(error.message));
     };
     
     return (

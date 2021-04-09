@@ -9,7 +9,7 @@ const Contacts = () => {
         <>
             <section className="contact-page">
                 <section className="logo-page">
-                <Link to="/" className="contact-logo">
+                <Link to="/home" className="contact-logo">
                     <img src="logo.png" alt="logo" />
                 </Link>
                 </section>

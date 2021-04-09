@@ -19,12 +19,12 @@ class Products extends Component {
         const category = this.props.match.params.category;
 
         productsService.getCategory(category)
-            .then(res => this.setState({ products: res }));
+            .then(res => this.setState({ products: res }))
+            .catch((error) => alert(error.message));
 
     }
 
     componentDidUpdate(prevProps) {
-       
         const category = this.props.match.params.category;
       
         if (prevProps.match.params.category === category) {
@@ -35,9 +35,8 @@ class Products extends Component {
             .then(res => {
                 this.setState({ products: res, currentCategory: category })
             })
+            .catch((error) => alert(error.message));
     }
-
-
 
     render() {
       
@@ -48,7 +47,6 @@ class Products extends Component {
                     <h3 className="home-header-category-title">
                         Всички наши продукти се изработват ръчно от естествени съставки и материали!
                      </h3>
-
                 </header>
                 <section className="home-products">
                     <ul className="home-products-list">

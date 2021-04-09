@@ -9,8 +9,11 @@ const Search = () => {
     let allProducts = [];
 
     useEffect(() => {
-        productsService.getAll().then(res => setProducts(res)).catch((error) => alert(error.message));
+        productsService.getAll()
+        .then(res => setProducts(res))
+        .catch((error) => alert(error.message));
     }, []);
+    
     let result = Array.from(products);
     allProducts = result.map((product) => { return { ...product } });
 

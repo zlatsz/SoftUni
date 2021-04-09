@@ -16,7 +16,8 @@ class Products extends Component {
     componentDidMount() {
         this.mounted = true;
        productsService.getAll()
-            .then(res => this.setState({ products: res }));
+            .then(res => this.setState({ products: res }))
+            .catch((error) => alert(error.message));
     }
 
     componentWillUnmount() {

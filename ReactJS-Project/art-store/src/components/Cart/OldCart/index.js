@@ -8,19 +8,20 @@ import "./index.css";
 
 const OldCart = ({
     match,
- 
 }) => {
 
     const [oldOrder, setOldOrder] = useState({});
 
     useEffect(() => {
         ordersService.getOrder(match.params.orderId)
-            .then(res => setOldOrder(res));
+            .then(res => setOldOrder(res))
+            .catch((error) => alert(error.message));
     }, [match.params.orderId]);
     let data = Array.from(oldOrder);
     var result = data.reduce(function(tot, arr) { 
         return tot + arr.totalPrice;
       },0);
+
     return (
         <>
             <header className="home-header">

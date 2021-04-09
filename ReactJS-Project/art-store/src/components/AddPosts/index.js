@@ -17,6 +17,7 @@ const AddPosts = ({
             .then(() => {
                 history.push('/blog');
             })
+            .catch((error) => alert(error.message));
     };
 
     return (

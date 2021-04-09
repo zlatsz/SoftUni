@@ -15,7 +15,8 @@ const PostDetails = ({
 
     useEffect(() => {
         postsService.getOne(match.params.postId)
-            .then(res => setPost(res));
+            .then(res => setPost(res))
+            .catch((error) => alert(error.message));
     }, [match.params.postId]);
 
     const [isModalOpen, setModalOpen] = useState(false);
@@ -33,6 +34,7 @@ const PostDetails = ({
             .then(() => {
                 history.push('/blog');
             })
+            .catch((error) => alert(error.message));
     }
 
     const modalStyle = {

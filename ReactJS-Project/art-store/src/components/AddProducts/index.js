@@ -16,7 +16,8 @@ function AddProducts({
         productsService.create(currentUser.token,category.value, name.value, description.value, imageURL.value, price.value)
             .then(() => {
                 history.push('/home');
-            });
+            })
+            .catch((error) => alert(error.message));
     };
     
 

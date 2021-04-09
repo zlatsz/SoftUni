@@ -5,17 +5,14 @@ import { useEffect, useState } from 'react';
 import * as postsService from '../../services/postsService';
 import Post from "../Post/PostView";
 
-const Blog = ({
-    match,
-    history
-
-}) => {
+const Blog = () => {
 
     const [post, setPost] = useState({});
 
     useEffect(() => {
         postsService.getAll()
-            .then(res => setPost(res));
+            .then(res => setPost(res))
+            .catch((error) => alert(error.message));
     }, []);
     
    let data = Array.from(post);

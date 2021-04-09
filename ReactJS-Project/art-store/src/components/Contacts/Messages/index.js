@@ -4,19 +4,18 @@ import * as userService from '../../../services/userService';
 import { useEffect, useState} from 'react';
 import Message from "./Message";
 
-const Messages = ({
-    match,
-    history
-}) => {
+const Messages = () => {
    
     const [message, setMessage] = useState({});
 
     useEffect(() => {
         userService.getAll()
-            .then(res => setMessage(res));
+            .then(res => setMessage(res))
+            .catch((error) => alert(error.message));
     }, []);
+
     let result = Array.from(message);
-    console.log(result);
+  
     return (
         <>
             <header className="home-header">

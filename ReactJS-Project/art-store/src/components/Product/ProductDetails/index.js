@@ -21,7 +21,8 @@ const ProductDetails = ({
 
     useEffect(() => {
         productsService.getOne(match.params.productId)
-            .then(res => setProduct(res));
+            .then(res => setProduct(res))
+            .catch((error) => alert(error.message));
     }, [match.params.productId]);
 
     const onLikeButtonClickHandler = () => {
@@ -29,7 +30,8 @@ const ProductDetails = ({
         productsService.like(currentUser.token,match.params.productId, incrementedLikes)
             .then((updatedProduct) => {
                 setProduct(state => ({ ...state, likes: Number(updatedProduct.likes) }))
-            });
+            })
+            .catch((error) => alert(error.message));
     };
 
     const onSubmitHandler = function (e) {
@@ -43,6 +45,7 @@ const ProductDetails = ({
         .then(() => {
             history.push(`/cart/${cart.name}`);
         })
+        .catch((error) => alert(error.message));
     };
 
     let [isModalOpen, setModalOpen] = useState(false);
@@ -60,6 +63,7 @@ const ProductDetails = ({
             .then(() => {
                 history.push('/home');
             })
+            .catch((error) => alert(error.message));
     }
 
     const modalStyle = {

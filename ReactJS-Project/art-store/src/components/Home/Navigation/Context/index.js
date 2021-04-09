@@ -13,7 +13,8 @@ const Context = () => {
 
     useEffect(() => {
         ordersService.getOne(cart.name)
-            .then(res => setOrder(res));
+            .then(res => setOrder(res))
+            .catch((error) => alert(error.message));
     }, [cart.name]);
 
     function logout() {

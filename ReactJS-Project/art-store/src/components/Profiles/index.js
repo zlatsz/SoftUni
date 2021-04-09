@@ -5,16 +5,13 @@ import Unique from "./Unique";
 import * as ordersService from '../../services/ordersService';
 import { useEffect, useState } from 'react';
 
-const Profiles = ({
-    match,
-    history
-
-}) => {
+const Profiles = () => {
     const [usersOrder, setUsersOrder] = useState({});
 
     useEffect(() => {
         ordersService.getAll()
-            .then(res => setUsersOrder(res));
+            .then(res => setUsersOrder(res))
+            .catch((error) => alert(error.message));
     }, []);
 
     let data = Array.from(usersOrder);

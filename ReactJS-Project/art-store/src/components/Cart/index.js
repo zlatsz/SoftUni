@@ -7,18 +7,15 @@ import Footer from "../Home/Footer";
 import OrderView from "./OrderView";
 import "./index.css";
 
-const Cart = ({
-    match,
-    history
-
-}) => {
+const Cart = () => {
 
     const { cart } = useContext(CartContext);
     const [order, setOrder] = useState({});
 
     useEffect(() => {
         ordersService.getOrder(cart.name)
-            .then(res => setOrder(res));
+            .then(res => setOrder(res))
+            .catch((error) => alert(error.message));
     }, [cart.name]);
     let data = Array.from(order);
     var result = data.reduce(function(tot, arr) { 

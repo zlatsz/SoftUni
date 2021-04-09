@@ -7,19 +7,19 @@ const Unique = ({
     let size = 0;
     let totalQuantity = 0;
     let sum = 0;
-    if(products){
-    size = Object.keys(products).length;
-    let all = [];
-    Object.keys(products).forEach(key => {
+    if (products) {
+        size = Object.keys(products).length;
+        let all = [];
+        Object.keys(products).forEach(key => {
             all.push({ ...products[key] });
         });
-  
-    totalQuantity = all.reduce(function(tot, arr) { 
-        return +tot + +arr.quantity;
-      },0);
-    sum = all.reduce(function(tot, arr) { 
-        return tot + arr.totalPrice;
-      },0);
+
+        totalQuantity = all.reduce(function (tot, arr) {
+            return +tot + +arr.quantity;
+        }, 0);
+        sum = all.reduce(function (tot, arr) {
+            return tot + arr.totalPrice;
+        }, 0);
     }
     return (
         <>
@@ -28,19 +28,19 @@ const Unique = ({
                     {userEmail}
                 </td>
                 <td>
-                   {size} 
+                    {size}
                 </td>
                 <td>
-                   {Number(totalQuantity)} броя
+                    {Number(totalQuantity)} броя
                 </td>
                 <td>
                     {Number(sum)} лв.
                </td>
                 <td>
-                
-                 </td>
+
+                </td>
             </tr>
-          
+
         </>
     );
 

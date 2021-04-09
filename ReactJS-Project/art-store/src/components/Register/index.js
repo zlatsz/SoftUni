@@ -19,9 +19,7 @@ const Register = () => {
         }
         firebase.auth()
             .createUserWithEmailAndPassword(email, password)
-            .catch((error) => alert(error.message))
-
-        // history.push('/home')
+            .catch((error) => alert(error.message));
     }
 
     const { currentUser } = useContext(AuthContext);

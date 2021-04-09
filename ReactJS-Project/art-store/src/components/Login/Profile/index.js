@@ -6,26 +6,18 @@ import * as ordersService from '../../../services/ordersService';
 import { useEffect, useState, useContext } from 'react';
 import Order from "./Order";
 
-const Profile = ({
-    match,
-    history
-}) => {
+const Profile = () => {
     const { currentUser } = useContext(AuthContext);
     const [userOrder, setUserOrder] = useState({});
 
     useEffect(() => {
         ordersService.getOrderUser(currentUser.email)
-            .then(res => setUserOrder(res));
+            .then(res => setUserOrder(res))
+            .catch((error) => alert(error.message));
     }, [currentUser.email]);
+
     let result = Array.from(userOrder);
-    // var data = [];
-    // result.forEach(function (obj) {
-    //     data.push(obj.products);
-    // })
-    // data = data.filter(function( element ) {
-    //     return element !== undefined;
-    //  });
-    console.log(result);
+    
     return (
         <>
             <header className="home-header">
