@@ -17,7 +17,7 @@ const Profile = () => {
     }, [currentUser.email]);
 
     let result = Array.from(userOrder);
-    
+   
     return (
         <>
             <header className="home-header">
@@ -46,7 +46,7 @@ const Profile = () => {
                     </thead>
                     <tbody>
                         {result.map(x =>
-                            <Order key={x.productId} {...x} />
+                            <Order key={x.id} {...x} />
                         )}
                     </tbody>
                 </table>

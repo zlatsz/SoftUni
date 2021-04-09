@@ -14,13 +14,12 @@ export const CartProvider = ({ children }) => {
 
 
   useEffect(() => {
-  
-      if (!currentUser) return;
-      if(currentUser.token){
-      ordersService.create(currentUser.token, currentUser.email)
-        .then(res => setCart(res));
-      } 
-
+    console.log(currentUser);
+    if (!currentUser) return;
+   
+    ordersService.create(currentUser.za, currentUser.email)
+      .then(res => setCart(res))
+      .catch((error) => alert(error.message));
   }, [currentUser]);
 
   return (
