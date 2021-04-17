@@ -13,8 +13,6 @@ and open http://localhost:3000 in your browser.
 ## Usage
 There are three types of users: guests, standard users and admin users.
 
-admin user: 123@abv.bg 
-password: 123456
 ### Public part (guest)
 -   Can view the landing page;
 -   Can send message to admin and view store location via GoogleMap;
